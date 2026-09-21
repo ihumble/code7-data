@@ -60,7 +60,7 @@ def build(lid, espn, name):
         fp = POSB[pos] * (0.55 + 0.6 * min(1, sel * 1.15)) * tf + (tries * 4.5 + max(0, pts - tries * 5) * 0.5) / max(1, apps)
         price = int(round(max(230000, min(720000, fp * 9000)) / 1000) * 1000)
         av = round(min(0.95, 0.4 + 0.035 * apps), 2)
-        out.append([p['n'], t, pos, price, 0, round(fp, 1), av, p['st'], p['bn'], tries, pts, sum(p['club'].values())])
+        out.append([p['n'], t, pos, price, 0, round(fp, 1), av, p['st'], p['bn'], tries, pts, sum(p['club'].values()), ''])
     # 2026-27 fixtures → rounds (one round per weekend; ESPN lists the full regular season)
     # rounds: one per weekend; games moved to an odd weekend (e.g. rescheduled) join the earliest round that both teams are missing
     wk = lambda iso: datetime.date.fromisoformat(iso[:10]).isocalendar()[:2]
@@ -92,12 +92,74 @@ def build(lid, espn, name):
         rd.append(max(first, rd[-1] if rd else first))
     order = list(range(1, len(rounds) + 1))
     res25 = [[e['date'], *[x['team']['abbreviation'] for x in sorted(e['competitions'][0]['competitors'], key=lambda x: x['homeAway'] != 'home')], *[int(x.get('score') or 0) for x in sorted(e['competitions'][0]['competitors'], key=lambda x: x['homeAway'] != 'home')]] for e in last]
-    json.dump({'fields': 'n t p price new fp av st bn tr pts apps', 'players': out, 'games': games, 'roundDates': rd, 'teams': teams,
-               'table': {'season': f'2025-26 {name}', 'rows': {t: r for t, r in tab.items() if t in teams}}, 'results2025': res25,
-               'source': f'ESPN {name}: every 2025-26 matchday 23 ({len(last)} games) + {len(cur)} games of 2026-27 so far — starts, bench, positions; 2025-26 table; the real 2026-27 fixture list. Top scorers: Wikipedia.'},
-              open(D / f'{lid}.json', 'w'), ensure_ascii=False)
     print(lid, 'players', len(out), collections.Counter(x[1] for x in out), collections.Counter(x[2] for x in out))
     print(' rounds', len(order), collections.Counter(g[3] for g in games), 'teams', teams, 'missing table', [t for t in teams if t not in tab])
     print(' top', sorted(out, key=lambda x: -x[5])[:5])
-build('prem', 267979, 'Gallagher PREM')
-build('urc', 270557, 'United Rugby Championship')
+    return {'fields': 'n t p price new fp av st bn tr pts apps nw', 'players': out, 'games': games, 'roundDates': rd, 'teams': teams,
+               'table': {'season': f'2025-26 {name}', 'rows': {t: r for t, r in tab.items() if t in teams}}, 'results2025': res25,
+               'source': f'ESPN {name}: every 2025-26 matchday 23 ({len(last)} games) + {len(cur)} games of 2026-27 so far — starts, bench, positions; 2025-26 table; the real 2026-27 fixture list. Top scorers: Wikipedia.'}
+# ---------------- 2026-27 transfers (Wikipedia transfer lists): summer signings move clubs / leagues ----------------
+CLUBS = {'prem': {'Bath': 'BAT', 'Bath Rugby': 'BAT', 'Bristol Bears': 'BRI', 'Bristol': 'BRI', 'Exeter Chiefs': 'EXE', 'Exeter': 'EXE', 'Gloucester': 'GLO', 'Gloucester Rugby': 'GLO', 'Harlequins': 'HAR', 'Leicester Tigers': 'LEI', 'Leicester': 'LEI',
+                  'Newcastle Red Bulls': 'NEW', 'Newcastle Falcons': 'NEW', 'Newcastle': 'NEW', 'Northampton Saints': 'NOR', 'Northampton': 'NOR', 'Sale Sharks': 'SAL', 'Sale': 'SAL', 'Saracens': 'SAR'},
+         'urc': {'Benetton': 'BEN', 'Benetton Rugby': 'BEN', 'Bulls': 'BUL', 'Cardiff': 'CAR', 'Cardiff Rugby': 'CAR', 'Connacht': 'CON', 'Connacht Rugby': 'CON', 'Dragons': 'DRA', 'Dragons RFC': 'DRA', 'Edinburgh': 'EDI', 'Edinburgh Rugby': 'EDI',
+                 'Glasgow Warriors': 'GLA', 'Glasgow': 'GLA', 'Leinster': 'LEI', 'Leinster Rugby': 'LEI', 'Lions': 'LIO', 'Munster': 'MUN', 'Munster Rugby': 'MUN', 'Ospreys': 'OSP', 'Scarlets': 'SCA', 'Sharks': 'SHA', 'Stormers': 'STO', 'Ulster': 'ULS', 'Ulster Rugby': 'ULS', 'Zebre': 'ZEB', 'Zebre Parma': 'ZEB'}}
+def parse_transfers(lid):
+    f = R / f'{lid}_transfers_2026-27.wiki'
+    if not f.exists(): return []
+    out = []; club = None; direction = None
+    for ln in f.read_text().split('\n'):
+        m = re.match(r'^==\s*([^=].*?)\s*==\s*$', ln)
+        if m: club = CLUBS[lid].get(m.group(1).strip()); continue
+        m = re.match(r'^===\s*Players (in|out)\s*===', ln)
+        if m: direction = m.group(1); continue
+        if club and direction and ln.startswith('*'):
+            links = re.findall(r'\[\[([^\]|]+)(?:\|([^\]]+))?\]\]', re.sub(r'<ref.*?(</ref>|/>)', '', ln))
+            if not links: continue
+            nm = links[0][1] or re.sub(r'\s*\(.*\)$', '', links[0][0])
+            other = (links[1][1] or links[1][0]) if len(links) > 1 else ''
+            out.append({'club': club, 'dir': direction, 'n': nm.strip(), 'other': other.strip(), 'retired': 'etire' in ln})
+    return out
+def estimate_row(n, t, pos, src):          # a signing with no club-rugby record in our data: rate from his Super Rugby / Test fantasy average
+    fp = max(34, min(64, 30 + 0.55 * src)); return [n, t, pos, int(round(max(230000, min(720000, fp * 9000)) / 1000) * 1000), 1, round(fp, 1), 0.8, 0, 0, 0, 0, 0, 'new']
+L = {'prem': build('prem', 267979, 'Gallagher PREM'), 'urc': build('urc', 270557, 'United Rugby Championship')}
+OTHER = {}
+for fn, lid in (('sr.json', 'srp'), ('tst.json', 'tst')):
+    try:
+        d = json.load(open(D / fn)); f = d['fields'].split(); ni, pi, fi = f.index('n'), f.index('p'), f.index('fp')
+        for r in d['players']: OTHER.setdefault(nrm(r[ni]), (r[pi], r[fi]))
+    except Exception: pass
+moved = added = removed = 0; unknown = []
+T = {lid: parse_transfers(lid) for lid in L}
+def find(n):
+    for lid, d in L.items():
+        for r in d['players']:
+            if nrm(r[0]) == nrm(n): return lid, r
+    w = nrm(n).split(); cands = []                      # "Dan du Preez" vs ESPN "Daniel du Preez": same surname + first initial
+    for lid, d in L.items():
+        for r in d['players']:
+            v = nrm(r[0]).split()
+            if len(v) >= 2 and len(w) >= 2 and v[-1] == w[-1] and v[0][0] == w[0][0] and (len(w) < 3 or v[-2] == w[-2]): cands.append((lid, r))
+    return cands[0] if len(cands) == 1 else (None, None)
+for lid, tr in T.items():
+    for x in tr:
+        if x['dir'] != 'in': continue
+        src_l, row = find(x['n'])
+        if row is not None: x['ok'] = 1
+        if row is not None:
+            if src_l != lid or row[1] != x['club']:
+                L[src_l]['players'].remove(row); row = list(row); row[1] = x['club']; row[4] = 1; row[12] = 'new'; L[lid]['players'].append(row); moved += 1
+            continue
+        o = OTHER.get(nrm(x['n']))
+        if o: L[lid]['players'].append(estimate_row(x['n'], x['club'], o[0], o[1])); added += 1; x['ok'] = 1
+        else: unknown.append(f"{x['n']} ({x['club']})")
+for lid, tr in T.items():
+    ins = {nrm(x['n']) for t2 in T.values() for x in t2 if x['dir'] == 'in' and x.get('ok')}
+    for x in tr:
+        if x['dir'] != 'out' or nrm(x['n']) in ins: continue      # moved within PREM/URC: handled by the "in" entry
+        l2, r = find(x['n'])
+        if r is not None and l2 == lid and r[1] == x['club']: L[lid]['players'].remove(r); removed += 1
+print(f'transfers: moved {moved}, added {added} (rated from Super Rugby/Test data), removed {removed} leavers; {len(unknown)} signings not rated yet (academy/overseas):', unknown[:12])
+for lid, d in L.items():
+    d['source'] += f'; 2026-27 transfers applied (Wikipedia transfer lists)'
+    json.dump(d, open(D / f'{lid}.json', 'w'), ensure_ascii=False)
+    print(lid, len(d['players']))

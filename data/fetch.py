@@ -44,6 +44,13 @@ for k in ('players', 'rounds', 'squads'): fetch(f'https://www.playfantasyrugby.c
 for g in range(1, 12):
     if not fetch(f'https://fantasy.nationschampionshiprugby.com/fantasy/feeds/players/players_1_en_{g}.json', f'ncf_players_gd{g}.json', lambda d: d['Data']['Value']['Players']):
         bad.pop(); break
+# ---- 2026-27 transfer lists (Wikipedia, raw wikitext) — summer signings for the Premiership and URC
+for lid, page in (('prem', 'List_of_2026%E2%80%9327_Premiership_Rugby_transfers'), ('urc', 'List_of_2026%E2%80%9327_United_Rugby_Championship_transfers')):
+    try:
+        b = subprocess.run(['curl', '-s', '-f', '--max-time', '40', '-A', 'LEG3ND-fantasy/1.0 (github.com/ihumble/code7-data)', f'https://en.wikipedia.org/w/index.php?title={page}&action=raw'], capture_output=True, timeout=60).stdout
+        if b and b.count(b'Players in') >= 5: (R / f'{lid}_transfers_2026-27.wiki').write_bytes(b); ok.append(lid + ' transfers')
+        else: bad.append(lid + ' transfers: unexpected content')
+    except Exception as e: bad.append(f'{lid} transfers: {e}')
 # ---- time-sensitive ESPN caches the builders re-read (results + tables)
 for f in list(R.glob('nc_sb_2026110*.json')) + list(R.glob('nc_sb_202611[12]*.json')) + [R / 'st_nc.json']:
     f.unlink(missing_ok=True)

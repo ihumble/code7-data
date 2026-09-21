@@ -9,3 +9,5 @@ data/*.json
 !data/teams.json
 src/data.js
 __pycache__/
+
+!data/raw/*_transfers_2026-27.wiki
