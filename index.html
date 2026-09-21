@@ -4204,9 +4204,10 @@ async function musRender(name, bars) {
    (with an optional pack.json of titles, scenes and gains) that is easy to AirDrop / Quick Share to other phones. */
 const MUS_SCENES = ['menu', 'draft', 'match', 'final'];
 const MUS_KNOWN = [       // sensible scene defaults for the soundtrack the family owns (titles only — no audio ships with the app)
-  [/phase break/i, ['match']], [/turbine kick/i, ['match']], [/wubs of the deep/i, ['match']], [/covert sub/i, ['match']], [/hyperspace/i, ['match', 'final']],
-  [/currents/i, ['final', 'match']], [/thalassophobia/i, ['draft']], [/sonar/i, ['draft']], [/liquid glass/i, ['draft', 'menu']], [/kora/i, ['menu']], [/shipwrecked/i, ['menu']]];
+  [/phase break/i, ['match'], 1.0], [/turbine kick/i, ['match'], 0.87], [/wubs of the deep/i, ['match'], 1.0], [/covert sub/i, ['match'], 0.84], [/hyperspace/i, ['match', 'final'], 0.94],
+  [/currents/i, ['final', 'match'], 0.73], [/thalassophobia/i, ['draft'], 0.89], [/sonar/i, ['draft'], 0.94], [/liquid glass/i, ['draft', 'menu'], 0.89], [/kora/i, ['menu'], 0.94], [/shipwrecked/i, ['menu'], 0.83]];
 const musGuess = name => { const k = MUS_KNOWN.find(([re]) => re.test(name)); return k ? k[1].slice() : ['menu', 'draft', 'match', 'final']; };
+const musGainGuess = name => { const k = MUS_KNOWN.find(([re]) => re.test(name)); return k && k[2] ? k[2] : 1; };
 function musDB() { return new Promise((res, rej) => { try { const r = indexedDB.open('leg3nd-music', 1); r.onupgradeneeded = () => r.result.createObjectStore('f'); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); } catch (e) { rej(e); } }); }
 async function musLoadMine() { try { const db = await musDB(); return await new Promise(res => { const out = []; const tx = db.transaction('f'); const cur = tx.objectStore('f').openCursor(); cur.onsuccess = () => { const c = cur.result; if (c) { const v = c.value; v.key = c.key; if (!v.scenes) v.scenes = musGuess(v.name); out.push(v); c.continue(); } else res(out.sort((x, y) => String(x.key).localeCompare(String(y.key)))); }; cur.onerror = () => res([]); }); } catch (e) { return MUS.files; } }
 async function musPut(items) { try { const db = await musDB(); await new Promise(res => { const tx = db.transaction('f', 'readwrite'); items.forEach(x => { const v = Object.assign({}, x); delete v.key; tx.objectStore('f').put(v, x.key); }); tx.oncomplete = res; tx.onerror = res; }); } catch (e) { } }
@@ -4224,7 +4225,7 @@ async function musAddFiles(list) {
   let files = [...list]; let meta = {};
   for (const z of files.filter(f => /\.zip$/i.test(f.name) || f.type === 'application/zip')) { try { const ents = await musUnzip(z); const pj = ents.find(e => /pack\.json$/i.test(e.name)); if (pj) { try { (JSON.parse(await pj.blob.text()).tracks || []).forEach(t => meta[t.file] = t); } catch (e) { } } files = files.concat(ents.filter(e => e !== pj)); } catch (e) { toast(e.message, true); } }
   const add = files.filter(f => /^audio\//.test(f.type) || /\.(mp3|m4a|aac|ogg|wav|flac)$/i.test(f.name)).slice(0, 40).map((f, i) => { const m = meta[f.name] || {}; const name = m.title || f.name.replace(/\.[^.]+$/, '').replace(/_/g, ' ');
-    return { key: Date.now() + '_' + String(i).padStart(3, '0') + '_' + name, name, blob: f.blob || f, scenes: m.scenes || musGuess(name), gain: m.gain || 1 }; });
+    return { key: Date.now() + '_' + String(i).padStart(3, '0') + '_' + name, name, blob: f.blob || f, scenes: m.scenes || musGuess(name), gain: m.gain || musGainGuess(name) }; });
   const have = new Set(MUS.files.map(f => f.name)); const fresh = add.filter(f => !have.has(f.name));
   MUS.files = MUS.files.concat(fresh); await musPut(fresh); return fresh.length;
 }
