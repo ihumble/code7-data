@@ -4017,7 +4017,7 @@ setInterval(() => {
 const MUS = {
   get on() { return store.get('code7_mus') !== false; }, set on(v) { store.set('code7_mus', !!v); },
   get vol() { const v = store.get('code7_musvol'); return v == null ? 0.6 : v; }, set vol(v) { store.set('code7_musvol', v); if (this.out) this.out.gain.setTargetAtTime(this.lvl(), this.ctx.currentTime, 0.1); if (this.el) this.el.volume = Math.min(1, v * ((this.cur && this.cur.gain) || 1)); },
-  get src() { return store.get('code7_mussrc') || 'orig'; }, set src(v) { store.set('code7_mussrc', v); },
+  get src() { return store.get('code7_mussrc') || (musBundled().length ? 'mine' : 'orig'); }, set src(v) { store.set('code7_mussrc', v); },
   ctx: null, out: null, duckG: null, track: null, want: 'menu', step: 0, next: 0, timer: null, energy: 0, started: false, el: null, files: [], fi: 0,
   lvl() { return 0.56 * this.vol; }
 };
@@ -4209,7 +4209,13 @@ const MUS_KNOWN = [       // sensible scene defaults for the soundtrack the fami
 const musGuess = name => { const k = MUS_KNOWN.find(([re]) => re.test(name)); return k ? k[1].slice() : ['menu', 'draft', 'match', 'final']; };
 const musGainGuess = name => { const k = MUS_KNOWN.find(([re]) => re.test(name)); return k && k[2] ? k[2] : 1; };
 function musDB() { return new Promise((res, rej) => { try { const r = indexedDB.open('leg3nd-music', 1); r.onupgradeneeded = () => r.result.createObjectStore('f'); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); } catch (e) { rej(e); } }); }
-async function musLoadMine() { try { const db = await musDB(); return await new Promise(res => { const out = []; const tx = db.transaction('f'); const cur = tx.objectStore('f').openCursor(); cur.onsuccess = () => { const c = cur.result; if (c) { const v = c.value; v.key = c.key; if (!v.scenes) v.scenes = musGuess(v.name); out.push(v); c.continue(); } else res(out.sort((x, y) => String(x.key).localeCompare(String(y.key)))); }; cur.onerror = () => res([]); }); } catch (e) { return MUS.files; } }
+/* family edition: music bundled inside the HTML file itself (private copies only — never on the public site) */
+let _bund = null;
+function musB64Blob(b64, type) { const bin = atob(b64); const u = new Uint8Array(bin.length); for (let i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i); return new Blob([u], { type }); }
+function musParseBundle(json) { let o; try { o = JSON.parse(json); } catch (e) { return []; } const tg = store.get('code7_mustags') || {}; return (o.tracks || []).map((t, i) => { let blob = null; const key = 'bundled_' + String(i).padStart(3, '0'); return { key, name: t.title, scenes: tg[key] || t.scenes || musGuess(t.title), gain: t.gain || 1, bundled: true, get blob() { return blob || (blob = musB64Blob(t.b64, t.type || 'audio/mpeg')); } }; }); }
+function musBundled() { if (_bund) return _bund; const el = document.getElementById('leg3nd-music'); _bund = el ? musParseBundle(el.textContent) : []; return _bund; }
+async function musLoadMine() { const stored = await musLoadStored(); return stored.length ? stored : musBundled(); }
+async function musLoadStored() { try { const db = await musDB(); return await new Promise(res => { const out = []; const tx = db.transaction('f'); const cur = tx.objectStore('f').openCursor(); cur.onsuccess = () => { const c = cur.result; if (c) { const v = c.value; v.key = c.key; if (!v.scenes) v.scenes = musGuess(v.name); out.push(v); c.continue(); } else res(out.sort((x, y) => String(x.key).localeCompare(String(y.key)))); }; cur.onerror = () => res([]); }); } catch (e) { return MUS.files; } }
 async function musPut(items) { try { const db = await musDB(); await new Promise(res => { const tx = db.transaction('f', 'readwrite'); items.forEach(x => { const v = Object.assign({}, x); delete v.key; tx.objectStore('f').put(v, x.key); }); tx.oncomplete = res; tx.onerror = res; }); } catch (e) { } }
 async function musUnzip(blob) {         // minimal ZIP reader (stored or deflated entries) → [{name, blob}] + pack.json
   const buf = new Uint8Array(await blob.arrayBuffer()); const dv = new DataView(buf.buffer); let eo = -1; for (let i = buf.length - 22; i >= Math.max(0, buf.length - 65557); i--) if (dv.getUint32(i, true) === 0x06054b50) { eo = i; break; }
@@ -4223,8 +4229,9 @@ async function musUnzip(blob) {         // minimal ZIP reader (stored or deflate
 }
 async function musAddFiles(list) {
   let files = [...list]; let meta = {};
+  for (const h of files.filter(f => /\.html?$/i.test(f.name))) { try { const txt = await h.text(); const m = txt.match(/<script id="leg3nd-music" type="application\/json">([\s\S]*?)<\/script>/); if (m) musParseBundle(m[1]).forEach(t => files.push({ name: t.name + '.mp3', blob: t.blob, _meta: t })); else toast('That file has no LEG3ND music inside', true); } catch (e) { } }
   for (const z of files.filter(f => /\.zip$/i.test(f.name) || f.type === 'application/zip')) { try { const ents = await musUnzip(z); const pj = ents.find(e => /pack\.json$/i.test(e.name)); if (pj) { try { (JSON.parse(await pj.blob.text()).tracks || []).forEach(t => meta[t.file] = t); } catch (e) { } } files = files.concat(ents.filter(e => e !== pj)); } catch (e) { toast(e.message, true); } }
-  const add = files.filter(f => /^audio\//.test(f.type) || /\.(mp3|m4a|aac|ogg|wav|flac)$/i.test(f.name)).slice(0, 40).map((f, i) => { const m = meta[f.name] || {}; const name = m.title || f.name.replace(/\.[^.]+$/, '').replace(/_/g, ' ');
+  const add = files.filter(f => f._meta || /^audio\//.test(f.type) || /\.(mp3|m4a|aac|ogg|wav|flac)$/i.test(f.name)).slice(0, 40).map((f, i) => { const m = f._meta ? { title: f._meta.name, scenes: f._meta.scenes, gain: f._meta.gain } : meta[f.name] || {}; const name = m.title || f.name.replace(/\.[^.]+$/, '').replace(/_/g, ' ');
     return { key: Date.now() + '_' + String(i).padStart(3, '0') + '_' + name, name, blob: f.blob || f, scenes: m.scenes || musGuess(name), gain: m.gain || musGainGuess(name) }; });
   const have = new Set(MUS.files.map(f => f.name)); const fresh = add.filter(f => !have.has(f.name));
   MUS.files = MUS.files.concat(fresh); await musPut(fresh); return fresh.length;
@@ -4232,7 +4239,8 @@ async function musAddFiles(list) {
 async function musClearMine() { MUS.files = []; if (MUS.el) { MUS.el.pause(); MUS.el = null; } MUS.cur = null; try { const db = await musDB(); db.transaction('f', 'readwrite').objectStore('f').clear(); } catch (e) { } }
 async function musTag(key) {            // tap a track's scene chip to cycle: menu → draft → match → final → everywhere
   const f = MUS.files.find(x => x.key === key); if (!f) return; const order = [['menu'], ['draft'], ['match'], ['final'], ['menu', 'draft', 'match', 'final']];
-  const i = order.findIndex(o => o.join() === f.scenes.join()); f.scenes = order[(i + 1) % order.length]; await musPut([f]);
+  const i = order.findIndex(o => o.join() === f.scenes.join()); f.scenes = order[(i + 1) % order.length];
+  if (f.bundled) { const tg = store.get('code7_mustags') || {}; tg[f.key] = f.scenes; store.set('code7_mustags', tg); } else await musPut([f]);
 }
 function musPick(scene) {               // a track for this scene (not the one that just played)
   let pool = MUS.files.filter(f => (f.scenes || []).includes(scene)); if (!pool.length) pool = MUS.files; if (pool.length > 1 && MUS.cur) pool = pool.filter(f => f !== MUS.cur);
