@@ -873,6 +873,10 @@ canvas.confetti{z-index:75}
 .mtr{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 10px;border-radius:12px;background:var(--floor);border:1px solid var(--line);font:600 13px/1.25 var(--fc)}
 .mtr.now{border-color:var(--acc);background:color-mix(in srgb,var(--acc) 12%,var(--floor))}
 .mtr span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.instbar{margin-bottom:12px;border-color:color-mix(in srgb,var(--acc) 55%,var(--line));background:linear-gradient(160deg,color-mix(in srgb,var(--acc) 16%,transparent),transparent 70%),var(--panel)}
+.instbar.warn{border-color:color-mix(in srgb,var(--warn) 60%,var(--line));background:linear-gradient(160deg,color-mix(in srgb,var(--warn) 16%,transparent),transparent 70%),var(--panel)}
+.instbar b{font:800 15px/1.2 var(--fc)} .instbar p{margin:6px 0 10px;color:var(--tx2)}
+.kbd{display:inline-block;padding:0 5px;border:1px solid var(--line2);border-radius:5px}
 
 </style>
 </head>
@@ -2535,7 +2539,7 @@ function renderTop() {
 }
 function render() {
   renderTop();
-  const v = { hub: () => vHub() + '<button class="btn ghost wide settings-link" data-v="more">⚙️ Settings · saves · music · haptics</button>', team: vTeam, players: vPlayers, pick: vPick, pool: vPool, more: vMore, clash: vClash, rosters: vRosters, news: vNews, games: vGames, qg: vQG }[A.view] || vHub;
+  const v = { hub: () => instBanner() + vHub() + '<button class="btn ghost wide settings-link" data-v="more">⚙️ Settings · saves · music · haptics</button>', team: vTeam, players: vPlayers, pick: vPick, pool: vPool, more: vMore, clash: vClash, rosters: vRosters, news: vNews, games: vGames, qg: vQG }[A.view] || vHub;
   const m = $('#main'); if (!A.anim) m.classList.remove('enter'); m.innerHTML = (A.statsReady ? `<div class="updbar"><span>📊 Fresh stats ready · ${esc(fmtV(A.statsReady))}</span><button class="btn sm pri" data-act="stats-reload">Reload</button></div>` : '') + v();
   if (A.anim) { A.anim = false; m.style.setProperty('--dx', (A.dx || 0) * 28 + 'px'); A.dx = 0; m.classList.remove('enter'); void m.offsetWidth; m.classList.add('enter'); }
   if (A.sportFx) { A.sportFx = false; const t = $('#top'); t.classList.remove('swap'); void t.offsetWidth; t.classList.add('swap'); setTimeout(() => t.classList.remove('swap'), 900); }
@@ -3182,6 +3186,47 @@ function vProgress() {                  // settings panel: where your progress l
 document.addEventListener('change', e => { if (e.target.id === 'save-file' && e.target.files[0]) { saveRestore(e.target.files[0]); e.target.value = ''; } });
 saveRestoreIfWiped().then(() => { try { { const all = saveCollect(); Object.keys(all).forEach(k => saveMirror(k, all[k])); } } catch (e) { } }); savePersist(false);
 document.addEventListener('pointerdown', () => { if (!SAVE.asked) { SAVE.asked = true; setTimeout(() => savePersist(true), 1500); } }, { capture: true, once: false });
+/* ============================================================ INSTALL — the app can only be installed from its web address
+   Browsers only install web apps served over https (with a manifest + service worker). A downloaded HTML file (file:// or
+   Android's content://) or a copy inside another app can't be installed or trusted with storage — so the copy offers to
+   hand itself over: it packs your progress into the link, opens the real address, and the app there restores it. */
+const SITE = 'https://ihumble.github.io/code7-data/';
+const INST = { prompt: null, local: /^(file|content|blob):/.test(location.protocol) || location.origin === 'null', framed: (() => { try { return window.top !== window.self; } catch (e) { return true; } })(),
+  standalone: matchMedia('(display-mode: standalone)').matches || matchMedia('(display-mode: fullscreen)').matches || navigator.standalone === true,
+  ios: /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1) };
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); INST.prompt = e; if (A && A.view === 'hub') render(); });
+window.addEventListener('appinstalled', () => { INST.prompt = null; INST.standalone = true; toast('✅ LEG3ND installed — open it from your home screen'); store.set('code7_installed', Date.now()); render(); });
+async function instPack() { const json = JSON.stringify({ app: 'LEG3ND Fantasy', v: 1, at: new Date().toISOString(), who: A.me || '', keys: saveCollect() });
+  if (window.CompressionStream) { const b = new Uint8Array(await new Response(new Blob([json]).stream().pipeThrough(new CompressionStream('deflate-raw'))).arrayBuffer()); return 'z' + b64u(b); }
+  return 'p' + b64u(new TextEncoder().encode(json)); }
+async function instHandOff() {               // offline copy → real app, carrying progress in the link
+  let url = SITE; try { const p = await instPack(); if (p.length < 1500000) url += '#import=' + p; else { await saveBackup(); toast('Progress saved as a backup file — Restore it in the app'); } } catch (e) { }
+  const w = window.open(url, '_blank'); if (!w) location.href = url;
+}
+async function instImport() {                // real app: a hand-off link arrived
+  const m = location.hash.match(/^#import=([zp])([A-Za-z0-9_-]+)/); if (!m) return; history.replaceState(null, '', location.pathname + location.search);
+  try { const u = unb64u(m[2]); const txt = m[1] === 'z' ? await new Response(new Blob([u]).stream().pipeThrough(new DecompressionStream('deflate-raw'))).text() : new TextDecoder().decode(u); const o = JSON.parse(txt);
+    if (!o || o.app !== 'LEG3ND Fantasy' || !o.keys) return; const n = Object.keys(o.keys).length; if (n < 2) return; SAVE.pending = o;
+    sheet(`<h3 class="num" style="font-size:24px;margin:0">BRING YOUR PROGRESS OVER?</h3><p class="small muted">From your offline copy${o.who ? ' (' + esc(o.who) + ')' : ''}: ${n} saved items — teams, leagues, Clash, records and saved teams.${saveCollect()['code7_locker'] || Object.keys(saveCollect()).some(k => /state|clash/.test(k)) ? ' <b>This replaces the progress already in this app.</b>' : ''}</p>
+      <div class="grid2"><button class="btn pri" data-act="save-restore-go">Bring it over</button><button class="btn" data-act="sheet-close">Start fresh</button></div><p class="xs dim">Music inside the offline copy doesn't travel in a link — after installing, go to Settings → Music → 📁 Add my music and pick the same file.</p>`);
+  } catch (e) { toast('That hand-off link was damaged — use Back up / Restore instead', true); }
+}
+function instBanner() {                     // shown on Home until the app is installed
+  if (INST.standalone || store.get('code7_instdismiss') > Date.now()) return '';
+  if (INST.local || INST.framed) return `<section class="panel instbar warn"><b>📲 This is a copy, not the installed app</b><p class="xs">A downloaded file (or a preview inside another app) can't be installed, may not keep progress, and can't use the camera. Get the real app — your progress comes with you.</p>
+    <div class="grid2"><button class="btn pri" data-act="inst-handoff">Install the app</button><button class="btn" data-act="inst-full">⛶ Full screen</button></div></section>`;
+  if (INST.prompt) return `<section class="panel instbar"><b>📲 Install LEG3ND</b><p class="xs">Full screen, works offline, keeps your progress safe.</p><div class="grid2"><button class="btn pri" data-act="inst-go">Install</button><button class="btn ghost" data-act="inst-later">Later</button></div></section>`;
+  if (INST.ios) return `<section class="panel instbar"><b>📲 Install LEG3ND on your iPhone</b><p class="xs">Tap <b>Share</b> <span class="kbd">⬆︎</span> then <b>Add to Home Screen</b>. Open it from the new icon — full screen, offline, progress kept safe.</p><button class="btn ghost sm" data-act="inst-later">Got it</button></section>`;
+  return `<section class="panel instbar"><b>📲 Install LEG3ND</b><p class="xs">Chrome menu <b>⋮</b> → <b>Add to Home screen</b> / <b>Install app</b>.</p><button class="btn ghost sm" data-act="inst-later">Got it</button></section>`;
+}
+async function instClick(a) {
+  if (a === 'inst-handoff') { instHandOff(); return true; }
+  if (a === 'inst-go' && INST.prompt) { INST.prompt.prompt(); const r = await INST.prompt.userChoice; INST.prompt = null; if (r.outcome !== 'accepted') store.set('code7_instdismiss', Date.now() + 3 * 864e5); render(); return true; }
+  if (a === 'inst-later') { store.set('code7_instdismiss', Date.now() + 7 * 864e5); render(); return true; }
+  if (a === 'inst-full') { try { await (document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen).call(document.documentElement, { navigationUI: 'hide' }); try { await screen.orientation.lock('portrait'); } catch (e) { } } catch (e) { toast('Full screen isn\'t available here — install the app instead', true); } return true; }
+  return false;
+}
+setTimeout(instImport, 300);
 
 /* ============================================================ FX — sporting animations and transitions
    Everything is transform/opacity (GPU-friendly), skippable by tapping, and switched off under prefers-reduced-motion. */
@@ -4400,6 +4445,7 @@ document.addEventListener('click', async e => {
   if (d.act === 'stats') { checkStats(true); return; }
   if (d.act === 'hap') { HAP.lvl = +d.n; hap('select'); render(); return; }
   if (d.act === 'hap-test') { const seq = { nba: ['three', 'slam'], nfl: ['td', 'fg'], epl: ['goal', 'save'] }[A.L.id] || ['try', 'fg']; toast('📳 ' + seq.join(' · ') + ' · heartbeat · win'); setTimeout(() => hap(seq[0]), 60); setTimeout(() => hap(seq[1]), 1100); setTimeout(() => hap('heart'), 2100); setTimeout(() => hap('heart'), 3000); setTimeout(() => hap('win'), 3900); return; }
+  if (d.act && d.act.startsWith('inst-') && await instClick(d.act)) return;
   if (d.act === 'save-backup') { saveBackup(); return; }
   if (d.act === 'save-restore-go') { saveRestoreGo(); return; }
   if (d.act === 'sheet-close') { closeSheet(); return; }
