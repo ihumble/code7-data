@@ -7,6 +7,21 @@ data = json.load(open(D / 'all.json')); data['srp'] = json.load(open(D / 'sr.jso
 for lid in ('prem', 'urc'):
     c = json.load(open(D / (lid + '.json'))); data[lid] = {k: c[k] for k in ('fields', 'players', 'games', 'roundDates', 'table', 'source')}
 X = json.load(open(D / 'extra.json'))
+# news + availability: keys re-mapped to OUR player names so the engine can look them up directly
+import re as _re, unicodedata as _ud
+_n = lambda s: _re.sub(r'[^a-z ]', '', _ud.normalize('NFD', s or '').encode('ascii', 'ignore').decode().lower().replace('-', ' ')).strip()
+try: NEWS = json.load(open(D / 'news.json'))
+except Exception: NEWS = {}
+for lid, d in data.items():
+    nw = NEWS.get(lid)
+    if not nw: continue
+    f = d['fields'].split(); names = {_n(r[0]): r[0] for r in d['players']}
+    byfid = {r[f.index('fid')]: r[0] for r in d['players']} if 'fid' in f else {}
+    inj = {}
+    for k, v in nw['inj'].items():
+        nm = byfid.get(v.get('fid')) if v.get('fid') else names.get(_n(k))
+        if nm: inj[nm] = {kk: vv for kk, vv in v.items() if kk not in ('fid',)}
+    d['news'] = {'at': NEWS['at'], 'items': nw['items'], 'inj': inj}
 for lid, t in X['tables'].items(): data[lid]['table'] = t
 data['epl']['games'] = X['epl']['games']; data['epl']['roundDates'] = X['epl']['roundDates']; data['epl']['live'] = X['epl']['live']
 data['epl']['source'] += '; real fixtures, deadlines and finished-GW points from the FPL API'

@@ -32,6 +32,7 @@ jobs:
           python3 build_extra.py
           python3 build_tst.py > /dev/null
           python3 build_club.py > /dev/null
+          python3 build_news.py || echo "news skipped"
           python3 merge.py
           cd ..
           python3 -c "import json;d=json.load(open('data/out/data.json'));assert all(len(d['data'][k]['players'])>100 for k in ('nba','epl','nfl','nrl','srp','tst','prem','urc')),'sanity check failed'"
