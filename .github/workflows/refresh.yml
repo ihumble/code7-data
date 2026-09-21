@@ -23,7 +23,7 @@ jobs:
       - name: Fetch latest feeds
         run: python3 data/fetch.py
       - name: Build
-        env: { C7_PREV: data.json }
+        env: { C7_PREV: ../data.json }
         run: |
           cd data
           python3 build_nba.py > /dev/null
