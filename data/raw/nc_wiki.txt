@@ -1,0 +1,793 @@
+{{Short description|International rugby union tournament}}
+{{for|the concurrent second tier competition organised by World Rugby|2026 World Rugby Nations Cup}}
+{{Use dmy dates|date=November 2025}}
+{{Infobox rugby union season
+| name       = 2026 Nations Championship
+| image      = File:2026 Nations Championship Text Logo.svg
+| countries  = 
+| date       = 4 July – 29 November 2026
+| champions  = 
+| count      = 
+| runnersup  = 
+| relegated  = 
+| matches    = 18
+| highest attendance = 55,125 – Fiji v Scotland<br />18 July 2026
+| lowest attendance = 11,021 – Japan v Ireland<br />11 July 2026
+| attendance = {{#expr:
+<!-- round 1 --> 29152 + 21329 + 41971 + 16465 + 52790 + 34560 + 
+<!-- round 2 --> 33087 + 52121 + 11021 + 50209 + 45053 + 16000 +
+<!-- round 3 --> 48153 + 52632 + 19268 + 55215 + 40299 + 22225
+<!-- round 4 -->
+<!-- round 5 -->
+<!-- round 6 -->
+<!-- finals -->
+}} 
+| tries = {{#expr:
+<!-- Round 1 --> + 5 + 4 + 3 + 1 + 5 + 5 + 3 + 6 + 7 + 3 + 5 + 7
+<!-- Round 2 --> + 7 + 2 + 4 + 6 + 2 + 5 + 1 + 11 + 6 + 4 + 5 + 3
+<!-- Round 3 --> + 6 + 3 + 2 + 6 + 9 + 2 + 3 + 5 + 7 + 0 + 3 + 5
+<!-- round 4 -->
+<!-- round 5 -->
+<!-- round 6 -->
+<!-- finals -->
+}}
+| top point scorer = ''{{ruicon|FRA}} [[Maxime Lucu]] (37)''
+| top try scorer  = ''{{ruicon|NZL}} [[Will Jordan (rugby union)|Will Jordan]] (6)''
+| website    = nationschampionshiprugby.com
+| prevseason =
+| nextseason = 2028
+| teams      = 12
+}}
+The '''2026 Nations Championship''' is the inaugural edition of the [[Nations Championship]], an international rugby union competition featuring twelve men's teams. The teams are divided into two pools of six, and play a full round-robin of matches with the teams in the opposing pool across the mid year and end-of-year international windows, with the top teams in each pool advancing to a Nations Championship final in London.<ref>{{Cite web |title=The Nations Championship is here! |url=https://nationschampionshiprugby.com/ |access-date=17 November 2025 |website=Nations Championship Rugby}}</ref>
+
+On 17 November 2025, World Rugby confirmed a second competition that would take place concurrently called the [[World Rugby Nations Cup (2026–)|World Rugby Nations Cup]].<ref name="WR-1">{{cite web |title=World Rugby Nations Cup to launch in July 2026 to transform international calendar |url=https://www.world.rugby/news/1018591/world-rugby-nations-cup-to-launch-in-july-2026-to-transform-international-calendar |website=World Rugby |access-date=17 November 2025 |date=17 November 2025}}</ref>
+
+Although [[promotion and relegation]] are intended for a future date, there will be no promotion or relegation in the 2026 edition between the Nations Championship and the Nations Cup.
+
+==Participants==
+The following 12 nations are competing in the 2026 Nations Championship.<ref>{{cite web |title=Nations Championship 2026 |url=https://www.world.rugby/beta/en/tournaments/nations-championship/2026 |website=World Rugby |access-date=15 April 2026}}</ref><ref>{{cite web |title=Nations Championship 2026 & Finals Weekend |url=https://allianzstadiumtwickenham.com/nations-championship |website=Allianz Stadium Twickenham |access-date=15 April 2026}}</ref>
+
+{| class="wikitable sortable"
+|-
+!rowspan="2"| Team
+!colspan="3"| Stadium
+!rowspan="2"| Head coach
+!rowspan="2"| Captain
+|-
+! Home stadium
+! Capacity
+! Location
+|-
+|rowspan="3"| {{ru|ARG}}
+| [[Estadio Mario Alberto Kempes]]
+|align=center| 57,000
+| [[Cordoba, Argentina|Cordoba]]
+|rowspan="3"| {{flagdeco|ARG}} [[Felipe Contepomi]]<ref>{{cite web |title=Los Pumas legend Contepomi takes over as Argentina rugby coach |url=https://www.news24.com/sport/rugby/los-pumas-legend-contepomi-takes-over-as-argentina-rugby-coach-20231219 |website=News24 |access-date=15 April 2026 |date=19 December 2023}}</ref>
+|rowspan="3"| [[Julián Montoya]]
+|-
+| [[Estadio San Juan del Bicentenario]]
+|align=center| 25,286
+| [[San Juan, Argentina|San Juan]]
+|-
+| [[Estadio Único Madre de Ciudades]]
+|align=center| 30,000
+| [[Santiago del Estero]]
+|-
+|rowspan="3"| {{ru|AUS}}
+| [[Lang Park]]
+|align=center| 52,500
+| [[Brisbane]]
+|rowspan="3"| {{flagdeco|NZL}} [[Joe Schmidt (rugby union)|Joe Schmidt]] {{refn|group=N|For the Southern Hemisphere Series (July matches). Schimdt to step down after the Australia Series.<ref name="Aus-Coach">{{cite web |last1=Williamson |first1=Nathan |title=Joe Schmidt to stay as Wallabies coach until mid-2026, Les Kiss anointed successor |url=https://www.rugby.com.au/news/joe-schmidt-to-stay-as-wallabies-coach-until-2026-les-kiss-anointed-successor-2025429 |website=Rugby Australia |access-date=15 April 2026 |date=29 April 2025}}</ref>}}<br/>{{flagdeco|AUS}} [[Les Kiss]] {{refn|group=N|From the Northern Hemisphere Series (November matches). Kiss to take the job after the Australia Series.<ref name="Aus-Coach"/>}}
+|rowspan="3"| [[Harry Wilson (rugby union, born 1999)|Harry Wilson]]
+|-
+| [[Perth Rectangular Stadium]]
+|align=center| 20,500
+| [[Perth]]
+|-
+| [[Sydney Football Stadium (2022)|Sydney Football Stadium]]
+|align=center| 42,500
+| [[Sydney]]
+|-
+| {{ru|ENG}}
+| [[Twickenham Stadium]]
+|align=center| 82,000
+| [[London]]
+| {{flagdeco|ENG}} [[Steve Borthwick]]<ref>{{cite web |title=Steve Borthwick appointed England men's head coach |url=https://www.englandrugby.com/follow/news-and-media/steve-borthwick-appointed-england-mens-head-coach |website=England Rugby |access-date=15 April 2026 |date=19 December 2022}}</ref>
+| [[Jamie George]]
+|-
+|rowspan="2"| {{ru|FRA}}
+| [[Stade de France]]
+|align=center| 81,338
+| [[Saint-Denis, Seine-Saint-Denis|Saint-Denis]]
+|rowspan="2"| {{flagdeco|FRA}} [[Fabien Galthié]]<ref>{{cite web |title=France coach Galthie contract extended after Six Nations triumph |url=https://www.france24.com/en/live-news/20220320-france-coach-galthie-contract-extended-after-six-nations-triumph |website=France 24 |access-date=15 April 2026 |date=20 March 2022}}</ref>
+|rowspan="2"| [[Maxime Lucu]]
+|-
+| [[Parc Olympique Lyonnais|Groupama Stadium]]
+|align=center| 59,186
+| [[Lyon]]
+|-
+|rowspan="3"| {{ru|FIJ}}
+| [[Cardiff City Stadium]]
+|align=center| 33,280
+| [[Cardiff]]
+|rowspan="3"| {{flagdeco|FIJ}} [[Senirusi Seruvakula]]<ref>{{cite web |title=Acting coach Seruvakula to lead Fiji in inaugural Nations Championship matches |url=https://supersport.com/rugby/news/7d83b9ad-bdce-40e6-b94d-0b8284a03e03/acting-coach-seruvakula-to-lead-fiji-in-inaugural-nations-championship-matches |website=SuperSport |access-date=15 April 2026 |date=2 April 2026}}</ref>
+|rowspan="3"| [[Tevita Ikanivere]]
+|-
+| [[Hill Dickinson Stadium]]
+|align=center| 52,769
+| [[Liverpool]]
+|-
+| [[Murrayfield Stadium]]
+|align=center| 67,144
+| [[Edinburgh]]
+|-
+| {{ru|IRE}}
+| [[Aviva Stadium]]
+|align=center| 51,700
+| [[Dublin]]
+| {{flagdeco|ENG}} [[Andy Farrell]]<ref>{{cite web |title=Andy Farrell Signs Long-Term Contract Extension With IRFU |url=https://www.irishrugby.ie/2023/12/14/andy-farrell-extends-irfu-contract-to-2027/ |website=Irish Rugby |access-date=15 April 2026 |date=14 December 2023}}</ref>
+| [[Dan Sheehan (rugby union)|Dan Sheehan]] {{refn|group=N|For Australia v Ireland}}<br />[[Tadhg Beirne]] {{refn|group=N|For Japan v Ireland}}
+|-
+|rowspan="3"| {{ru|ITA}}
+| [[Juventus Stadium]]
+|align=center| 41,689
+| [[Turin]]
+|rowspan="3"| {{flagdeco|ARG}} [[Gonzalo Quesada]]<ref>{{cite web |title=Quesada named as Italy coach for 2024 Guinness Six Nations |url=https://www.sixnationsrugby.com/en/m6n/news/quesada-named-as-italy-coach-for-2024-guinness-six-nations |website=Six Nations Rugby |access-date=15 April 2026 |date=16 June 2023}}</ref>
+|rowspan="3"| [[Michele Lamaro]]
+|-
+| [[Stadio Luigi Ferraris]]
+|align=center| 33,205
+| [[Genoa]]
+|-
+| [[Stadio Friuli]]
+|align=center| 25,144
+| [[Udine]]
+|-
+|rowspan="3"| {{ru|JAP}}
+| [[Chichibunomiya Rugby Stadium]]
+|align=center| 27,188
+| [[Tokyo]]
+|rowspan="3"| {{flagdeco|AUS}} [[Eddie Jones (rugby union)|Eddie Jones]]<ref>{{cite web |title=JRFU Announces Brave Blossom's New Head Coach |url=https://en.rugby-japan.jp/2023/12/13/jrfu-announces-brave-blossoms-new-head-coach/ |website=Japan Rugby Football Union |access-date=15 April 2026 |date=13 December 2023}}</ref>
+|rowspan="3"| [[Warner Dearns]]
+|-
+| [[Newcastle International Sports Centre]]
+|align=center| 33,000
+| [[Newcastle, New South Wales|Newcastle]]
+|-
+| [[Japan National Stadium]]
+|align=center| 67,750
+| [[Tokyo]]
+|-
+|rowspan="3"| {{ru|NZL}}
+| [[Eden Park]]
+|align=center| 50,000
+| [[Auckland]]
+|rowspan="3"| {{flagdeco|NZL}} [[Dave Rennie]]<ref>{{cite web |title=New Zealand Rugby appoints Dave Rennie as All Blacks Head Coach |url=https://www.nzrugby.co.nz/news-and-events/latest-news/new-zealand-rugby-appoints-dave-rennie-as-all-blacks-head-coach |website=NZ Rugby |access-date=15 April 2026 |date=4 March 2026}}</ref>
+|rowspan="3"| [[Ardie Savea]]
+|-
+| [[Te Kaha (stadium)|Te Kaha]]
+|align=center| 30,000
+| [[Christchurch]]
+|-
+| [[Wellington Regional Stadium]]
+|align=center| 34,000
+| [[Wellington]]
+|-
+| {{ru|SCO}}
+| [[Murrayfield Stadium]]
+|align=center| 67,144
+| [[Edinburgh]]
+| {{flagdeco|SCO}} [[Gregor Townsend]]<ref>{{cite web |title=Gregor Townsend's contract extended as Scotland head coach |url=https://scottishrugby.org/gregor-townsends-contract-extended-as-scotland-head-coach/ |website=Scottish Rugby |access-date=15 April 2026 |date=3 September 2025}}</ref>
+| [[Sione Tuipulotu (rugby union, born February 1997)|Sione Tuipulotu]]
+|-
+|rowspan="3"| {{ru|RSA}}
+| [[Ellis Park Stadium]]
+|align=center| 62,567
+| [[Johannesburg]]
+|rowspan="3"| {{flagdeco|RSA}} [[Rassie Erasmus]]<ref>{{cite web |title=SA Rugby extends Erasmus' contract until 2031 |url=https://www.sarugby.co.za/news-features/articles/2025/12/05/sa-rugby-extends-erasmus-contract-until-2031/ |website=SA Rugby |access-date=15 April 2026 |date=5 December 2025}}</ref>
+|rowspan="3"| [[Siya Kolisi]]
+|-
+| [[Kings Park Stadium]]
+|align=center| 46,000
+| [[Durban]]
+|-
+| [[Loftus Versfeld Stadium]]
+|align=center| 51,762
+| [[Pretoria]]
+|-
+| {{ru|WAL}}
+| [[Millennium Stadium]]
+|align=center| 73,931
+| [[Cardiff]]
+| {{flagdeco|WAL}} [[Steve Tandy]]<ref name="WAL-Coach">{{cite web |title=Wales hire Steve Tandy as head coach, to start in September |url=https://www.espn.com/rugby/story/_/id/45786075/wales-hire-steve-tandy-head-coach-start-september |website=ESPN |access-date=15 April 2026 |date=21 July 2025}}</ref>
+| [[Dewi Lake]]
+|}
+
+'''Notes'''
+{{reflist|group=N}}
+
+==Format==
+The Nations Championship consists of two geographic pools or conferences; the first, the European conference, consisting of the [[Six Nations Championship|Six Nations]]; the second, the 'Rest of the World' conference, consisting of the [[The Rugby Championship|Rugby Championship]] teams, plus [[Fiji national rugby union team|Fiji]] and [[Japan national rugby union team|Japan]]. Over two international windows each team plays all the teams in the opposite pool once, with three games at home and three away.<ref>{{Cite web |first1=Alan |last1=Dymock |date=24 October 2023 |title=World Rugby confirm Nations Championship details after vote |url=https://www.rugbyworld.com/news/world-rugby-confirm-nations-championship-details-after-vote-162016 |access-date=7 September 2025 |website=Rugby World}}</ref> A cumulative north v south trophy will also be contested in this edition.<ref name="BBC">{{Cite web |last=Henson |first=Mike |date=17 November 2025 |title=Nations Championship to feature north v south hemisphere contest |url=https://www.bbc.co.uk/sport/rugby-union/articles/c0rpl9v1ly5o |access-date=17 November 2025 |website=BBC Sport}}</ref>
+
+The standard World Rugby points system applies; teams earn:
+* 4 points for a win
+* 2 points for a draw
+* 0 points for a loss
+* 1 bonus point for scoring 4 or more tries
+* 1 bonus point for losing by fewer than 8 points.
+
+===Fiji home games===
+Fiji were required to reverse their home fixtures as their national stadium, the [[HFC Bank Stadium]], does not meet competition requirements. Stadiums of the tournament are required to be 25,000+ seats which the HFC Bank Stadium is just under 10,000 short; in addition, 50% of these must be undercover. Travel logistics and commercial value was also considered for reversing the fixtures.<ref>https://www.fijivillage.com/news/Fiji-does-not-meet-the-requirement-of-hosting-Nations-Championship-games-fx84r5/</ref> As a result, Fiji will play their home game against [[Scotland national rugby union team|Scotland]] away at [[Murrayfield Stadium|Murrayfield]] while [[Wales national rugby union team|Wales]] and [[England national rugby union team|England]] opted to host Fiji at [[Cardiff City F.C.]]'s [[Cardiff City Stadium]] and [[Everton F.C.]]'s [[Bramley-Moore Dock Stadium]] respectively.<ref>https://www.bbc.co.uk/sport/rugby-union/articles/cedzv00vdpdo</ref> Notably Australia hosted a fixture at the [[Perth Rectangular Stadium]] with a capacity below the stated minimum at only 20,500.
+
+===Japan v Ireland game===
+On 22 April, it was announced that the match between Japan and Ireland would be played at [[Newcastle International Sports Centre ]] in [[Newcastle, New South Wales|Newcastle]], Australia.<ref>{{cite web |title=Japan to play Ireland in Australia as part of rugby’s Nations Championship in July |url=https://apnews.com/article/japan-ireland-rugby-australia-nations-championship-5f1be4c947d004b94e7c4646fad5cbaf |publisher=[[Associated Press]] |date=22 April 2026}}</ref> Originally scheduled as a home match for Japan, the match was moved due to travel concerns raised by Ireland. Japan head coach [[Eddie Jones (rugby union)|Eddie Jones]] was heavily critical of the decision, saying on the Rugby Unity podcast, "You know why we're playing Ireland in Newcastle? Ireland have all the power at World Rugby. So we have to play our home game, that should be in Tokyo, in Australia to make sure Ireland don’t have to travel too much - let’s be frank about it. We have to just suck it up and that’s what happens when you’re not a major political power at the table."<ref>{{cite web |title=Eddie Jones: Irish 'power' led to Japan fixture switch |url=https://www.rte.ie/sport/rugby/2026/0428/1570715-jones-irish-power-led-to-japan-fixture-switch/ |publisher=[[RTE]] |date=28 April 2026}}</ref> [[France national rugby union team|France]] head coach [[Fabien Galthié]] also criticized the decision, stating before their match against Japan on 18 July, "The only flaw I'd find in this competition, it's that I don't understand why Ireland is facing Japan here (in Australia)."<ref>{{cite web |last1=Corée |first1=Adrien |title=Fabien Galthié s'interroge sur les lieux de certaines affiches du Championnat des nations : « Il y a toujours des arrangements qui me surprennent » |url=https://www.lequipe.fr/Rugby/Actualites/Fabien-galthie-s-interroge-sur-les-lieux-de-certaines-affiches-du-championnat-des-nations-il-y-a-toujours-des-arrangements-qui-me-surprennent/1703544 |publisher=[[L'Equipe]] |date=11 July 2026|language=fr}}</ref>
+
+==Championship division: Tables==
+The below shows the tables for the two conferences.
+
+===Northern Hemisphere===
+{{#invoke:Sports table|main|style=Rugby
+|source= [https://nationschampionshiprugby.com/en/match-centre/stats/hemisphere Nations Championship Rugby]
+|update=18 July 2026
+
+|team1=FRA |name_FRA={{ru|FRA}}
+|team2=SCO |name_SCO={{ru|SCO}}
+|team3=ENG |name_ENG={{ru|ENG}}
+|team4=IRE |name_IRE={{ru|IRE}}
+|team5=WAL |name_WAL={{ru|WAL}}
+|team6=ITA |name_ITA={{ru|ITA}}
+
+| win_ENG = 2| draw_ENG = 0| loss_ENG = 1| pf_ENG = 125| pa_ENG = 77| tf_ENG = 19| ta_ENG = 11| tb_ENG = 2| lb_ENG = 0
+| win_FRA = 2| draw_FRA = 0| loss_FRA = 1| pf_FRA = 116| pa_FRA = 75| tf_FRA = 16| ta_FRA = 11| tb_FRA = 3| lb_FRA = 1
+| win_IRE = 2| draw_IRE = 0| loss_IRE = 1| pf_IRE = 90| pa_IRE = 91| tf_IRE = 13| ta_IRE = 13| tb_IRE = 2| lb_IRE = 0
+| win_ITA = 0| draw_ITA = 0| loss_ITA = 3| pf_ITA = 37| pa_ITA = 131| tf_ITA = 5| ta_ITA = 19| tb_ITA = 0| lb_ITA = 0
+| win_SCO = 2| draw_SCO = 0| loss_SCO = 1| pf_SCO = 108| pa_SCO = 97| tf_SCO = 16| ta_SCO = 14| tb_SCO = 3| lb_SCO = 0
+| win_WAL = 1| draw_WAL = 0| loss_WAL = 2| pf_WAL = 60| pa_WAL = 102| tf_WAL = 9| ta_WAL = 15| tb_WAL = 1| lb_WAL = 0
+
+<!--Qualification column definitions-->
+|res_col_header=Q
+|result1 = Q1
+| col_Q1 = green1 | text_Q1 =
+}}
+
+===Southern Hemisphere ===
+{{#invoke:Sports table|main|style=Rugby
+|source= [https://nationschampionshiprugby.com/en/match-centre/stats/hemisphere Nations Championship Rugby]
+|update=18 July 2026
+
+|team1=RSA |name_RSA={{ru|RSA}}
+|team2=NZL |name_NZL={{ru|NZL}}
+|team3=AUS |name_AUS={{ru|AUS}}
+|team4=ARG |name_ARG={{ru|ARG}}
+|team5=JPN |name_JPN={{ru|JPN}}
+|team6=FIJ |name_FIJ={{ru|FIJ}}
+
+| win_ARG = 1| draw_ARG = 0| loss_ARG = 2| pf_ARG = 97| pa_ARG = 99| tf_ARG = 13| ta_ARG = 15| tb_ARG = 2| lb_ARG = 1
+| win_AUS = 1| draw_AUS = 0| loss_AUS = 2| pf_AUS = 114| pa_AUS = 85| tf_AUS = 18| ta_AUS = 13| tb_AUS = 3| lb_AUS = 1
+| win_FIJ = 0| draw_FIJ = 0| loss_FIJ = 3| pf_FIJ = 49| pa_FIJ = 145| tf_FIJ = 7| ta_FIJ = 22| tb_FIJ = 0| lb_FIJ = 0
+| win_JPN = 1| draw_JPN = 0| loss_JPN = 2| pf_JPN = 62| pa_JPN = 88| tf_JPN = 7| ta_JPN = 12| tb_JPN = 0| lb_JPN = 0
+| win_NZL = 3| draw_NZL = 0| loss_NZL = 0| pf_NZL = 121| pa_NZL = 70| tf_NZL = 18| ta_NZL = 9| tb_NZL = 3| lb_NZL = 0
+| win_RSA = 3| draw_RSA = 0| loss_RSA = 0| pf_RSA = 130| pa_RSA = 49| tf_RSA = 20| ta_RSA = 7| tb_RSA = 3| lb_RSA = 0
+
+<!--Qualification column definitions-->
+|res_col_header=Q
+|result1 = Q1
+| col_Q1 = green1 | text_Q1 =
+}}
+
+==Fixtures==
+===Southern Hemisphere Series===
+{{Main|2026 Nations Championship Southern Hemisphere Series}}
+
+Southern Hemisphere teams, apart from [[Fiji national rugby union team|Fiji]], will host all the matches.<ref name="SixNations"/><ref name="BBC"/> All three of Fiji's "home" matches are played in [[Great Britain]].<ref name="BBC"/>
+
+====Round 1====
+{| style="width:100%" cellspacing="1"
+|-
+!width=15%|
+!width=25%|
+!width=10%|
+!width=25%|
+|- style=font-size:90%
+|align=right|4 July 2026||align=right|{{ru-rt|NZL}}||align=center|[[2026 Nations Championship Southern Hemisphere Series#New Zealand v France|34–32]]||{{ru|FRA}}||[[Te Kaha (stadium)|Te Kaha]], [[Christchurch]]
+|- style=font-size:90%
+|align=right|4 July 2026||align=right|{{ru-rt|JPN}}||align=center|[[2026 Nations Championship Southern Hemisphere Series#Japan v Italy|27–10]]||{{ru|ITA}}||[[Chichibunomiya Rugby Stadium]], [[Tokyo]]
+|- style=font-size:90%
+|align=right|4 July 2026||align=right|{{ru-rt|AUS}}||align=center|[[2026 Nations Championship Southern Hemisphere Series#Australia v Ireland|31–33]]||{{ru|IRE}}||[[Sydney Football Stadium (2022)|Sydney Football Stadium]], [[Sydney]]
+|- style=font-size:90%
+|align=right|4 July 2026||align=right|{{ru-rt|FIJ}}||align=center|[[2026 Nations Championship Southern Hemisphere Series#Fiji v Wales|24–39]]||{{ru|WAL}}||[[Cardiff City Stadium]], [[Cardiff]] ([[Wales]])
+|- style=font-size:90%
+|align=right|4 July 2026||align=right|{{ru-rt|RSA}}||align=center|[[2026 Nations Championship Southern Hemisphere Series#South Africa v England|45–21]]||{{ru|ENG}}||[[Ellis Park Stadium]], [[Johannesburg]]
+|- style=font-size:90%
+|align=right|4 July 2026||align=right|{{ru-rt|ARG}}||align=center|[[2026 Nations Championship Southern Hemisphere Series#Argentina v Scotland|38–47]]||{{ru|SCO}}||[[Estadio Mario Alberto Kempes]], [[Cordoba, Argentina|Cordoba]]
+|}
+
+====Round 2====
+{| style="width:100%" cellspacing="1"
+|-
+!width=15%|
+!width=25%|
+!width=10%|
+!width=25%|
+|- style=font-size:90%
+|align=right|11 July 2026||align=right|{{ru-rt|NZL}}||align=center|[[2026 Nations Championship Southern Hemisphere Series#New Zealand v Italy|47–17]]||{{ru|ITA}}||[[Wellington Regional Stadium]], [[Wellington]]
+|- style=font-size:90%
+|align=right|11 July 2026||align=right|{{ru-rt|AUS}}||align=center|[[2026 Nations Championship Southern Hemisphere Series#Australia v France|26–42]]||{{ru|FRA}}||[[Lang Park]], [[Brisbane]]
+|- style=font-size:90%
+|align=right|11 July 2026||align=right|{{ru-rt|JPN}}||align=center|[[2026 Nations Championship Southern Hemisphere Series#Japan v Ireland|20–36]]||{{ru|IRE}}||[[Newcastle International Sports Centre]], [[Newcastle, New South Wales|Newcastle]] ([[Australia]])
+|- style=font-size:90%
+|align=right|11 July 2026||align=right|{{ru-rt|FIJ}}||align=center|[[2026 Nations Championship Southern Hemisphere Series#Fiji v England|8–73]]||{{ru|ENG}}||[[Hill Dickinson Stadium]], [[Liverpool]] ([[England]])
+|- style=font-size:90%
+|align=right|11 July 2026||align=right|{{ru-rt|RSA}}||align=center|[[2026 Nations Championship Southern Hemisphere Series#South Africa v Scotland|42–28]]||{{ru|SCO}}||[[Loftus Versfeld Stadium]], [[Pretoria]]
+|- style=font-size:90%
+|align=right|11 July 2026||align=right|{{ru-rt|ARG}}||align=center|[[2026 Nations Championship Southern Hemisphere Series#Argentina v Wales|35–21]]||{{ru|WAL}}||[[Estadio San Juan del Bicentenario]], [[San Juan, Argentina|San Juan]]
+|}
+
+====Round 3====
+{| style="width:100%" cellspacing="1"
+|-
+!width=15%|
+!width=25%|
+!width=10%|
+!width=25%|
+|- style=font-size:90%
+|align=right|18 July 2026||align=right|{{ru-rt|NZL}}||align=center|[[2026 Nations Championship Southern Hemisphere Series#New Zealand v Ireland|40–21]]||{{ru|IRE}}||[[Eden Park]], [[Auckland]]
+|- style=font-size:90%
+|align=right|18 July 2026||align=right|{{ru-rt|JPN}}||align=center|[[2026 Nations Championship Southern Hemisphere Series#Japan v France|15–42]]||{{ru|FRA}}||[[Japan National Stadium]], [[Tokyo]]
+|- style=font-size:90%
+|align=right|18 July 2026||align=right|{{ru-rt|AUS}}||align=center|[[2026 Nations Championship Southern Hemisphere Series#Australia v Italy|57–10]]||{{ru|ITA}}||[[Perth Rectangular Stadium]], [[Perth]]
+|- style=font-size:90%
+|align=right|18 July 2026||align=right|{{ru-rt|FIJ}}||align=center|[[2026 Nations Championship Southern Hemisphere Series#Fiji v Scotland|17–33]]||{{ru|SCO}}||[[Murrayfield Stadium]], [[Edinburgh]] ([[Scotland]])
+|- style=font-size:90%
+|align=right|18 July 2026||align=right|{{ru-rt|RSA}}||align=center|[[2026 Nations Championship Southern Hemisphere Series#South Africa v Wales|43–0]]||{{ru|WAL}}||[[Kings Park Stadium]], [[Durban]]
+|- style=font-size:90%
+|align=right|18 July 2026||align=right|{{ru-rt|ARG}}||align=center|[[2026 Nations Championship Southern Hemisphere Series#Argentina v England|24–31]]||{{ru|ENG}}||[[Estadio Único Madre de Ciudades]], [[Santiago del Estero]]
+|}
+
+===Northern Hemisphere Series===
+{{Main|2026 Nations Championship Northern Hemisphere Series}}
+
+Northern Hemisphere teams will host all the matches.<ref name="BBC"/><ref name="SixNations"/>
+
+====Round 4====
+{| style="width:100%" cellspacing="1"
+|-
+!width=15%|
+!width=25%|
+!width=10%|
+!width=25%|
+|- style=font-size:90%
+|align=right|6 November 2026||align=right|{{ru-rt|IRE}}||align=center|[[2026 Nations Championship Northern Hemisphere Series#Ireland v Argentina|v]]||{{ru|ARG}}||[[Aviva Stadium]], [[Dublin]]
+|- style=font-size:90%
+|align=right|7 November 2026||align=right|{{ru-rt|ITA}}||align=center|[[2026 Nations Championship Northern Hemisphere Series#Italy v South Africa|v]]||{{ru|RSA}}||[[Juventus Stadium]], [[Turin]]
+|- style=font-size:90%
+|align=right|7 November 2026||align=right|{{ru-rt|SCO}}||align=center|[[2026 Nations Championship Northern Hemisphere Series#Scotland v New Zealand|v]]||{{ru|NZL}}||[[Murrayfield Stadium]], [[Edinburgh]]
+|- style=font-size:90%
+|align=right|7 November 2026||align=right|{{ru-rt|WAL}}||align=center|[[2026 Nations Championship Northern Hemisphere Series#Wales v Japan|v]]||{{ru|JPN}}||[[Millennium Stadium]], [[Cardiff]]
+|- style=font-size:90%
+|align=right|7 November 2026||align=right|{{ru-rt|FRA}}||align=center|[[2026 Nations Championship Northern Hemisphere Series#France v Fiji|v]]||{{ru|FIJ}}||[[Groupama Stadium]], [[Lyon]]
+|- style=font-size:90%
+|align=right|8 November 2026||align=right|{{ru-rt|ENG}}||align=center|[[2026 Nations Championship Northern Hemisphere Series#England v Australia|v]]||{{ru|AUS}}||[[Twickenham Stadium]], [[London]]
+|}
+
+====Round 5====
+{| style="width:100%" cellspacing="1"
+|-
+!width=15%|
+!width=25%|
+!width=10%|
+!width=25%|
+|- style=font-size:90%
+|align=right|13 November 2026||align=right|{{ru-rt|FRA}}||align=center|[[2026 Nations Championship Northern Hemisphere Series#France v South Africa|v]]||{{ru|RSA}}||[[Stade de France]], [[Paris]]
+|- style=font-size:90%
+|align=right|14 November 2026||align=right|{{ru-rt|ITA}}||align=center|[[2026 Nations Championship Northern Hemisphere Series#Italy v Argentina|v]]||{{ru|ARG}}||[[Stadio Luigi Ferraris]], [[Genoa]]
+|- style=font-size:90%
+|align=right|14 November 2026||align=right|{{ru-rt|WAL}}||align=center|[[2026 Nations Championship Northern Hemisphere Series#Wales v New Zealand|v]]||{{ru|NZL}}||[[Millennium Stadium]], [[Cardiff]]
+|- style=font-size:90%
+|align=right|14 November 2026||align=right|{{ru-rt|ENG}}||align=center|[[2026 Nations Championship Northern Hemisphere Series#England v Japan|v]]||{{ru|JPN}}||[[Twickenham Stadium]], [[London]]
+|- style=font-size:90%
+|align=right|14 November 2026||align=right|{{ru-rt|IRE}}||align=center|[[2026 Nations Championship Northern Hemisphere Series#Ireland v Fiji|v]]||{{ru|FIJ}}||[[Aviva Stadium]], [[Dublin]]
+|- style=font-size:90%
+|align=right|15 November 2026||align=right|{{ru-rt|SCO}}||align=center|[[2026 Nations Championship Northern Hemisphere Series#Scotland v Australia|v]]||{{ru|AUS}}||[[Murrayfield Stadium]], [[Edinburgh]]
+|}
+
+====Round 6====
+{| style="width:100%" cellspacing="1"
+|-
+!width=15%|
+!width=25%|
+!width=10%|
+!width=25%|
+|- style=font-size:90%
+|align=right|21 November 2026||align=right|{{ru-rt|ENG}}||align=center|[[2026 Nations Championship Northern Hemisphere Series#England v New Zealand|v]]||{{ru|NZL}}||[[Twickenham Stadium]], [[London]]
+|- style=font-size:90%
+|align=right|21 November 2026||align=right|{{ru-rt|SCO}}||align=center|[[2026 Nations Championship Northern Hemisphere Series#Scotland v Japan|v]]||{{ru|JPN}}||[[Murrayfield Stadium]], [[Edinburgh]]
+|- style=font-size:90%
+|align=right|21 November 2026||align=right|{{ru-rt|IRE}}||align=center|[[2026 Nations Championship Northern Hemisphere Series#Ireland v South Africa|v]]||{{ru|RSA}}||[[Aviva Stadium]], [[Dublin]]
+|- style=font-size:90%
+|align=right|21 November 2026||align=right|{{ru-rt|ITA}}||align=center|[[2026 Nations Championship Northern Hemisphere Series#Italy v Fiji|v]]||{{ru|FIJ}}||[[Stadio Friuli]], [[Udine]]
+|- style=font-size:90%
+|align=right|21 November 2026||align=right|{{ru-rt|WAL}}||align=center|[[2026 Nations Championship Northern Hemisphere Series#Wales v Australia|v]]||{{ru|AUS}}||[[Millennium Stadium]], [[Cardiff]]
+|- style=font-size:90%
+|align=right|21 November 2026||align=right|{{ru-rt|FRA}}||align=center|[[2026 Nations Championship Northern Hemisphere Series#France v Argentina|v]]||{{ru|ARG}}||[[Stade de France]], [[Paris]]
+|}
+
+===Finals===
+{{main|2026 Nations Championship Finals}}
+
+After the six rounds, a finals series will be contested over three days with each team matched against its equivalently ranked team in the other pool to decide placements.<ref>{{Cite news |last1=Hughes |first1=Matt |date=17 October 2024 |title=First Nations Championship rugby finals to be hosted in London then Qatar |url=https://www.theguardian.com/sport/2024/oct/17/first-nations-championship-rugby-finals-to-be-hosted-in-london-then-qatar |access-date=7 September 2025 |work=The Guardian |issn=0261-3077}}</ref><ref name="SixNations">{{cite web |title=Hemispheres collide and rugby's future redefined with 2026 Nations Championship |url=https://www.sixnationsrugby.com/en/autumn-nations-series/news/nations-champions-launch-2026 |website=Six Nations Rugby |access-date=19 November 2025}}</ref> All finals in 2026 are to be held at Twickenham Stadium in London, from 27 to 29 November.<ref name="SixNations"/>
+
+====Eleventh place final====
+{{rugbybox
+|id=
+|date=27 November 2026
+|time=16:40 [[GMT]] ([[UTC+0]])
+|team1=Northern 6 
+|score=
+|report=
+|team2=Southern 6
+|try1=
+|con1=
+|pen1=
+|drop1=
+|try2=
+|con2=
+|pen2=
+|drop2=
+|stadium=[[Twickenham Stadium]], London
+|attendance=
+|referee=
+}}
+
+====Ninth place final====
+{{rugbybox
+|id=
+|date=28 November 2026
+|time=13:10 [[GMT]] ([[UTC+0]]) 
+|team1=Northern 5
+|score=
+|report=
+|team2=Southern 5
+|try1=
+|con1=
+|pen1=
+|drop1=
+|try2=
+|con2=
+|pen2=
+|drop2=
+|stadium=[[Twickenham Stadium]], London
+|attendance=
+|referee=
+}}
+
+====Seventh place final====
+{{rugbybox
+|id=
+|date=29 November 2026
+|time=13:10 [[GMT]] ([[UTC+0]])
+|team1=Northern 4
+|score=
+|report=
+|team2=Southern 4
+|try1=
+|con1=
+|pen1=
+|drop1=
+|try2=
+|con2=
+|pen2=
+|drop2=
+|stadium=[[Twickenham Stadium]], London
+|attendance=
+|referee=
+}}
+
+====Fifth place final====
+{{rugbybox
+|id=
+|date=27 November 2026
+|time=20:10 [[GMT]] ([[UTC+0]])
+|team1=Northern 3
+|score=
+|report=
+|team2=Southern 3
+|try1=
+|con1=
+|pen1=
+|drop1=
+|try2=
+|con2=
+|pen2=
+|drop2=
+|stadium=[[Twickenham Stadium]], London
+|attendance=
+|referee=
+}}
+
+====Third place final====
+{{rugbybox
+|id=
+|date=28 November 2026
+|time=16:40 [[GMT]] ([[UTC+0]])
+|team1=Northern 2
+|score=
+|report=
+|team2=Southern 2
+|try1=
+|con1=
+|pen1=
+|drop1=
+|try2=
+|con2=
+|pen2=
+|drop2=
+|stadium=[[Twickenham Stadium]], London
+|attendance=
+|referee=
+}}
+
+====Nations Championship Final====
+{{rugbybox
+|id=
+|date=29 November 2026
+|time=16:40 [[GMT]] ([[UTC+0]])
+|team1=Northern 1
+|score=
+|report=
+|team2=Southern 1
+|try1=
+|con1=
+|pen1=
+|drop1=
+|try2=
+|con2=
+|pen2=
+|drop2=
+|stadium=[[Twickenham Stadium]], London
+|attendance=
+|referee=
+}}
+
+==Leading scorers==
+''As of 19 July 2026'' <ref>{{cite web |title=Player Stats |url=https://nationschampionshiprugby.com/en/match-centre/stats/player/top-points |publisher=Nations Championship |access-date=19 July 2026 |url-status=live }}</ref>
+{{Col-begin}}
+{{Col-2}}
+===Most points===
+{| class="wikitable" style="text-align:center"
+|-
+!width="35"|{{tooltip|Pos.|Position}}
+!Name
+!Team
+!width="35"|{{tooltip|Pts.|Points}}
+|-
+|1
+|align="left"|[[Maxime Lucu]]
+|align="left"|{{ru|FRA}}
+|37
+|-
+|2
+|align="left"|[[Takurō Matsunaga]]
+|align="left"|{{ru|JPN}}
+|32
+|-
+|3
+|align="left"|[[Ruben Love]]
+|align="left"|{{ru|NZL}}
+|31
+|-
+|rowspan="3"|4
+|align="left"|[[Tomás Albornoz]]
+|align="left"|{{ru|ARG}}
+|rowspan="3"|30
+|-
+|align="left"|[[Will Jordan (rugby union)|Will Jordan]]
+|align="left"|{{ru|NZL}}
+|-
+|align="left"|[[Fin Smith]]
+|align="left"|{{ru|ENG}}
+|-
+|7
+|align="left"|[[Ryan Lonergan]]
+|align="left"|{{ru|AUS}}
+|21
+|-
+|8
+|align="left"|[[Josh Canham]]
+|align="left"|{{ru|AUS}}
+|20
+|-
+|rowspan="6"|9
+|align="left"|[[Matthieu Jalibert]]
+|align="left"|{{ru|FRA}}
+|rowspan="6"|15
+|-
+|align="left"|[[Cheslin Kolbe]]
+|align="left"|{{ru|RSA}}
+|-
+|align="left"|[[Jesse Kriel]]
+|align="left"|{{ru|RSA}}
+|-
+|align="left"|[[Henry Pollock (rugby union)|Henry Pollock]]
+|align="left"|{{ru|ENG}}
+|-
+|align="left"|[[Joaquín Oviedo]]
+|align="left"|{{ru|ARG}}
+|-
+|align="left"|[[Cam Roigard]]
+|align="left"|{{ru|NZL}}
+|-
+|}
+{{col-2}}
+
+===Most tries===
+{| class="wikitable" style="text-align:center"
+|-
+!width="35"|{{tooltip|Pos.|Position}}
+!Name
+!Team
+!width="35"|{{tooltip|Tries}}
+|-
+|1
+|align="left"|[[Will Jordan (rugby union)|Will Jordan]]
+|align="left"|{{ru|NZL}}
+|6
+|-
+|2
+|align="left"|[[Josh Canham]]
+|align="left"|{{ru|AUS}}
+|4
+|-
+|rowspan="5"|3
+|align="left"|[[Matthieu Jalibert]]
+|align="left"|{{ru|FRA}}
+|rowspan="5"|3
+|-
+|align="left"|[[Jesse Kriel]]
+|align="left"|{{ru|RSA}}
+|-
+|align="left"|[[Joaquín Oviedo]]
+|align="left"|{{ru|ARG}}
+|-
+|align="left"|[[Henry Pollock (rugby union)|Henry Pollock]]
+|align="left"|{{ru|ENG}}
+|-
+|align="left"|[[Cam Roigard]]
+|align="left"|{{ru|NZL}}
+|-
+|8
+|colspan="2"|''Various players''
+|2
+|-
+|}
+{{col-end}}
+
+==Discipline==
+===Summary===
+{{updated|19 July 2026}}
+{| class="wikitable" style="text-align:center"
+|-
+!width=160| Team
+!width=60| [[Image:Yellow card.svg|15px]]
+!width=60| [[Image:Red card.svg|15px]]
+!width=60| Total
+|-
+|align=left| {{ru|ENG}}
+| 6
+| 0
+| '''6'''
+|-
+|align=left| {{ru|ARG}}
+| 4
+| 0
+| '''4'''
+|-
+|align=left| {{ru|FIJ}}
+| 2
+| 1
+| '''3'''
+|-
+
+|align=left| {{ru|FRA}}
+| 3
+| 0
+| '''3'''
+|-
+|align=left| {{ru|AUS}}
+| 2
+| 0
+| '''2'''
+|-
+|align=left| {{ru|NZL}}
+| 2
+| 0
+| '''2'''
+|-
+|align=left| {{ru|ITA}}
+| 0
+| 2
+| '''2'''
+|-
+|align=left| {{ru|JPN}}
+| 2
+| 0
+| '''2'''
+|-
+|align=left| {{ru|RSA}}
+| 2
+| 0
+| '''2'''
+|-
+|align=left| {{ru|SCO}}
+| 1
+| 0
+| '''1'''
+|-
+|align=left| {{ru|WAL}}
+| 1
+| 0
+| '''1'''
+|-
+
+|align=left| {{ru|IRE}}
+| 0
+| 0
+| '''0'''
+|}
+
+===Red Cards===
+{{Div col|colwidth=22em}}
+*{{flagicon|FIJ}} [[Simione Kuruvoli (rugby union)|Simione Kuruvoli]] <small>(vs. England)</small>
+*{{flagicon|ITA}} [[Lorenzo Cannone]] <small>(vs. New Zealand)</small>
+*{{flagicon|ITA}} [[Marco Riccioni]] <small>(vs. Australia)</small>
+{{Div col end}}
+
+===Yellow Cards===
+{{Div col|colwidth=22em}}
+*{{flagicon|AUS}} [[Lachlan Shaw (rugby union)|Lachlan Shaw]] <small>(vs. Ireland)</small>
+*{{flagicon|AUS}} [[Tom Wright (rugby union)|Tom Wright]] <small>(vs. France)</small>
+*{{flagicon|ARG}} [[Joaquín Moro]] <small>(vs. Scotland)</small>
+*{{flagicon|ARG}} [[Mateo Carreras]] <small>(vs. England)</small>
+*{{flagicon|ARG}} [[Santiago Carreras]] <small>(vs. England)</small>
+*{{flagicon|ARG}} [[Joaquín Oviedo]] <small>(vs. England)</small>
+*{{flagicon|ENG}} [[Tommy Freeman (rugby union)|Tommy Freeman]] <small>(vs. South Africa)</small>
+*{{flagicon|ENG}} [[Guy Pepper]] <small>(vs. South Africa)</small>
+*{{flagicon|ENG}} [[Alex Coles (rugby union)|Alex Coles]] <small>(vs. Argentina)</small>
+*{{flagicon|ENG}} [[Emmanuel Iyogun]] <small>(vs. Argentina)</small>
+*{{flagicon|ENG}} [[Henry Pollock (rugby union)|Henry Pollock]] <small>(vs. Argentina)</small>
+*{{flagicon|ENG}} [[Jack van Poortvliet]] <small>(vs. Argentina)</small>
+*{{flagicon|FIJ}} [[Levani Botia]] <small>(vs. England)</small>
+*{{flagicon|FIJ}} [[Lekima Tagitagivalu]] <small>(vs. Scotland)</small>
+*{{flagicon|FRA}} [[Emmanuel Meafou]] <small>(vs. Australia)</small>
+*{{flagicon|FRA}} [[Marko Gazzotti]] <small>(vs. Japan)</small>
+*{{flagicon|FRA}} [[Matthieu Jalibert]] <small>(vs. Japan)</small>
+*{{flagicon|JPN}} [[Hayate Era]] <small>(vs. Ireland)</small>
+*{{flagicon|JPN}} [[Harry Hockings]] <small>(vs. France)</small>
+*{{flagicon|NZL}} [[Ruben Love]] <small>(vs. France)</small>
+*{{flagicon|RSA}} [[Kurt-Lee Arendse]] <small>(vs. England)</small>
+*{{flagicon|RSA}} [[Ben-Jason Dixon]] <small>(vs. Scotland)</small>
+*{{flagicon|SCO}} [[Jamie Dobie]] <small>(vs. Argentina)</small>
+*{{flagicon|WAL}} [[Ben Warren (rugby union)| Ben Warren]] <small>(vs. South Africa)</small>
+{{Div col end}}
+
+==See also==
+* [[2026 men's rugby union internationals]]
+* [[2026 Six Nations Championship]]
+* [[2026 World Rugby Nations Cup|2026 Nations Cup]]
+* [[2026 WXV Global Series]]
+
+==Notes==
+{{notelist}}
+
+==References==
+{{Reflist}}
+
+{{World Rugby Nations Championship}}
+
+[[Category:2026 rugby union tournaments for national teams|Nations Championship]]
+[[Category:July 2026 sports events in Oceania|Nations Championship]]
+[[Category:July 2026 sports events in South Africa|Nations Championship]]
+[[Category:July 2026 sports events in South America|Nations Championship]]
+[[Category:July 2026 sports events in Europe|Nations Championship]]
+[[Category:November 2026 sports events in Europe|Nations Championship]]
+[[Category:July 2026 sports events in Asia|Nations Championship]]

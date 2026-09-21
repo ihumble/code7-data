@@ -1,0 +1,11 @@
+data/raw/*
+!data/raw/nfl_ids.txt
+!data/raw/nc_wiki.txt
+!data/raw/*_scorers_2025-26.json
+!data/raw/sleeper_stats25.json
+!data/raw/stats_2025.json
+data/out/
+data/*.json
+!data/teams.json
+src/data.js
+__pycache__/

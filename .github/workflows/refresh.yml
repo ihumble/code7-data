@@ -1,0 +1,46 @@
+name: Daily stats refresh
+on:
+  schedule:
+    - cron: '0 17 * * *'     # 17:00 UTC = 3:00 am AEST, every day
+  workflow_dispatch: {}       # "Run workflow" button for an on-demand refresh
+permissions:
+  contents: write
+concurrency: refresh
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
+      - name: Restore feed cache (match squads, athlete profiles)
+        uses: actions/cache@v4
+        with:
+          path: data/raw
+          key: raw-${{ github.run_id }}
+          restore-keys: raw-
+      - name: Fetch latest feeds
+        run: python3 data/fetch.py
+      - name: Build
+        env: { C7_PREV: data.json }
+        run: |
+          cd data
+          python3 build_nba.py > /dev/null
+          python3 build_all.py
+          python3 build_srp.py > /dev/null
+          python3 build_extra.py
+          python3 build_tst.py > /dev/null
+          python3 build_club.py > /dev/null
+          python3 merge.py
+          cd ..
+          python3 -c "import json;d=json.load(open('data/out/data.json'));assert all(len(d['data'][k]['players'])>100 for k in ('nba','epl','nfl','nrl','srp','tst','prem','urc')),'sanity check failed'"
+          cp data/out/data.json data.json
+          cp data/raw/_fetch_report.json report.json
+      - name: Publish
+        run: |
+          git config user.name "code7-bot"
+          git config user.email "code7-bot@users.noreply.github.com"
+          git add data.json report.json
+          git commit -m "Stats refresh $(date -u +%Y-%m-%dT%H:%MZ)" || echo "no changes"
+          git push
