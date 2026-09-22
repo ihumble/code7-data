@@ -971,6 +971,18 @@ button.sctile:active{transform:scale(.97)}
 .rmslot.wait{border-style:solid;border-color:var(--warn)}.rmslot.wait small{color:var(--warn)}
 .rminput{font:900 44px/1 var(--fd)!important;letter-spacing:.35em;text-align:center;text-transform:uppercase;padding:12px 0 12px .35em!important;height:auto!important}
 .small.bad{color:var(--bad)}
+/* auction */
+.auhero{padding-bottom:14px}.aulot{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center;margin-top:10px}
+.aulot .pc.aucard{width:140px;margin:0}.aulot .pc.aucard.fresh{animation:spinpop .5s var(--spring)}
+.aubid{display:flex;flex-direction:column;gap:6px;min-width:0}.aubig{font:900 40px/1 var(--fd);color:var(--gold);letter-spacing:.01em}
+.auclock{height:8px;border-radius:6px;background:rgba(255,255,255,.08);overflow:hidden;margin-top:12px}.auclock i{display:block;height:100%;width:100%;background:linear-gradient(90deg,var(--good),var(--gold));transition:width .25s linear}
+.aucall{text-align:center;font:900 24px/1 var(--fd);letter-spacing:.06em;text-transform:uppercase;margin-top:10px;color:var(--tx2)}.aucall.hot{color:var(--bad);animation:pulse .5s infinite}
+.aurow{border-color:color-mix(in srgb,var(--tc) 55%,transparent)}.aurow .grid3{display:grid;grid-template-columns:1.2fr 1fr .8fr;gap:8px}.aurow .btn{flex-direction:column;gap:2px;line-height:1.1}.aurow .btn small{font-size:10.5px;opacity:.75;font-weight:600}
+.aulead{margin-top:8px;padding:10px;border-radius:10px;background:color-mix(in srgb,var(--good) 14%,transparent);color:var(--good);font:800 14px/1 var(--fc);text-align:center;letter-spacing:.04em}
+.aumgrs{display:grid;grid-template-columns:1fr 1fr;gap:8px}.aumgr{display:grid;grid-template-columns:auto 1fr;column-gap:8px;align-items:center;padding:8px 10px;border-radius:12px;border:1px solid var(--line2);background:var(--panel)}
+.aumgr .te{grid-row:span 2;font-size:22px}.aumgr b{font:800 13px/1.1 var(--fc);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.aumgr small{font-size:10.5px;color:var(--tx3)}
+.aumgr.lead{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold) inset}.aumgr.out{opacity:.5}
+.prow.sold{opacity:.85}
 
 </style>
 </head>
@@ -1900,13 +1912,15 @@ function clashFixtures(n, rounds) {
 }
 function clashNew(L, mgrs, opts, seed) {
   const n = mgrs.length; const rounds = opts.rounds || 6;
-  return { v: 3, league: L.id, seed: seed >>> 0, created: Date.now(), rounds, mode: opts.mode || 'build', timer: opts.timer || 0, plans: opts.plans !== false, freePos: !!opts.freePos, fmt: opts.fmt === 'cup' ? 'cup' : 'league', coach: !!opts.coach,
+  const c = { v: 3, league: L.id, seed: seed >>> 0, created: Date.now(), rounds, mode: opts.mode || 'build', timer: opts.timer || 0, plans: opts.plans !== false, freePos: !!opts.freePos, fmt: opts.fmt === 'cup' ? 'cup' : 'league', coach: !!opts.coach,
     phase: 'draft', turn: 0, pickNo: 0,
     m: mgrs.map((x, i) => ({ name: x.name, team: x.team || (x.name + '\'s ' + (L.id === 'nba' ? 'Hoopers' : 'XV')), emoji: x.emoji || CL_EMOJI[i], color: x.color || CL_COLS[i],
       squad: Array(L.slots.length).fill(null), captain: null, vice: null, paid: {}, spent: 0, tw: 2, tokens: 0, pu: {}, plan: {}, fx: {}, perm: {}, mull: 1, done: false, cpu: x.cpu || 0, xp: {}, tp: 0, drill: { att: 0, def: 0, fit: 0 }, ht: {}, htIf: {} })),
     fx: opts.fmt === 'cup' ? [] : clashFixtures(n, rounds), round: 0, res: [], inj: {}, news: [], po: null, champ: null, grades: null };
+  if (c.mode === 'auction') clashAuctionInit(L, c, opts.auK);
+  return c;
 }
-function clashTaken(c, mi) { if (c.mode === 'build') return []; const t = []; c.m.forEach((m, i) => { if (i !== mi) m.squad.forEach(id => id && t.push(id)); }); return t; }
+function clashTaken(c, mi) { if (c.mode === 'build') return c.au ? c.au.log.filter(x => x.mi !== mi).map(x => x.pid) : []; const t = []; c.m.forEach((m, i) => { if (i !== mi) m.squad.forEach(id => id && t.push(id)); }); return t; }
 function clashOwner(c, pid) { return c.m.findIndex(m => m.squad.includes(pid)); }
 const _clF = {};
 function clL(L, c) {                                        // 'any position' Clashes: every slot takes anyone (out of position = −10% in games)
@@ -2427,6 +2441,82 @@ Object.assign(C7, { clashLoadTeam, CL_HT, clHalf, clHtCall, clashStart, clashCup
 /* clear every derived cache (used when new stats are swapped in without a reload) */
 function resetCaches() { [_byeCache, _poolCache, _str, _wk, _feat, _games, _gr, _roster, _ph, _ovr, _clF, _base].forEach(o => Object.keys(o).forEach(k => delete o[k])); }
 Object.assign(C7, { resetCaches });
+
+/* ============================================================ AUCTION DRAFT
+   Managers take turns putting a player up for auction; everyone bids live; the clock resets on every bid.
+   c.au = { k: lots each manager wins before the rest of the squad is built, turn, lot: {pid, bid, lead, out[], dl}, log: [{pid, mi, bid}] }
+   Stars-only (k = 5): the auction decides the headline players, then everyone builds the rest at market prices. */
+const AU_OPEN = 0.4, AU_STEPS = [0.05, 0.25], AU_CLOCK = 7000, AU_BUMP = 5000;
+function auRound(L, v) { const st = L.roundTo || 10000; return Math.max(st, Math.round(v / st) * st); }
+function auOpen(L, mk, pid) { return auRound(L, mk[pid].price * AU_OPEN); }
+function auSteps(L, mk, pid) { return AU_STEPS.map(f => auRound(L, mk[pid].price * f)); }
+function auWon(c, mi) { return c.au.log.filter(x => x.mi === mi).length; }
+function auNeeds(L, c, mi) { return auWon(c, mi) < c.au.k && !(c.au.skip || {})[mi] && c.m[mi].squad.some(x => !x); }
+function auSkip(L, pool, mk, c, mi) { c.au.skip = c.au.skip || {}; c.au.skip[mi] = 1; if (auNominator(L, c) < 0 && !(c.au.lot && c.au.lot.pid)) auFinish(L, pool, mk, c); }
+function auTakenAll(c) { const t = new Set(c.au.log.map(x => x.pid)); c.m.forEach(m => m.squad.forEach(id => id && t.add(id))); return t; }
+function auSlot(L, pool, c, mi, pid) {
+  const L2 = clL(L, c); const m = c.m[mi]; const P = P_(pool); const p = P[pid];
+  if (m.squad.filter(id => id && P[id].team === p.team).length >= CL_TEAMCAP) return -1;
+  return findSlotFor(L2, { squad: m.squad }, p);
+}
+function auMax(L, pool, mk, c, mi, pid) {        // the most this manager can bid and still finish a legal squad
+  if (!auNeeds(L, c, mi)) return 0; const slot = auSlot(L, pool, c, mi, pid); if (slot < 0) return 0; const m = c.m[mi];
+  const rest = emptySlots(m).filter(i => i !== slot); const used = [...auTakenAll(c), pid]; if (c.au.lot && c.au.lot.pid) used.push(c.au.lot.pid);
+  const fill = rest.length ? cheapestFill(clL(L, c), pool, mk, rest, used).total : 0; const f = 1.04;
+  return Math.max(0, L.budget - (m.spent || 0) - paidCost(m, mk) - Math.round(fill * f) - rest.length * (L.roundTo || 10000));
+}
+function auNominator(L, c) {
+  const n = c.m.length; for (let k = 0; k < n; k++) { const mi = (c.au.turn + k) % n; if (auNeeds(L, c, mi)) return mi; } return -1;
+}
+function auBidders(L, pool, mk, c) {             // who could still raise the current lot
+  const lot = c.au.lot; if (!lot || !lot.pid) return []; const need = lot.bid + auSteps(L, mk, lot.pid)[0];
+  return c.m.map((m, i) => i).filter(i => i !== lot.lead && !lot.out.includes(i) && auMax(L, pool, mk, c, i, lot.pid) >= need);
+}
+function auNominate(L, pool, mk, c, mi, pid, now) {
+  const a = c.au; if (a.lot && a.lot.pid) return { ok: false, why: 'A player is already up for auction' };
+  if (auNominator(L, c) !== mi) return { ok: false, why: 'Not your turn to nominate' };
+  if (!pid || !mk[pid]) return { ok: false, why: 'Pick a player' }; if (auTakenAll(c).has(pid)) return { ok: false, why: 'Already taken' };
+  const open = auOpen(L, mk, pid); if (auMax(L, pool, mk, c, mi, pid) < open) return { ok: false, why: 'You can\'t fit or afford that player' };
+  a.lot = { pid, bid: open, lead: mi, out: [], dl: now + AU_CLOCK, n: (a.lot && a.lot.n || 0) + 1, at: now }; return { ok: true };
+}
+function auBid(L, pool, mk, c, mi, amt, now) {
+  const lot = c.au.lot; if (!lot || !lot.pid) return { ok: false, why: 'Nothing up for auction' };
+  if (lot.lead === mi) return { ok: false, why: 'You\'re already the top bid' }; if (now > lot.dl) return { ok: false, why: 'Too late — sold!' };
+  const min = lot.bid + auSteps(L, mk, lot.pid)[0]; amt = Math.max(amt, min); const max = auMax(L, pool, mk, c, mi, lot.pid);
+  if (amt > max) return { ok: false, why: max < min ? 'You can\'t afford to go higher' : 'Over your limit — max ' + max };
+  lot.bid = amt; lot.lead = mi; lot.out = lot.out.filter(i => i !== mi); lot.dl = Math.max(lot.dl, now + AU_BUMP); lot.at = now; return { ok: true };
+}
+function auPass(c, mi) { const lot = c.au.lot; if (lot && lot.pid && lot.lead !== mi && !lot.out.includes(mi)) lot.out.push(mi); return { ok: true }; }
+function auSell(L, pool, mk, c) {                // hammer falls: winner gets the player at the winning bid
+  const a = c.au, lot = a.lot; if (!lot || !lot.pid) return null; const m = c.m[lot.lead]; let slot = auSlot(L, pool, c, lot.lead, lot.pid);
+  if (slot < 0) slot = emptySlots(m)[0]; m.squad[slot] = lot.pid; m.paid[lot.pid] = lot.bid;
+  a.log.push({ pid: lot.pid, mi: lot.lead, bid: lot.bid }); const sold = { pid: lot.pid, mi: lot.lead, bid: lot.bid, n: lot.n };
+  a.lot = { pid: null, n: lot.n }; a.turn = (a.turn + 1) % c.m.length; clashCaptains(L, pool, m);
+  if (auNominator(L, c) < 0) auFinish(L, pool, mk, c); return sold;
+}
+function auFinish(L, pool, mk, c) {              // auction over: the rest of each squad is built at market prices
+  c.au.over = true; c.mode = 'build'; c.turn = 0; c.m.forEach(m => { m.done = false; if (!m.squad.some(x => !x)) { m.done = true; } });
+  if (!c.net) { while (c.turn < c.m.length && c.m[c.turn].done) c.turn++; }
+}
+function auCpuValue(L, pool, mk, c, mi, pid) {   // what a computer manager thinks a player is worth
+  const lv = CL_CPU[c.m[mi].cpu]; const P = P_(pool); const r = rngFor('au', c.seed, pid, mi)();
+  const pw = clPower(L, P[pid]); const f = { 1: 0.85, 2: 1.0, 3: 1.12 }[c.m[mi].cpu] || 1;
+  return Math.round(mk[pid].price * f * (1 + (r - 0.5) * lv.noise * 0.5) * (pw > 0 ? 1 : 0.5));
+}
+function auCpuPick(L, pool, mk, c, mi) {         // computer nominates the best value it can afford
+  const taken = auTakenAll(c); const m = c.m[mi]; const P = P_(pool);
+  const cands = pool.filter(p => !taken.has(p.id) && !p.gone && auSlot(L, pool, c, mi, p.id) >= 0).sort((a, b) => clPower(L, b) - clPower(L, a)).slice(0, 60);
+  return (cands.find(p => auMax(L, pool, mk, c, mi, p.id) >= auOpen(L, mk, p.id) * 1.3) || cands.find(p => auMax(L, pool, mk, c, mi, p.id) >= auOpen(L, mk, p.id)) || {}).id || null;
+}
+function auCpuBids(L, pool, mk, c, now, rnd) {   // host tick: at most one computer raises per tick
+  const lot = c.au.lot; if (!lot || !lot.pid || now - lot.at < 900) return false;
+  const bs = auBidders(L, pool, mk, c).filter(i => c.m[i].cpu); if (!bs.length) return false; const step = auSteps(L, mk, lot.pid);
+  for (const i of bs) { const v = Math.min(auCpuValue(L, pool, mk, c, i, lot.pid), auMax(L, pool, mk, c, i, lot.pid)); const nb = lot.bid + step[0];
+    if (nb > v) { auPass(c, i); continue; } if (rnd() < 0.55) { auBid(L, pool, mk, c, i, nb, now); return true; } }
+  return false;
+}
+function clashAuctionInit(L, c, k) { c.au = { k: Math.min(k || 5, L.slots.length), turn: 0, lot: { pid: null, n: 0 }, log: [] }; }
+Object.assign(C7, { auSkip, AU_CLOCK, auOpen, auSteps, auWon, auNeeds, auMax, auNominator, auBidders, auNominate, auBid, auPass, auSell, auFinish, auCpuPick, auCpuBids, auCpuValue, auSlot, clashAuctionInit });
 
 </script>
 <script>
@@ -3686,7 +3776,11 @@ function clApply(c, a) {
   switch (a.t) {
     case 'add': { if (c.phase !== 'draft') return { ok: false, why: 'Draft is over' }; if (c.mode !== 'build' && C7.clashTurn(c) !== a.mi) return { ok: false, why: 'Not your turn' };
       const r = C7.clashAdd(L, pool, mk, c, a.mi, a.pid, a.slot, !!a.force); if (!r.ok) return r; if (c.mode !== 'build') c.pickNo++; clAfterPick(c, true); return r; }
-    case 'rm': { const id = m.squad[a.slot]; m.squad[a.slot] = null; delete m.paid[id]; if (m.captain === id) m.captain = null; if (m.vice === id) m.vice = null; return ok; }
+    case 'au-nom': { if (!c.au || c.mode !== 'auction') return { ok: false, why: 'Auction is over' }; const r = C7.auNominate(L, pool, mk, c, a.mi, a.pid, Date.now()); auStamp(c); return r; }
+    case 'au-bid': { if (!c.au || c.mode !== 'auction') return { ok: false, why: 'Auction is over' }; const r = C7.auBid(L, pool, mk, c, a.mi, a.amt, Date.now()); auStamp(c); return r; }
+    case 'au-pass': if (c.au && c.mode === 'auction') C7.auPass(c, a.mi); return ok;
+    case 'au-skip': if (c.au && c.mode === 'auction') { C7.auSkip(L, pool, mk, c, a.mi); clAfterPick(c, true); } return ok;
+    case 'rm': { if (c.au && c.au.log.some(x => x.pid === m.squad[a.slot])) return { ok: false, why: 'Won at auction — they stay in your squad' }; const id = m.squad[a.slot]; m.squad[a.slot] = null; delete m.paid[id]; if (m.captain === id) m.captain = null; if (m.vice === id) m.vice = null; return ok; }
     case 'auto': return C7.clashAutoFill(L, pool, mk, c, a.mi) ? ok : { ok: false, why: 'Could not fill under the cap — remove someone pricey' };
     case 'mull': if (m.mull > 0) { m.mull--; m.mullUsed = (m.mullUsed || 0) + 1; } return ok;
     case 'done': C7.clashCaptains(L, pool, m); m.done = true; if (c.mode === 'build' && !c.net) c.turn++; clAfterPick(c, true); return ok;
@@ -3697,7 +3791,7 @@ function clApply(c, a) {
     case 'cap': if (m.vice === a.pid) m.vice = m.captain; m.captain = a.pid; return ok;
     case 'buy': return C7.clashBuy(L, pool, mk, c, a.mi, a.k, !!a.tok, a.pid);
     case 'drill': return C7.clashDrill(c, a.mi, a.k);
-    case 'load': { if (c.phase !== 'draft' || c.mode !== 'build') return { ok: false, why: 'Saved teams load in Secret-build drafts' }; return C7.clashLoadTeam(L, pool, mk, c, a.mi, a.ids, a.cap); }
+    case 'load': { if (c.au) return { ok: false, why: 'Saved teams can\'t be loaded after an auction' }; if (c.phase !== 'draft' || c.mode !== 'build') return { ok: false, why: 'Saved teams load in Secret-build drafts' }; return C7.clashLoadTeam(L, pool, mk, c, a.mi, a.ids, a.cap); }
     case 'play': { C7.clashCpuPrep(L, pool, mk, c); const rec = C7.clashPlayRound(L, pool, c); return rec ? { ok: true, rec } : { ok: false, why: 'No games to play' }; }
   }
   return { ok: false, why: 'Unknown action' };
@@ -3724,6 +3818,8 @@ LK.on['cl-left'] = (m, peer) => { const c = store.get('code7_clash_net'); if (!c
 LK.on['cl-end'] = m => { const k = 'code7_clash_net'; const c = store.get(k); if (c && c.net && c.net.id === m.id) { store.del(k); cv.useNet = false; toast('The host ended the linked Clash'); render(); } };
 LK.on['cl-state'] = m => {
   const c = m.c; if (!c || !c.net) return; const old = store.get('code7_clash_net'); const same = old && old.net && old.net.id === c.net.id;
+  if (c.au && c.au.lot && c.au.lot.left != null) c.au.lot.ldl = Date.now() + c.au.lot.left;
+  if (same && c.au && old.au && c.au.log.length > old.au.log.length) auSoldFx(c, c.au.log[c.au.log.length - 1]);
   store.set('code7_clash_net', c); const wasOther = A.view !== 'clash' || !cv.useNet; cv.useNet = true;
   if (!same) { toast(`⚔️ ${c.m[c.net.dev.indexOf(c.net.host)].name} started a linked Clash`); snd('win'); cv.screen = null; cv.edit = null; cv.plan = null; A.view = 'clash'; A.anim = true; render(); return; }
   if (c.res.length > old.res.length) { clShowRound(c, c.res[c.res.length - 1], true); return; }
@@ -3748,6 +3844,7 @@ function vClash() {
   const c = CL.get();
   if (!c || cv.screen === 'setup' || cv.screen === 'home') { document.documentElement.style.setProperty('--acc', A.L.accent); return cv.screen === 'setup' ? clSetup() : clHome(); }
   const { L } = clx(c.league); document.documentElement.style.setProperty('--acc', L.accent);
+  if (c.phase === 'draft' && c.mode === 'auction') return clBar(c) + clAuction(c);
   if (c.phase === 'draft') { clCpuDraftRun(c); if (c.phase === 'draft') return clBar(c) + clDraft(c); }
   if (c.phase === 'review') return clBar(c) + clReview(c);
   if (cv.edit != null) return clBar(c) + clEdit(c, cv.edit);
@@ -3755,7 +3852,7 @@ function vClash() {
   return clBar(c) + clSeason(c);
 }
 function clBar(c) {                          // always-visible way out of any Clash screen
-  const { L } = clx(c.league); const ph = c.phase === 'draft' ? (c.mode === 'build' ? 'Secret build' : `Draft · pick ${Math.min((c.pickNo || 0) + 1, c.m.length * L.slots.length)}`) : c.phase === 'review' ? 'Review' : c.phase === 'done' ? 'Finished' : c.phase === 'playoffs' ? 'Finals' : `Round ${c.round + 1}`;
+  const { L } = clx(c.league); const ph = c.phase === 'draft' ? (c.mode === 'auction' ? `Auction · lot ${Math.max(1, (c.au.lot.n || 0) + (c.au.lot.pid ? 0 : 1))}` : c.mode === 'build' ? (c.au ? 'Fill your squad' : 'Secret build') : `Draft · pick ${Math.min((c.pickNo || 0) + 1, c.m.length * L.slots.length)}`) : c.phase === 'review' ? 'Review' : c.phase === 'done' ? 'Finished' : c.phase === 'playoffs' ? 'Finals' : `Round ${c.round + 1}`;
   return `<div class="clbar"><button class="clb" data-act="cl-menu" aria-label="Back to Clash menu">‹ Menu</button><div class="clbt"><b>${c.net ? '🔗 Linked' : c.fmt === 'cup' ? '🏆 Cup' : '📱 Clash'}</b><small>${esc(L.name)} · ${esc(ph)}</small></div><button class="clb x" data-act="cl-exit" aria-label="Exit this Clash">✕ Exit</button></div>`;
 }
 function clExitSheet(c) {
@@ -3828,7 +3925,8 @@ function clSetup() {
       h += `<div class="panel mgr" style="--tc:${m.color}"><div class="row" style="gap:8px"><button class="emo" data-cs-emo="${i}" aria-label="Change badge">${m.emoji}</button><button class="cdot" data-cs-col="${i}" style="background:${m.color}" aria-label="Change colour"></button><input id="cs-name-${i}" maxlength="12" placeholder="Player ${i + 1} name" value="${esc(m.name)}"><button class="btn sm cpu ${m.cpu ? 'gold' : ''}" data-cs-cpu="${i}">${m.cpu ? C7.CL_CPU[m.cpu].icon + ' ' + C7.CL_CPU[m.cpu].name : '🧒 Human'}</button></div><input id="cs-team-${i}" maxlength="18" placeholder="Team name (e.g. ${['Thunder Bolts', 'Night Owls', 'Road Warriors', 'Back Seat Ballers'][i]})" value="${esc(m.team)}"></div>`; }
     h += `<p class="xs dim" style="margin:0">Tap 🧒 Human to swap in a computer: 🤖 Rookie · 🦾 Pro · 🧠 Legend. Playing friends on other phones? Use <b>Friends → Link Up</b>.</p>`;
   }
-  h += `<div class="sec">How do you draft?</div><div class="modes3">${[['packs', '🃏', 'Card packs', 'Open a 3-card pack, keep one'], ['snake', '🐍', 'Snake draft', 'Take turns picking anyone'], ['build', '🤫', 'Secret build', net ? 'Everyone builds at once' : 'Build in secret, pass the phone']].map(([k, ic, t, d]) => `<button class="mode3 ${s.mode === k ? 'on' : ''}" data-cs-m="${k}"><span class="mi">${ic}</span><b>${t}</b><small>${d}</small></button>`).join('')}</div>
+  h += `<div class="sec">How do you draft?</div><div class="modes3">${[['packs', '🃏', 'Card packs', 'Open a 3-card pack, keep one'], ['snake', '🐍', 'Snake draft', 'Take turns picking anyone'], ['build', '🤫', 'Secret build', net ? 'Everyone builds at once' : 'Build in secret, pass the phone']].concat(cup ? [] : [['auction', '🔨', 'Auction', 'Bid for players live — the clock resets on every bid']]).map(([k, ic, t, d]) => `<button class="mode3 ${s.mode === k ? 'on' : ''}" data-cs-m="${k}"><span class="mi">${ic}</span><b>${t}</b><small>${d}</small></button>`).join('')}</div>
+    ${s.mode === 'auction' && !cup ? `<div class="lab">Auction size</div><div class="seg">${[[5, '⭐ Stars · 5 each, then build the rest'], [99, '🔨 Whole squad']].map(([k, t]) => `<button data-act="cs-auk" data-n="${k}" class="${(s.auK || 5) === k ? 'on' : ''}">${t}</button>`).join('')}</div>` : ''}
     <p class="xs dim" style="margin:0">Any draft also lets you 🎰 spin or 🎡 spin the team wheel instead of choosing.</p>`;
   if (cup) { const hum = net ? 1 + peers.length : s.n; const sizes = [4, 8, 16].filter(z => z >= hum); if (!sizes.includes(s.cup)) s.cup = sizes[0] || 16;
     h += `<div class="sec">Cup size</div><div class="seg">${sizes.map(z => `<button data-act="cs-cup" data-n="${z}" class="${s.cup === z ? 'on' : ''}">${z} teams · ${Math.log2(z)} rounds</button>`).join('')}</div>`;
@@ -3875,7 +3973,7 @@ function clDraft(c) {
   return h + clQuit() + '</div>';
 }
 function clCpuDraftRun(c) {
-  if (!amHost(c)) return; const { L, pool, mk, P } = clx(c.league); let n = 0, last = null;
+  if (!amHost(c) || c.mode === 'auction') return; const { L, pool, mk, P } = clx(c.league); let n = 0, last = null;
   for (let guard = 0; guard < 300 && c.phase === 'draft'; guard++) {
     const mi = c.mode === 'build' ? (c.net ? c.m.findIndex(x => x.cpu && !x.done) : c.turn) : C7.clashTurn(c); if (mi < 0 || mi >= c.m.length || !c.m[mi].cpu) break;
     const before = c.m[mi].squad.filter(Boolean).length; if (!C7.clashCpuDraft(L, pool, mk, c, mi)) break; n++;
@@ -4117,7 +4215,7 @@ function clPlayNow(c) {
 /* ============================================================ events */
 function clashClick(t, d) {
   let c = CL.get(); const s = cv.setup;
-  const clOpts = s => ({ rounds: s.rounds, mode: s.mode, timer: s.mode === 'build' ? 0 : s.timer, plans: s.plans, freePos: !!s.freePos, fmt: s.fmt === 'cup' ? 'cup' : 'league', coach: !!s.coach });
+  const clOpts = s => ({ auK: s.auK || 5, rounds: s.rounds, mode: s.fmt === 'cup' && s.mode === 'auction' ? 'packs' : s.mode, timer: s.mode === 'build' ? 0 : s.timer, plans: s.plans, freePos: !!s.freePos, fmt: s.fmt === 'cup' ? 'cup' : 'league', coach: !!s.coach });
   const grab = () => { for (let i = 0; i < s.n; i++) { const a = $('#cs-name-' + i), b = $('#cs-team-' + i); if (a) s.mgr[i].name = a.value.trim(); if (b) s.mgr[i].team = b.value.trim(); } store.set('code7_clash_setup', s); };
   if (d.clSport) { cv.setup.lid = d.clSport; cv.screen = 'setup'; render(); window.scrollTo(0, 0); return true; }
   if (d.csLg) { grab(); s.lid = d.csLg; render(); return true; }
@@ -4129,6 +4227,10 @@ function clashClick(t, d) {
   if (d.csCol != null) { grab(); const m = s.mgr[+d.csCol]; m.color = C7.CL_COLS[(C7.CL_COLS.indexOf(m.color) + 1) % C7.CL_COLS.length]; render(); return true; }
   if (d.csPos != null) { cv.pos = d.csPos; render(); return true; }
   if (d.clPlan) { const r = c.round + 1; c.m[+d.mi].plan[r] = d.clPlan; snd('tick'); CL.set(c); cv.plan.k++; cv.gate = null; if (cv.plan.k >= cv.plan.order.length) { cv.plan = null; render(); clPlayNow(c); } else render(); window.scrollTo(0, 0); return true; }
+  if (d.auNom) { const r = clDo({ t: 'au-nom', mi: +d.mi, pid: d.auNom }); if (!r.ok) toast(r.why, true); else { snd('flip'); hap('select'); cv.q = ''; } render(); return true; }
+  if (d.auBid) { const r = clDo({ t: 'au-bid', mi: +d.mi, amt: +d.auBid }); if (!r.ok) toast(r.why, true); else { snd('score'); hap('select'); } render(); return true; }
+  if (d.act === 'au-pass') { clDo({ t: 'au-pass', mi: +d.mi }); hap('tick'); render(); return true; }
+  if (d.act === 'au-skip') { clDo({ t: 'au-skip', mi: +d.mi }); render(); return true; }
   if (d.clPick) { const { L, P } = clx(c.league); const mi = clDraftMi(c); const r = clDo({ t: 'add', mi, pid: d.clPick, slot: +d.slot, force: !!d.forced });
     if (!r.ok) { toast(r.why, true); return true; } const rk = C7.clRar(L, P[d.clPick]); snd(rk === 'L' ? 'legend' : 'flip'); if (rk === 'L') confetti(); hap(rk === 'L' ? 'legend' : rk === 'E' ? 'rare' : 'flip');
     toast(`${P[d.clPick].name} joins ${c.m[mi].team}${rk === 'L' ? ' — LEGENDARY!' : ''}`); cv.pack1 = null; cv.wheel = null; render(); return true; }
@@ -4150,6 +4252,7 @@ function clashClick(t, d) {
   if (a === 'cl-new' || a === 'cl-newset') { if (a === 'cl-new') cv.setup.fmt = 'league'; if (a === 'cl-newset') store.del(CL.key()); cv.setup.net = !!(cv.useNet && a === 'cl-newset'); if (!cv.setup.net) cv.useNet = false; cv.screen = 'setup'; render(); window.scrollTo(0, 0); return true; }
   if (a === 'cl-home') { cv.screen = CL.get() ? 'home' : null; render(); return true; }
   if (a === 'cs-solo') { grab(); s.n = Math.max(2, s.n); s.mgr[0].cpu = 0; if (!s.mgr.slice(1, s.n).some(m => m.cpu)) { s.mgr[1].cpu = 2; s.mgr[1].name = 'Pro Bot'; } render(); return true; }
+  if (a === 'cs-auk') { grab(); s.auK = +d.n; render(); return true; }
   if (a === 'cs-timer') { grab(); s.timer = s.timer ? 0 : 30; render(); return true; }
   if (a === 'cs-free') { grab(); s.freePos = !s.freePos; render(); return true; }
   if (a === 'cs-plans') { grab(); s.plans = !s.plans; render(); return true; }
@@ -4242,6 +4345,58 @@ setInterval(() => {
   if (left <= 0) { const { L, pool, mk, P } = clx(c.league); const mi = C7.clashTurn(c); let pick; if (!mine(c, mi) || c.m[mi].cpu) return;
     if (c.mode === 'packs') { const pk = C7.clashPack(L, pool, mk, c, mi); pick = pk.sort((a, b) => C7.clOvr(L, b.p) - C7.clOvr(L, a.p))[0]; } else pick = C7.clashAutoPick(L, pool, mk, c, mi);
     if (pick && pick.p) { cv.turnAt = Date.now(); clDo({ t: 'add', mi, pid: pick.p.id, slot: pick.slot, force: !!pick.forced }); toast(`⏱ Time! Auto-picked ${pick.p.name} for ${c.m[mi].name}`); snd('buzzer'); render(); } }
+}, 250);
+
+/* ============================================================ AUCTION DRAFT screen */
+function auStamp(c) { const lot = c.au && c.au.lot; if (lot && lot.pid) lot.left = lot.dl - Date.now(); }
+function auLeft(c) { const lot = c.au.lot; if (!lot || !lot.pid) return 0; const dl = amHost(c) ? lot.dl : (lot.ldl || lot.dl); return dl - Date.now(); }
+function auSoldFx(c, x) {
+  if (!x) return; const { L, P } = clx(c.league); const p = P[x.pid]; const me = mine(c, x.mi) && !c.m[x.mi].cpu;
+  toast(`🔨 SOLD! ${p ? p.name : 'Player'} → ${c.m[x.mi].team} for ${money(x.bid, L)}`); snd(me ? 'win' : 'flip'); hap(me ? 'win' : 'ok'); if (me) confetti();
+}
+function clAuction(c) {
+  const { L, pool, mk, P } = clx(c.league); const a = c.au, lot = a.lot; const nom = C7.auNominator(L, c);
+  const locals = c.m.map((m, i) => i).filter(i => mine(c, i) && !c.m[i].cpu); const total = c.m.reduce((s, m) => s + Math.min(a.k, L.slots.length), 0);
+  let h = `<section class="hero auhero"><div class="row between"><div class="lab">🔨 Auction draft · lot ${(lot.n || 0) + (lot.pid ? 0 : 1)} of ${total} · ${esc(L.name)}</div><button class="btn sm" data-act="cl-snd">${SND.on ? '🔊' : '🔇'}</button></div>`;
+  if (lot.pid) {
+    const p = P[lot.pid]; const st = C7.auSteps(L, mk, lot.pid); setTimeout(() => { cv.auSeen = lot.n; }, 0);
+    h += `<div class="aulot">${pcard(L, p, { cls: 'aucard' + (cv.auSeen !== lot.n ? ' fresh' : '') })}<div class="aubid"><div class="lab">Top bid</div><div class="num aubig" id="au-bid">${money(lot.bid, L)}</div><div>${tchip(c, lot.lead)}</div><div class="xs dim">Market price ${money(mk[lot.pid].price, L)}</div></div></div>
+      <div class="auclock"><i id="au-bar"></i></div><div class="aucall num" id="au-call">Bidding open</div></section>`;
+    h += `<div class="stack">`;
+    locals.forEach(mi => { const max = C7.auMax(L, pool, mk, c, mi, lot.pid); const min = lot.bid + st[0]; const out = lot.out.includes(mi); const lead = lot.lead === mi;
+      h += `<div class="panel aurow" style="--tc:${c.m[mi].color}"><div class="row between"><span>${tchip(c, mi)}</span><span class="xs dim">bank ${money(C7.clashBank(L, mk, c.m[mi]), L)} · max ${money(Math.max(0, max), L)}</span></div>
+        ${lead ? `<div class="aulead">✓ You're the top bid</div>` : max < min ? `<div class="xs dim" style="margin-top:8px">Can't go higher — ${C7.auSlot(L, pool, c, mi, lot.pid) < 0 ? 'no spot for this player' : 'saving money to finish your squad'}</div>` : out ? `<div class="xs dim" style="margin-top:8px">You passed <button class="btn sm" data-au-bid="${min}" data-mi="${mi}">Back in: ${money(min, L)}</button></div>`
+        : `<div class="grid3" style="margin-top:8px"><button class="btn pri" data-au-bid="${min}" data-mi="${mi}">+${money(st[0], L)}<small>${money(min, L)}</small></button><button class="btn" data-au-bid="${Math.min(max, lot.bid + st[1])}" data-mi="${mi}" ${lot.bid + st[1] > max && max <= min ? 'disabled' : ''}>+${money(Math.min(max, lot.bid + st[1]) - lot.bid, L)}<small>${money(Math.min(max, lot.bid + st[1]), L)}</small></button><button class="btn ghost" data-act="au-pass" data-mi="${mi}">Pass</button></div>`}</div>`; });
+  } else {
+    h += `</section><div class="stack">`;
+    if (nom < 0) h += `<div class="panel muted">Auction complete…</div>`;
+    else if (locals.includes(nom)) {
+      const taken = new Set(a.log.map(x => x.pid)); c.m.forEach(m => m.squad.forEach(id => id && taken.add(id))); const q = (cv.q || '').trim();
+      let cands = pool.filter(p => !p.gone && !taken.has(p.id) && C7.auSlot(L, pool, c, nom, p.id) >= 0 && (!q || nameMatch(p.name, q)));
+      cands = cands.filter(p => C7.auMax(L, pool, mk, c, nom, p.id) >= C7.auOpen(L, mk, p.id)).sort((x, y) => C7.clPower(L, y) - C7.clPower(L, x)).slice(0, 30);
+      h += `<div class="panel" style="--tc:${c.m[nom].color};border-color:var(--tc)"><div class="lab">Your turn to nominate</div><div style="margin:6px 0">${tchip(c, nom, true)}</div><p class="small muted" style="margin:0">Put a player up for auction. Everyone can bid — it opens at 40% of market price. Tip: nominate someone you <i>don't</i> want to make your rivals spend.</p></div>
+        <input id="cs-q" placeholder="Search players" value="${esc(cv.q || '')}" autocomplete="off">`;
+      h += cands.length ? `<div class="plist">${cands.map(p => prowC(L, p, `<div class="v">${money(C7.auOpen(L, mk, p.id), L)}</div><div class="s">opens</div>`, `data-au-nom="${p.id}" data-mi="${nom}"`)).join('')}</div>`
+        : `<div class="panel muted small">${q ? 'Nobody matches that search.' : 'No one left who fits your squad and budget.'}</div>${q ? '' : `<button class="btn pri wide" data-act="au-skip" data-mi="${nom}">Finish my squad in the build</button>`}`;
+    } else h += `<div class="panel wait" style="text-align:center"><div style="font-size:40px">${c.m[nom].emoji}</div><b>${esc(c.m[nom].name)}</b> is choosing who goes under the hammer…<div class="dots"><i></i><i></i><i></i></div></div>`;
+  }
+  h += `<div class="sec">Budgets</div><div class="aumgrs">${c.m.map((m, i) => `<div class="aumgr ${lot.pid && lot.lead === i ? 'lead' : ''} ${lot.pid && lot.out.includes(i) ? 'out' : ''}" style="--tc:${m.color}"><span class="te">${m.emoji}</span><b>${esc(m.name)}</b><small>${money(C7.clashBank(L, mk, m), L)} · ${C7.auWon(c, i)}/${Math.min(a.k, L.slots.length)} won${m.cpu ? ' · ' + C7.CL_CPU[m.cpu].icon : ''}</small></div>`).join('')}</div>`;
+  if (a.log.length) h += `<div class="sec">Sold</div><div class="plist">${a.log.slice(-6).reverse().map(x => prowC(L, P[x.pid], `<div class="v">${money(x.bid, L)}</div><div class="s">${esc(c.m[x.mi].name)}</div>`, 'disabled', 'sold')).join('')}</div>`;
+  h += `<p class="xs dim">${a.k < L.slots.length ? `Each team wins ${a.k} players at auction, then builds the rest of the squad at market prices. ` : ''}Every bid resets the clock to at least 5 seconds. You always keep enough money to finish a legal squad.</p>`;
+  return h + '</div>';
+}
+setInterval(() => {                              // host runs the hammer + computer bidders; every phone runs the clock
+  const c = CL.get(); if (!c || c.phase !== 'draft' || c.mode !== 'auction' || !c.au) return; const lot = c.au.lot;
+  if (lot.pid && A.view === 'clash') { const left = auLeft(c); const bar = $('#au-bar'), call = $('#au-call'); if (bar) bar.style.width = Math.max(0, Math.min(100, left / C7.AU_CLOCK * 100)) + '%';
+    if (call) { const t = left > 4000 ? 'Bidding open' : left > 2200 ? 'Going once…' : left > 0 ? 'Going twice…' : 'SOLD!'; if (call.textContent !== t) { call.textContent = t; call.className = 'aucall num ' + (left <= 2200 ? 'hot' : ''); if (left <= 4000 && left > 0) hap('tick'); } } }
+  if (!amHost(c)) return; const { L, pool, mk } = clx(c.league); const now = Date.now(); let ch = false, sold = null;
+  if (!lot.pid) { const mi = C7.auNominator(L, c); if (mi < 0) return; const key = (lot.n || 0) + ':' + mi;
+    if (cv.auKey !== key) { cv.auKey = key; cv.auAt = now + (c.m[mi].cpu ? 1300 : 60000); }
+    if (now >= cv.auAt) { const pid = C7.auCpuPick(L, pool, mk, c, mi); if (pid) { C7.auNominate(L, pool, mk, c, mi, pid, now); if (!c.m[mi].cpu) toast(`⏱ ${c.m[mi].name} ran out of time — auto-nominated`); } else C7.auSkip(L, pool, mk, c, mi); ch = true; } }
+  else { if (C7.auCpuBids(L, pool, mk, c, now, Math.random)) ch = true;
+    if (now >= lot.dl || (!C7.auBidders(L, pool, mk, c).length && now - lot.at > 1800)) { sold = C7.auSell(L, pool, mk, c); ch = true; } }
+  if (!ch) return; auStamp(c); clAfterPick(c, true); CL.set(c); if (c.net) lkBroadcast({ t: 'cl-state', c }); if (sold) auSoldFx(c, sold);
+  if (A.view === 'clash' && !$('#live')) { const ae = document.activeElement; if (!(ae && ae.id === 'cs-q')) render(); }
 }, 250);
 
 /* ============================================================ MUSIC v2 — original high-tempo electronic soundtrack (Web Audio, no files)
