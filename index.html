@@ -962,6 +962,15 @@ button.sctile:active{transform:scale(.97)}
 .ptr{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
 .pst .spot.scc.solo{grid-column:1/-1;justify-self:center;width:calc(50% - 3px)}
 .sheet .btn.wide:has(small){flex-direction:column;gap:2px;line-height:1.15;padding-top:10px;padding-bottom:10px}
+/* game rooms */
+.rmcode{display:flex;justify-content:center;gap:10px;margin:8px 0 14px;min-height:84px;align-items:center}
+.rmcode span{display:grid;place-items:center;width:64px;height:80px;border-radius:14px;background:#fff;color:#111;font:900 52px/1 var(--fd);box-shadow:0 6px 18px rgba(0,0,0,.35),inset 0 -4px 0 rgba(0,0,0,.12)}
+.rmslots{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.rmslot{border:1px dashed var(--line2);border-radius:12px;padding:10px;min-width:0}.rmslot b{display:block;font:800 15px/1.1 var(--fc);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.rmslot small{color:var(--tx3);font-size:11px}
+.rmslot.on{border:1px solid color-mix(in srgb,var(--good) 60%,transparent);background:color-mix(in srgb,var(--good) 10%,transparent)}.rmslot.on small{color:var(--good)}
+.rmslot.wait{border-style:solid;border-color:var(--warn)}.rmslot.wait small{color:var(--warn)}
+.rminput{font:900 44px/1 var(--fd)!important;letter-spacing:.35em;text-align:center;text-transform:uppercase;padding:12px 0 12px .35em!important;height:auto!important}
+.small.bad{color:var(--bad)}
 
 </style>
 </head>
@@ -3002,7 +3011,7 @@ function lkWirePc(peer) {
 }
 function lkWireCh(peer) {
   const ch = peer.ch; peer.buf = {};
-  ch.onopen = () => { peer.st = 'open'; if (!LK.peers.includes(peer)) LK.peers.push(peer); if (LK.pending === peer) LK.pending = null; lkSend(peer, { t: 'hello', id: ME, n: lkName(), v: DATA_V, app: 'LEG3ND' }); snd && snd('win'); hap('link'); lkCamOff(); lkStopScan(); closeSheet(); toast('🔗 Linked with ' + (peer.name || 'a friend')); render(); setTimeout(async () => { peer.route = await lkRoute(peer); render(); }, 600); };
+  ch.onopen = () => { peer.st = 'open'; if (!LK.peers.includes(peer)) LK.peers.push(peer); if (LK.pending === peer) LK.pending = null; lkSend(peer, { t: 'hello', id: ME, n: lkName(), v: DATA_V, app: 'LEG3ND' }); snd && snd('win'); hap('link'); lkCamOff(); lkStopScan(); if (LK.room && LK.room.host) { delete LK.room.pend[peer.rid]; rmSheet(); } else { if (LK.room) rmClose(); closeSheet(); } toast('🔗 Linked with ' + (peer.name || 'a friend')); render(); setTimeout(async () => { peer.route = await lkRoute(peer); render(); }, 600); };
   ch.onclose = () => lkClosed(peer);
   ch.onmessage = e => {
     peer.last = Date.now(); if (peer.weak) { peer.weak = false; render(); }
@@ -3013,7 +3022,7 @@ function lkWireCh(peer) {
     const f = LK.on[m.t]; if (f) f(m, peer);
   };
 }
-function lkClosed(peer) { if (peer.st === 'closed') return; peer.st = 'closed'; LK.peers = LK.peers.filter(p => p !== peer); toast('🔌 ' + (peer.name || 'Friend') + ' disconnected', true); const f = LK.on._closed; if (f) f(peer); render(); }
+function lkClosed(peer) { if (peer.st === 'closed') return; peer.st = 'closed'; LK.peers = LK.peers.filter(p => p !== peer); toast('🔌 ' + (peer.name || 'Friend') + ' disconnected', true); const f = LK.on._closed; if (f) f(peer); if ($('#rmsheet')) rmSheet(); render(); }
 function lkSend(peer, obj) {
   if (!peer || !peer.ch || peer.ch.readyState !== 'open') return false; const s = JSON.stringify(obj);
   if (s.length < 12000) { peer.ch.send(s); return true; }
@@ -3038,22 +3047,22 @@ function lkCamWhy() {
   if (e.name === 'NotReadableError') return 'Another app is using the camera. Close it and try again.';
   return 'Camera not available (' + e.name + ') — use AirDrop / Quick Share + Paste instead.';
 }
-async function lkHost() {
-  await lkCam();                                        // before gathering: see note above
+async function lkHost(room) {
+  if (!room) await lkCam();                                        // before gathering: see note above
   const pc = new RTCPeerConnection(lkCfg()); const peer = { pc, hostSide: true, st: 'waiting' };
   peer.ch = pc.createDataChannel('leg3nd', { ordered: true }); lkWireCh(peer); lkWirePc(peer);
   await pc.setLocalDescription(await pc.createOffer()); await lkWaitIce(pc, 3000);
-  peer.code = 'L3O1' + sdpPack(pc.localDescription.sdp, lkName()); peer.ncand = (pc.localDescription.sdp.match(/a=candidate/g) || []).length; LK.pending = peer; lkWatch(peer); return peer;
+  peer.code = 'L3O1' + sdpPack(pc.localDescription.sdp, lkName()); peer.ncand = (pc.localDescription.sdp.match(/a=candidate/g) || []).length; if (!room) LK.pending = peer; lkWatch(peer); return peer;
 }
 async function lkAnswer(code) {
   const peer = LK.pending; if (!peer || !peer.hostSide) throw new Error('Start hosting first');
   const o = await lkDecode(code, 'L3A'); peer.name = o.n || peer.name; await peer.pc.setRemoteDescription({ type: 'answer', sdp: o.s });
 }
-async function lkJoin(code) {
-  const o = await lkDecode(code, 'L3O'); await lkCam(); const pc = new RTCPeerConnection(lkCfg()); const peer = { pc, hostSide: false, st: 'waiting', name: o.n };
+async function lkJoin(code, room) {
+  const o = await lkDecode(code, 'L3O'); if (!room) await lkCam(); const pc = new RTCPeerConnection(lkCfg()); const peer = { pc, hostSide: false, st: 'waiting', name: o.n };
   pc.ondatachannel = e => { peer.ch = e.channel; lkWireCh(peer); if (e.channel.readyState === 'open') e.channel.onopen(); }; lkWirePc(peer);
   await pc.setRemoteDescription({ type: 'offer', sdp: o.s }); await pc.setLocalDescription(await pc.createAnswer()); await lkWaitIce(pc, 3000);
-  peer.code = 'L3A1' + sdpPack(pc.localDescription.sdp, lkName()); LK.pending = peer; lkWatch(peer); return peer;
+  peer.code = 'L3A1' + sdpPack(pc.localDescription.sdp, lkName()); if (!room) LK.pending = peer; lkWatch(peer); return peer;
 }
 function lkWatch(peer) {            // after the reply is in: explain what to check if the phones can't reach each other
   peer.pc.addEventListener('iceconnectionstatechange', () => { const s = peer.pc.iceConnectionState; if (s === 'failed' && peer.st !== 'open') lkTrouble(); });
@@ -3063,7 +3072,7 @@ async function lkRoute(peer) {      // what the link is running over (shown in t
     if (!pair) return ''; const l = st.get(pair.localCandidateId), r = st.get(pair.remoteCandidateId); const ip = (l && (l.address || l.ip)) || '';
     return (l && l.candidateType === 'relay') ? 'via relay' : (l && (l.candidateType === 'srflx' || (r && r.candidateType === 'srflx'))) ? 'via the internet' : `direct over Wi-Fi / hotspot${ip && !/\.local$/.test(ip) ? ' · ' + ip : ''}`; } catch (e) { return ''; }
 }
-function lkLeave() { LK.peers.slice().forEach(p => { try { p.ch && p.ch.close(); p.pc.close(); } catch (e) { } }); LK.peers = []; if (LK.pending) { try { LK.pending.pc.close(); } catch (e) { } LK.pending = null; } render(); }
+function lkLeave() { rmClose(); LK.peers.slice().forEach(p => { try { p.ch && p.ch.close(); p.pc.close(); } catch (e) { } }); LK.peers = []; if (LK.pending) { try { LK.pending.pc.close(); } catch (e) { } LK.pending = null; } render(); }
 
 /* ---------- keep links healthy: heartbeat, screen wake lock, automatic re-sync after a reconnect ---------- */
 setInterval(() => { const t = Date.now(); lkOpen().forEach(p => { lkSend(p, { t: 'ping' }); const weak = p.last && t - p.last > 12000; if (weak !== !!p.weak) { p.weak = weak; render(); } }); }, 4000);
@@ -3156,12 +3165,13 @@ function lkTrouble() {
 /* ---------- Link Up panel (Friends tab) ---------- */
 function vLink() {
   const open = lkOpen();
-  let h = `<section class="hero link-hero"><div class="lab">Local multiplayer · no server · works offline</div><h2>Link Up</h2>
-    <p>Connect phones directly — same Wi-Fi or a phone hotspot, no internet needed. Then play a Clash on your own phones, or swap season teams so you're in each other's league.</p>
-    <div class="cta"><button class="btn pri" data-act="lk-host">📡 Host</button><button class="btn" data-act="lk-join">📷 Join</button>${open.length ? '<button class="btn ghost" data-act="lk-leave">Disconnect</button>' : ''}</div></section>`;
+  let h = `<section class="hero link-hero"><div class="lab">Multiplayer · up to 4 phones</div><h2>Link Up</h2>
+    <p>One phone opens a <b>game room</b> and gets a 4-letter code. Everyone else taps <b>Join with code</b> and types it. That's it.</p>
+    <div class="cta"><button class="btn pri" data-act="lk-room">🎮 Open a game room</button><button class="btn" data-act="lk-rjoin">🔢 Join with code</button></div>
+    <div class="row" style="gap:8px;margin-top:10px;flex-wrap:wrap"><span class="xs dim" style="flex-basis:100%">No internet (car, camping)? Link by QR over a phone hotspot:</span><button class="btn sm" data-act="lk-host">📡 QR host</button><button class="btn sm" data-act="lk-join">📷 QR join</button>${open.length ? '<button class="btn sm ghost" data-act="lk-leave">Disconnect all</button>' : ''}</div></section>`;
   h += `<div class="sec">Linked phones <span class="lab">${open.length ? open.length + ' connected' : 'none yet'}</span></div>`;
   h += open.length ? `<div class="plist">${open.map(p => `<div class="prow"><div class="av live" style="--c1:var(--good);--c2:#0b5c4a">${esc(initials(p.name || '?'))}</div><div class="who"><div class="nm">${esc(p.name || 'Friend')} <span class="tag fr">${p.hostSide ? 'Joined you' : 'Host'}</span></div><div class="mt">${p.route ? esc(p.route) + ' · ' : ''}${p.weak ? '📶 weak signal — keep phones close / on the same Wi-Fi' : p.v && p.v !== DATA_V ? '⚠️ different stats date — tap Sync stats' : 'Connected · stats match ✓'}</div></div>${p.v && p.v !== DATA_V ? `<button class="btn sm" data-act="lk-syncdata">Sync stats</button>` : ''}</div>`).join('')}</div>`
-    : `<div class="panel muted small">1 · One phone taps <b>Host</b>. 2 · The other taps <b>Join</b> and scans. 3 · The host scans the reply. Up to 4 phones.${store.get('code7_lastlink') ? `<br><br>Last linked with <b>${esc(store.get('code7_lastlink').n)}</b> — dropped out? Just link again: a linked Clash carries on exactly where it was.` : ''}</div>`;
+    : `<div class="panel muted small">1 · One phone taps <b>Open a game room</b>. 2 · The others tap <b>Join with code</b> and type the 4 letters. Up to 4 phones — then start a Clash or Cup together.${store.get('code7_lastlink') ? `<br><br>Last linked with <b>${esc(store.get('code7_lastlink').n)}</b> — dropped out? Just link again: a linked Clash carries on exactly where it was.` : ''}</div>`;
   if (open.length) {
     h += `<div class="modes">
       <button class="mode" data-act="lk-clash"><span class="mi">⚔️</span><b>Clash on separate phones</b><small>Everyone drafts on their own phone. Secret picks stay secret. Games play live on every screen.</small></button>
@@ -3190,6 +3200,89 @@ function lkSendFriend(peer, lid, reply) { const L = LEAGUES.find(l => l.id === l
 /* stats sync: the host's stats file travels over the link so both phones score identically */
 LK.on.needdata = (m, peer) => { lkSend(peer, { t: 'data', v: DATA_V, data: DATA }); };
 LK.on.data = (m) => { if (!m.data || !m.v) return; applyData(m.data, m.v, 'link'); try { localStorage.setItem('code7_data', JSON.stringify({ v: m.v, data: m.data })); } catch (e) { } lkBroadcast({ t: 'hello', id: ME, n: lkName(), v: DATA_V }); toast('📊 Stats synced with your friend'); render(); };
+
+/* ============================================================ Game rooms: 4-letter code, no QR swapping
+   Phones swap their connection codes through a free public relay (ntfy.sh), then talk directly as before.
+   Needs internet on every phone for the few seconds it takes to link. Offline? The QR link still works. */
+const RELAY = 'https://ntfy.sh/';
+const RM_AB = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+const rmTopic = (code, box) => 'leg3nd-r1-' + code + '-' + box;
+const rmNorm = c => String(c || '').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 4);
+async function rmPub(topic, obj) { const r = await fetch(RELAY + topic, { method: 'POST', body: JSON.stringify(obj) }); if (!r.ok) throw new Error('relay ' + r.status); }
+function rmSub(topic, cb) {               // resolves once the relay is listening, so nothing sent to us is missed
+  return new Promise((res, rej) => { const t0 = Date.now() / 1000 - 5; const es = new EventSource(RELAY + topic + '/sse'); let ok = false;
+    const to = setTimeout(() => { if (!ok) { es.close(); rej(new Error('offline')); } }, 9000);
+    es.addEventListener('open', () => { if (!ok) { ok = true; clearTimeout(to); res(es); } });
+    es.onmessage = e => { try { const m = JSON.parse(e.data); if (m.event === 'open') { if (!ok) { ok = true; clearTimeout(to); res(es); } return; } if (m.event !== 'message' || (m.time && m.time < t0)) return; cb(JSON.parse(m.message)); } catch (err) { } };
+    es.onerror = () => { if (!ok) { clearTimeout(to); es.close(); rej(new Error('offline')); } }; });
+}
+function rmClose() { const r = LK.room; if (!r) return; try { r.es && r.es.close(); } catch (e) { } clearTimeout(r.tm); LK.room = null; }
+async function rmHost() {
+  if (!window.RTCPeerConnection) { toast('This browser can\'t link phones — try Chrome or Safari', true); return; }
+  if (LK.room && LK.room.host) { rmSheet(); return; } rmClose();
+  let code = ''; for (let i = 0; i < 4; i++) code += RM_AB[Math.floor(Math.random() * RM_AB.length)];
+  const room = { code, host: true, pend: {}, at: Date.now() }; LK.room = room; rmSheet();
+  try { room.es = await rmSub(rmTopic(code, 'h'), m => rmHostMsg(room, m)); } catch (e) { rmClose(); rmOffline(); return; }
+  if (LK.room !== room) { room.es.close(); return; } room.live = true; lkWake(); rmSheet();
+  room.tm = setTimeout(() => { if (LK.room === room) { rmClose(); if ($('#rmsheet')) closeSheet(); toast('Game room closed after 30 minutes'); } }, 30 * 60e3);
+}
+async function rmHostMsg(room, m) {
+  if (LK.room !== room || !m || !m.id || m.id === ME) return; const back = rmTopic(room.code, m.id);
+  try {
+    if (m.t === 'hi') {
+      if (room.pend[m.id]) return; const lk = lkOpen().find(p => p.id === m.id); if (lk) return;
+      if (lkOpen().length + Object.keys(room.pend).length >= 3) { rmPub(back, { t: 'full' }); return; }
+      room.pend[m.id] = { name: m.n, st: 'joining' }; rmSheet(); hap('select');
+      const peer = await lkHost(true); peer.name = m.n; peer.rid = m.id; room.pend[m.id] = peer; await rmPub(back, { t: 'offer', c: peer.code }); rmSheet();
+    } else if (m.t === 'answer') {
+      const peer = room.pend[m.id]; if (!peer || !peer.pc) return; const o = await lkDecode(m.c, 'L3A'); peer.name = o.n || peer.name; await peer.pc.setRemoteDescription({ type: 'answer', sdp: o.s });
+      setTimeout(() => { if (room.pend[m.id] === peer && peer.st !== 'open') { delete room.pend[m.id]; try { peer.pc.close(); } catch (e) { } rmSheet(); toast(`Couldn't reach ${peer.name || 'that phone'} — ask them to tap Join again`, true); } }, 20000);
+    }
+  } catch (e) { delete room.pend[m.id]; rmSheet(); }
+}
+async function rmJoin(raw) {
+  const code = rmNorm(raw); if (code.length !== 4) { toast('Type the 4-letter room code', true); return; }
+  if (!window.RTCPeerConnection) { toast('This browser can\'t link phones — try Chrome or Safari', true); return; }
+  rmClose(); const room = { code, host: false }; LK.room = room; rmJoinSheet('Looking for room ' + code + '…');
+  try { room.es = await rmSub(rmTopic(code, ME), async m => {
+      if (LK.room !== room) return;
+      if (m.t === 'full') { rmClose(); rmJoinSheet('That room is full — 4 phones max.', true); return; }
+      if (m.t === 'offer' && !room.got) { room.got = true; clearTimeout(room.tm); rmJoinSheet('Found it — connecting…');
+        try { const peer = await lkJoin(m.c, true); await rmPub(rmTopic(code, 'h'), { t: 'answer', id: ME, c: peer.code });
+          room.tm = setTimeout(() => { if (LK.room === room && peer.st !== 'open') { rmClose(); rmJoinSheet('The phones found each other but couldn\'t connect. Try again — or use the QR link on the same Wi-Fi.', true); } }, 20000);
+        } catch (e) { rmClose(); rmJoinSheet('Couldn\'t connect: ' + e.message, true); } }
+    }); } catch (e) { rmClose(); rmOffline(); return; }
+  try { await rmPub(rmTopic(code, 'h'), { t: 'hi', id: ME, n: lkName() }); } catch (e) { rmClose(); rmOffline(); return; }
+  room.tm = setTimeout(() => { if (LK.room === room && !room.got) { rmClose(); rmJoinSheet(`No game room called <b>${code}</b> answered. Check the code, and that the host still has the room open.`, true); } }, 12000);
+}
+function rmOffline() { sheet(`<h3 class="num" style="font-size:24px;margin:0">NO INTERNET</h3><p class="small muted">Room codes need internet on both phones for a few seconds. With no signal (car, camping), use the <b>QR link</b> instead — it works over one phone's hotspot.</p><div class="grid2"><button class="btn pri" data-act="lk-host">📡 QR host</button><button class="btn" data-act="lk-join">📷 QR join</button></div>`); }
+function rmNameRow() { return `<div class="lab" style="margin-top:12px">Your name</div><input id="myname" maxlength="24" placeholder="Your name (shows on the other phones)" value="${esc(A.me || '')}" autocomplete="off">`; }
+function rmSheet() {
+  const r = LK.room; if (!r || !r.host) return; const open = lkOpen(); const pend = Object.values(r.pend);
+  const slots = [`<div class="rmslot on"><b>${esc(A.me || 'You')}</b><small>host · this phone</small></div>`]
+    .concat(open.map(p => `<div class="rmslot on"><b>${esc(p.name || 'Friend')}</b><small>linked ✓</small></div>`))
+    .concat(pend.map(p => `<div class="rmslot wait"><b>${esc(p.name || 'Friend')}</b><small>connecting…</small></div>`));
+  while (slots.length < 4) slots.push(`<div class="rmslot"><b>—</b><small>waiting</small></div>`);
+  const html = `<div id="rmsheet"><h3 class="num" style="font-size:24px;margin:0">GAME ROOM</h3><p class="small muted" style="margin:4px 0 8px">${r.live ? 'On the other phones: <b>Leagues → Link Up → Join with code</b> and type:' : 'Opening the room…'}</p>
+    <div class="rmcode num" aria-label="Room code ${r.code.split('').join(' ')}">${r.live ? r.code.split('').map(c => `<span>${c}</span>`).join('') : '<div class="loader"></div>'}</div>
+    <div class="rmslots">${slots.join('')}</div>${rmNameRow()}
+    <div class="grid2" style="margin-top:12px"><button class="btn pri" data-act="lk-clash" ${open.length ? '' : 'disabled'}>⚔️ Start a Clash</button><button class="btn" data-act="rm-done">${open.length ? 'Done' : 'Close room'}</button></div>
+    <p class="xs dim" style="margin:10px 0 0">Up to 4 phones. Each phone needs internet for a few seconds while it links — after that, the game runs phone-to-phone. No signal? Use the QR link.</p></div>`;
+  if ($('#rmsheet')) $('#rmsheet').parentElement.innerHTML = '<div class="grab"></div>' + html; else sheet(html);
+}
+function rmJoinSheet(msg, bad) {
+  const r = LK.room; const busy = r && !r.host && !bad;
+  const html = `<div id="rmjoin"><h3 class="num" style="font-size:24px;margin:0">JOIN A GAME ROOM</h3><p class="small muted" style="margin:4px 0 10px">Type the 4-letter code on the host's screen.</p>
+    <input id="rmcode" class="rminput" maxlength="4" inputmode="text" autocapitalize="characters" autocomplete="off" spellcheck="false" placeholder="ABCD" value="${esc((r && r.code) || cv_rm.last || '')}" ${busy ? 'disabled' : ''}>${rmNameRow()}
+    ${msg ? `<p class="small ${bad ? 'bad' : 'muted'}" style="margin:10px 0 0">${busy ? '<span class="spin">↻</span> ' : ''}${msg}</p>` : ''}
+    <button class="btn pri wide" data-act="rm-go" style="margin-top:12px" ${busy ? 'disabled' : ''}>🔗 Join</button>
+    <button class="btn ghost wide" data-act="lk-join" style="margin-top:8px">No internet? Scan a QR code instead</button></div>`;
+  if ($('#rmjoin')) $('#rmjoin').parentElement.innerHTML = '<div class="grab"></div>' + html; else sheet(html);
+  const i = $('#rmcode'); if (i && !busy) setTimeout(() => { try { i.focus(); } catch (e) { } }, 80);
+}
+const cv_rm = { last: '' };
+document.addEventListener('input', e => { if (e.target.id === 'rmcode') { const v = rmNorm(e.target.value); if (e.target.value !== v) e.target.value = v; cv_rm.last = v; if (v.length === 4) { hap('select'); rmJoin(v); } } });
+document.addEventListener('keydown', e => { if (e.target.id === 'rmcode' && e.key === 'Enter') rmJoin(e.target.value); });
 
 /* ============================================================ SAVES — progress lives on this phone, with a safety net
    1 · Everything saves automatically to the phone's app storage (localStorage) as you play.
@@ -3703,7 +3796,7 @@ function clHome() {
   let h = `<section class="hero cl-hero"><div class="lab">${SPORT_OF(L.id).icon} ${esc(L.name)} · any day · off-season too</div><h2>Clash</h2><p>Draft real ${esc(L.name)} players under a salary cap, then play a live-simulated season and fight it out in the Finals.</p></section><div class="stack">`;
   h += `<div class="modes">
     <button class="mode" data-act="cl-new"><span class="mi">📱</span><b>One phone</b><small>Pass-and-play for 2–4 players, or solo against the computer. Perfect for the car.</small></button>
-    <button class="mode" data-act="cl-linked"><span class="mi">🔗</span><b>Linked phones</b><small>${lkOpen().length ? `${lkOpen().length} phone${lkOpen().length > 1 ? 's' : ''} linked — everyone drafts on their own screen.` : 'Each player on their own phone, connected over Wi-Fi or hotspot. No internet needed.'}</small></button>
+    <button class="mode" data-act="cl-linked"><span class="mi">🔗</span><b>Linked phones</b><small>${lkOpen().length ? `${lkOpen().length} phone${lkOpen().length > 1 ? 's' : ''} linked — everyone drafts on their own screen.` : 'Up to 4 phones — open a game room, the others type its 4-letter code.'}</small></button>
     <button class="mode" data-act="cl-cup"><span class="mi">🏆</span><b>Knockout Cup</b><small>4, 8 or 16 teams — you plus bots. Win or go home.</small></button>
     <button class="mode" data-v="games"><span class="mi">🧩</span><b>Quick Games</b><small>Guess the Player · Higher or Lower · Roster Grid.</small></button></div>`;
   if (hasLocal || hasNet) h += `<div class="sec">Carry on</div><div class="grid2">${hasLocal ? `<button class="btn" data-act="cl-usenet" data-net="0">▶ One-phone Clash</button>` : ''}${hasNet ? `<button class="btn" data-act="cl-usenet" data-net="1">▶ Linked Clash</button>` : ''}</div>`;
@@ -4053,7 +4146,7 @@ function clashClick(t, d) {
   if (a === 'cl-exit') { const c0 = CL.get(); if (!c0) { cv.screen = 'home'; render(); return true; } hap('select'); sheet(clExitSheet(c0)); return true; }
   if (a === 'cl-pause' || a === 'cl-pausehome') { closeSheet(); cv.screen = 'home'; cv.edit = null; cv.plan = null; cv.gate = null; if (a === 'cl-pausehome') go('hub'); else { A.anim = true; render(); window.scrollTo(0, 0); } toast('Clash paused — carry on any time'); return true; }
   if (a === 'cl-leave' || a === 'cl-endnow') { const c0 = CL.get(); closeSheet(); if (c0 && c0.net && amHost(c0) && a === 'cl-endnow') lkBroadcast({ t: 'cl-end', id: c0.net.id }); if (c0 && c0.net && a === 'cl-leave') lkBroadcast({ t: 'cl-left', id: c0.net.id, who: ME }); store.del(CL.key()); cv.useNet = false; cv.gate = null; cv.edit = null; cv.plan = null; cv.screen = 'home'; hap('select'); toast(a === 'cl-leave' ? 'You left the linked Clash' : 'Clash ended'); A.anim = true; render(); window.scrollTo(0, 0); return true; }
-  if (a === 'cl-linked') { if (!lkOpen().length) { A.fTab = 'link'; go('pool'); toast('Link a phone first — Host or Join'); return true; } cv.useNet = true; cv.setup.net = true; cv.screen = 'setup'; A.anim = true; render(); window.scrollTo(0, 0); return true; }
+  if (a === 'cl-linked') { if (!lkOpen().length) { sheet(`<h3 class="num" style="font-size:24px;margin:0">PLAY ON SEPARATE PHONES</h3><p class="small muted">Up to 4 phones. One opens a game room, the others type its 4-letter code.</p><div class="grid2"><button class="btn pri" data-act="lk-room">🎮 Open a room</button><button class="btn" data-act="lk-rjoin">🔢 Join with code</button></div><p class="xs dim" style="margin:10px 0 0">No internet? Use Leagues → Link Up → QR host / QR join over a phone hotspot.</p>`); return true; } cv.useNet = true; cv.setup.net = true; cv.screen = 'setup'; A.anim = true; render(); window.scrollTo(0, 0); return true; }
   if (a === 'cl-new' || a === 'cl-newset') { if (a === 'cl-new') cv.setup.fmt = 'league'; if (a === 'cl-newset') store.del(CL.key()); cv.setup.net = !!(cv.useNet && a === 'cl-newset'); if (!cv.setup.net) cv.useNet = false; cv.screen = 'setup'; render(); window.scrollTo(0, 0); return true; }
   if (a === 'cl-home') { cv.screen = CL.get() ? 'home' : null; render(); return true; }
   if (a === 'cs-solo') { grab(); s.n = Math.max(2, s.n); s.mgr[0].cpu = 0; if (!s.mgr.slice(1, s.n).some(m => m.cpu)) { s.mgr[1].cpu = 2; s.mgr[1].name = 'Pro Bot'; } render(); return true; }
@@ -4654,15 +4747,19 @@ function checkBadges() {
 function go(v) { if (v === 'clash' && A.view === 'clash') cv.screen = CL.get() ? null : cv.screen; { const o = ['hub', 'team', 'gameday', 'pool', 'clash', 'more']; const i = o.indexOf(NAVMAP[A.view] || 'hub'), j = o.indexOf(NAVMAP[v] || 'hub'); A.dx = j > i ? 1 : j < i ? -1 : 0; } A.view = v; A.anim = true; A.swapFrom = null; if (v !== 'players') A.pick = null; buzz(5); render(); window.scrollTo(0, 0); }
 async function linkClick(t, d) {
   const a = d.act;
-  if (a === 'lk-host') { lkHostSheet(); return true; }
-  if (a === 'lk-join') { lkJoinSheet(); return true; }
+  if (a === 'lk-host') { rmClose(); lkHostSheet(); return true; }
+  if (a === 'lk-room') { rmHost(); return true; }
+  if (a === 'lk-rjoin') { rmClose(); rmJoinSheet(''); return true; }
+  if (a === 'rm-go') { rmJoin(($('#rmcode') || {}).value); return true; }
+  if (a === 'rm-done') { if (!lkOpen().length) rmClose(); closeSheet(); return true; }
+  if (a === 'lk-join') { rmClose(); lkJoinSheet(); return true; }
   if (a === 'lk-big') { lkBig(d.code); return true; }
   if (a === 'lk-paste') { const v = ($('#lkpaste') || {}).value; if (!v) { toast('Paste a code first', true); return true; } lkStopScan(); lkUseCode(v); return true; }
   if (a === 'lk-share') { const code = d.code; try { if (navigator.share) await navigator.share({ title: 'LEG3ND link code', text: code }); else { await navigator.clipboard.writeText(code); toast('Code copied'); } } catch (e) { } return true; }
   if (a === 'lk-clip') { try { const v = await navigator.clipboard.readText(); if (v) { $('#lkpaste').value = v; lkStopScan(); lkUseCode(v); } else toast('Clipboard is empty', true); } catch (e) { toast('Tap the box and paste instead', true); } return true; }
   if (a === 'lk-copy') { try { await navigator.clipboard.writeText(d.code); toast('Code copied'); } catch (e) { toast('Couldn\'t copy — use Send code', true); } return true; }
   if (a === 'lk-leave') { lkLeave(); toast('Disconnected'); return true; }
-  if (a === 'lk-clash') { cv.useNet = true; cv.setup.net = true; cv.screen = 'setup'; go('clash'); return true; }
+  if (a === 'lk-clash') { closeSheet(); cv.useNet = true; cv.setup.net = true; cv.screen = 'setup'; go('clash'); return true; }
   if (a === 'lk-swap') { if (A.st.phase !== 'season') toast('Your team shares once your season has started — sending your squad anyway'); lkOpen().forEach(p => lkSendFriend(p, A.lid, true)); toast('🔄 Sent your ' + A.L.name + ' team'); return true; }
   if (a === 'lk-syncdata') { const p = lkOpen().find(x => x.v && x.v !== DATA_V); if (!p) return true; if (p.v > DATA_V) { lkSend(p, { t: 'needdata' }); toast('Getting their newer stats…'); } else { lkSend(p, { t: 'data', v: DATA_V, data: DATA }); toast('Sending your newer stats…'); } return true; }
   return false;
