@@ -1011,6 +1011,15 @@ button.sctile:active{transform:scale(.97)}
 .tvo.o0{background:linear-gradient(180deg,#ff5a6e,#d6263f)}.tvo.o1{background:linear-gradient(180deg,#4f8bff,#2458d6)}.tvo.o2{background:linear-gradient(180deg,#ffc940,#d99a00);color:#241a00}.tvo.o3{background:linear-gradient(180deg,#27d8a5,#0f9c73)}
 .tvo.dim{opacity:.3}.tvo.chosen{outline:4px solid #fff;outline-offset:-4px}.tvo.right{outline:4px solid #fff;outline-offset:-4px;animation:spinpop .5s var(--spring)}.tvo.wrong{opacity:.6;text-decoration:line-through}
 .tvres .row{padding:6px 0;border-bottom:1px solid var(--line)}.tvres .row:last-child{border-bottom:0}.tvres .num{font:900 20px/1 var(--fd)}.num.good{color:var(--good)}
+/* survivor */
+.svintro{border-color:color-mix(in srgb,var(--good) 50%,transparent);background:linear-gradient(100deg,color-mix(in srgb,var(--good) 12%,transparent),transparent 70%),var(--panel)}
+.svgame{background:var(--panel);border:1px solid var(--line2);border-radius:14px;padding:8px}.svgame.started{opacity:.55}
+.svrow{display:grid;grid-template-columns:1fr auto 1fr;gap:6px;align-items:center;margin-top:6px}.svvs{font:800 12px/1 var(--fc);color:var(--tx3)}
+.svteam{display:flex;align-items:center;gap:8px;min-width:0;padding:8px;border-radius:12px;border:1px solid var(--line2);background:rgba(255,255,255,.03);color:var(--tx);text-align:left;position:relative}
+.svteam span{min-width:0}.svteam b{display:block;font:700 13px/1.1 var(--fb);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.svteam small{color:var(--tx3);font-size:10.5px}
+.svteam.on{border-color:var(--good);background:color-mix(in srgb,var(--good) 16%,transparent);box-shadow:0 0 0 1px var(--good) inset}.svteam.on i{position:absolute;top:4px;right:7px;font-style:normal;color:var(--good);font-weight:900}
+.svteam.used{opacity:.35;text-decoration:line-through}
+.svres{text-align:center}.svres.won{border-color:var(--good)}.svres.lost{border-color:var(--bad)}.svpick{display:flex;align-items:center;justify-content:center;gap:8px;margin:8px 0}.svpick b{font:900 20px/1 var(--fd)}.svout{font:800 14px/1.2 var(--fc)}
 
 </style>
 </head>
@@ -1827,7 +1836,8 @@ function exportCode(L, pool, st, name, now) {
   const idx = {}; pool.forEach((p, i) => idx[p.id] = i); const I = id => id == null ? -1 : idx[id];
   const lu = {}; Object.keys(st.lineups).forEach(n => { const x = st.lineups[n]; lu[n] = [x.squad.map(I), I(x.c), I(x.vc), x.chip || 0]; });
   const pk = {}; Object.keys(st.picks || {}).forEach(n => { const fg = featuredGames(L, +n); const o = {}; fg.forEach((g, gi) => { const p = st.picks[n][g.id]; if (p && now >= g.at) o[gi] = [p.w, p.m]; }); if (Object.keys(o).length) pk[n] = o; });
-  return 'C7-' + b64e(JSON.stringify({ v: 1, l: L.id, d: dataHash(pool), n: String(name || 'Friend').slice(0, 24), s: st.startRound, lu, pk, t: now }));
+  const sv = st.sv && st.sv.start != null ? { s: st.sv.start, p: {} } : null; if (sv) { const gat = {}; Object.keys(st.sv.picks || {}).forEach(n => { const x = st.sv.picks[n]; const g = weekGames(L, +n).games.find(g => g.id === x.g); if (g && now >= g.at) sv.p[n] = [x.g, x.t]; }); }
+  return 'C7-' + b64e(JSON.stringify({ v: 1, l: L.id, d: dataHash(pool), n: String(name || 'Friend').slice(0, 24), s: st.startRound, lu, pk, t: now, sv }));
 }
 function importCode(L, pool, code) {
   let o; try { o = JSON.parse(b64d(String(code).trim().replace(/^C7-/, ''))); } catch (e) { return { ok: false, why: 'That code isn\'t a LEG3ND team code' }; }
@@ -1836,7 +1846,8 @@ function importCode(L, pool, code) {
   const at = i => i >= 0 && pool[i] ? pool[i].id : null;
   const lineups = {}; Object.keys(o.lu || {}).forEach(n => { const x = o.lu[n]; lineups[n] = { squad: x[0].map(at), c: at(x[1]), vc: at(x[2]), chip: x[3] || null }; });
   const picks = {}; Object.keys(o.pk || {}).forEach(n => { const fg = featuredGames(L, +n); picks[n] = {}; Object.keys(o.pk[n]).forEach(gi => { const g = fg[gi]; if (g) picks[n][g.id] = { w: o.pk[n][gi][0], m: o.pk[n][gi][1] }; }); });
-  return { ok: true, friend: { name: o.n, startRound: o.s, lineups, picks, at: o.t, code: String(code).trim() } };
+  const sv = o.sv ? { start: o.sv.s, picks: {} } : null; if (sv) Object.keys(o.sv.p || {}).forEach(n => { sv.picks[n] = { g: o.sv.p[n][0], t: o.sv.p[n][1] }; });
+  return { ok: true, friend: { name: o.n, startRound: o.s, lineups, picks, sv, at: o.t, code: String(code).trim() } };
 }
 function friendResults(L, pool, f, upto) { const out = {}; Object.keys(f.lineups).map(Number).filter(n => n <= upto).forEach(n => { const r = scoreRound(L, pool, f, n, POOL_SEED); out[n] = r ? r.total : 0; }); return out; }
 Object.assign(C7, { exportCode, importCode, friendResults, dataHash });
@@ -1881,6 +1892,41 @@ function nameMatch(name, q) {
 }
 const posLabel = p => p.pos2 ? p.pos + '/' + p.pos2 : p.pos;
 Object.assign(C7, { nameMatch, posLabel, posOk, avAt, injNow });
+
+/* ---------- SURVIVOR TIPPING: pick one team to win each round; a team can be used once (until every team in a round is used);
+   a loss or draw knocks you out. No pick by the end of a round = the app's safest pick for you. ---------- */
+function svAuto(L, n, used, rnd) {
+  let best = null; weekGames(L, n).games.forEach(g => { const m = expMargin(L, g); [[g.h, m], [g.a, -m]].forEach(([t, e]) => { if (used.has(t)) return; const v = e + (rnd ? (rnd() - 0.5) * 8 : 0); if (!best || v > best.v) best = { g: g.id, t, v }; }); });
+  return best && { g: best.g, t: best.t };
+}
+function svEval(L, picks, start, t, botSeed) {
+  const used = new Set(); const hist = []; const usedAt = {}; const lr = lastResolved(L, t); picks = picks || {};
+  if (start == null) return { alive: true, hist, used, usedAt, streak: 0, idle: true };
+  for (let n = start; n <= L.rounds; n++) {
+    const gs = weekGames(L, n).games; if (!gs.length) continue; const teams = new Set(); gs.forEach(g => { teams.add(g.h); teams.add(g.a); });
+    if ([...teams].every(x => used.has(x))) used.clear(); usedAt[n] = new Set(used);
+    let p = picks[n]; let g = p && gs.find(x => x.id === p.g); if (p && (!g || used.has(p.t) || (p.t !== g.h && p.t !== g.a))) { p = null; g = null; }
+    const over = n <= lr;
+    if (!p) {
+      if (!over && !botSeed && gs.some(g => t < g.at)) { hist.push({ n, open: true }); break; }
+      const a = svAuto(L, n, used, botSeed ? rngFor('sv', botSeed, n) : null); if (!a) { hist.push({ n, skip: true }); continue; }
+      p = { g: a.g, t: a.t, auto: !botSeed }; g = gs.find(x => x.id === a.g);
+    }
+    used.add(p.t);
+    if (!gameFinal(g, t)) { hist.push({ n, p, g, pending: true }); break; }
+    const r = gameResult(L, g); const won = p.t === g.h ? r.margin > 0 : r.margin < 0; hist.push({ n, p, g, won, r });
+    if (!won) return { alive: false, out: n, hist, used, usedAt, streak: hist.filter(h => h.won).length };
+  }
+  return { alive: true, hist, used, usedAt, streak: hist.filter(h => h.won).length };
+}
+function svPool(L, st, t) {             // you + friends + the AI rivals, all from your start round
+  if (!st.sv || st.sv.start == null) return [];
+  const rows = [{ name: 'You', you: true, e: svEval(L, st.sv.picks, st.sv.start, t) }];
+  (st.friends || []).forEach(f => { if (f.sv && f.sv.start != null) rows.push({ name: f.name, friend: true, e: svEval(L, f.sv.picks, f.sv.start, t) }); });
+  const bots = st.rivals && st.rivals.length ? st.rivals.map(b => b.name) : (RIVAL_NAMES[L.id] || RIVAL_NAMES._); bots.forEach((name, i) => rows.push({ name, ai: true, e: svEval(L, null, st.sv.start, t, hashStr(st.seed + ':sv:' + i)) }));
+  return rows.sort((a, b) => (b.e.alive - a.e.alive) || ((b.e.out || 99) - (a.e.out || 99)) || (b.e.streak - a.e.streak));
+}
+Object.assign(C7, { svAuto, svEval, svPool });
 
 /* ============================================================
    ROAD TRIP CLASH v3 — pass-and-play on ONE phone, fully offline.
@@ -2844,7 +2890,7 @@ function homeModes() {
   const season = closed() ? `Opens ${dshort(C7.draftOpens(L))}` : st.phase === 'draft' ? `${st.squad.filter(Boolean).length}/${L.slots.length} picked` : `${C7.seasonTotal(st)} pts`;
   return `<div class="modes four"><button class="mode" data-v="team"><span class="mi">🏆</span><b>Season</b><small>Real fixtures · ${esc(season)}</small></button>
     <button class="mode" data-v="clash"><span class="mi">⚔️</span><b>Clash</b><small>${c ? 'Game in progress' : 'Draft & play now'}</small></button>
-    <button class="mode" data-v="games"><span class="mi">🎯</span><b>Quick Games</b><small>Guess · Higher/Lower · Grid</small></button>
+    <button class="mode" data-v="games"><span class="mi">🎯</span><b>Quick Games</b><small>Trivia · Guess · Higher/Lower · Grid</small></button>
     <button class="mode" data-v="pool" data-ftab="link"><span class="mi">🔗</span><b>Link Up</b><small>${linked ? linked + ' linked' : 'Play friends nearby'}</small></button></div>`;
 }
 function otherLeagues() {
@@ -3918,18 +3964,14 @@ function clChampThen(c, then) {              // the trophy moment, once per Clas
 function clHof(c, rec) { if (c.phase !== 'done' || c._hof || !rec) return; c._hof = 1; try { fcClash(c); } catch (e) { } const { L } = clx(c.league); const hof = CL.hof(); const g = rec.games[rec.games.length - 1]; hof.push({ at: Date.now(), league: L.name + (c.fmt === 'cup' ? ' Cup' : ''), champ: `${c.m[c.champ].emoji} ${c.m[c.champ].team} (${c.m[c.champ].name})`, runner: c.m[c.runner].name, score: `${Math.max(g.sa, g.sb)}–${Math.min(g.sa, g.sb)}` }); store.set('code7_hof', hof.slice(-30)); }
 function clHome() {
   const R = CL.rec() || { players: {}, h2h: {}, clashes: 0 }; const hof = CL.hof();
-  const pl = Object.entries(R.players).sort((a, b) => b[1].titles - a[1].titles || b[1].w - a[1].w);
   const L = A.L; const hasNet = !!store.get('code7_clash_net'), hasLocal = !!store.get('code7_clash');
   let h = `<section class="hero cl-hero"><div class="lab">${SPORT_OF(L.id).icon} ${esc(L.name)} · any day · off-season too</div><h2>Clash</h2><p>Draft real ${esc(L.name)} players under a salary cap, then play a live-simulated season and fight it out in the Finals.</p></section><div class="stack">`;
   h += `<div class="modes">
     <button class="mode" data-act="cl-new"><span class="mi">📱</span><b>One phone</b><small>Pass-and-play for 2–4 players, or solo against the computer. Perfect for the car.</small></button>
     <button class="mode" data-act="cl-linked"><span class="mi">🔗</span><b>Linked phones</b><small>${lkOpen().length ? `${lkOpen().length} phone${lkOpen().length > 1 ? 's' : ''} linked — everyone drafts on their own screen.` : 'Up to 4 phones — open a game room, the others type its 4-letter code.'}</small></button>
     <button class="mode" data-act="cl-cup"><span class="mi">🏆</span><b>Knockout Cup</b><small>4, 8 or 16 teams — you plus bots. Win or go home.</small></button>
-    <button class="mode" data-v="games"><span class="mi">🧩</span><b>Quick Games</b><small>Guess the Player · Higher or Lower · Roster Grid.</small></button></div>`;
+    <button class="mode" data-v="games"><span class="mi">🧩</span><b>Quick Games</b><small>Buzzer Trivia · Guess the Player · Higher or Lower · Roster Grid.</small></button></div>`;
   if (hasLocal || hasNet) h += `<div class="sec">Carry on</div><div class="grid2">${hasLocal ? `<button class="btn" data-act="cl-usenet" data-net="0">▶ One-phone Clash</button>` : ''}${hasNet ? `<button class="btn" data-act="cl-usenet" data-net="1">▶ Linked Clash</button>` : ''}</div>`;
-  h += `<div class="sec">Trophy room <span class="lab">${R.clashes} clash${R.clashes === 1 ? '' : 'es'} played</span></div>`;
-  if (!pl.length) h += `<div class="panel muted small">No champions yet. Your first title goes here.</div>`;
-  else h += `<div class="plist">${pl.map(([n, x]) => `<div class="prow"><div class="av" style="--c1:var(--gold);--c2:#8a5a00;color:#241a00;text-shadow:none">${x.titles ? '🏆' : '🏀'}</div><div class="who"><div class="nm">${esc(n)} <span class="lab" style="margin-left:6px">${x.titles} title${x.titles === 1 ? '' : 's'}</span></div><div class="mt">${x.w}-${x.l} all-time · best score ${x.best}</div><div class="achs">${Object.keys(x.ach || {}).map(k => `<span class="ach" title="${esc(C7.CL_ACH[k][2])}">${C7.CL_ACH[k][0]} ${esc(C7.CL_ACH[k][1])}</span>`).join('')}</div></div></div>`).join('')}</div>`;
   const hh = Object.entries(R.h2h || {}); if (hh.length) h += `<div class="sec">Head to head</div><div class="panel" style="padding:6px 12px">${hh.map(([k, v]) => { const [a, b] = k.split('|'); return `<div class="row between" style="padding:8px 0;border-bottom:1px solid var(--line)"><b>${esc(a)}</b><span class="num" style="font-size:22px;font-weight:900">${v[a] || 0} – ${v[b] || 0}</span><b>${esc(b)}</b></div>`; }).join('')}</div>`;
   if (hof.length) h += `<div class="sec">Hall of Fame</div><div class="plist">${hof.slice(-8).reverse().map(x => `<div class="prow"><div class="av" style="--c1:var(--gold);--c2:#8a5a00;color:#241a00;text-shadow:none">🏆</div><div class="who"><div class="nm">${esc(x.champ)}</div><div class="mt">${esc(x.league)} · beat ${esc(x.runner)} · ${esc(x.score)} · ${dshort(x.at)}</div></div></div>`).join('')}</div>`;
   return h + `<p class="xs dim">Every player is real (see More → Real vs modelled). Games are simulated from each player's real averages — you press Play, it's separate from the real-calendar season.</p></div>`;
@@ -4799,7 +4841,7 @@ function scoreRows(rows) {
 /* ---------- GAMEDAY ---------- */
 function vGameday() {
   const L = A.L, st = A.st, t = now(); if (closed()) return hero();
-  const lr = C7.lastResolved(L, t), lv = liveRound(); const n = Math.max(1, Math.min(L.rounds, A.gdRound || lv || Math.max(lr, tradeRound())));
+  const lr = C7.lastResolved(L, t), lv = liveRound(); if (!A.gdTab || (A.gdTab === 'pk' && !L.predictor)) A.gdTab = 'h2h'; const n = Math.max(1, Math.min(L.rounds, A.gdRound || (A.gdTab === 'sv' && svOpen(L, st, t)) || lv || Math.max(lr, tradeRound())));
   if (!A.gdTab || (A.gdTab === 'pk' && !L.predictor)) A.gdTab = 'h2h';
   const res = st.results[n]; const lu = st.lineups && st.lineups[n]; const live = !res && lv === n && lu ? C7.liveScore(L, A.pool, lu, n, t) : null;
   const opp = st.phase === 'season' ? C7.h2hOpp(st, n) : null; const ov = opp && opp.results[n];
@@ -4811,7 +4853,8 @@ function vGameday() {
   const status = res ? 'Final' : lv === n ? 'Live' : n > lr ? 'Upcoming' : 'Not played';
   let h = `<div class="stack"><div class="sctiles t3">${scTile(res ? 'Round score' : live ? 'Live score' : 'Projected', myScore != null ? myScore : (st.phase !== 'season' ? '–' : lineupProj(lu || { squad: st.squad, c: st.captain, vc: st.vice }, n)), status)}${scTile('Leading', contests.length ? `${contests.filter(Boolean).length}/${contests.length}` : '–', 'contests this ' + esc(L.roundWord.toLowerCase()))}${scTile('Players', starters.length ? `${played}/${starters.length}` : '–', res ? 'scored' : live ? 'played so far' : 'starters')}</div>`;
   h += `<div class="rdsel"><button class="btn sm" data-gdr="${n - 1}" ${n <= 1 ? 'disabled' : ''} aria-label="Previous">‹</button><div><b>${esc(rw(L, n))}</b><small>${new Date(C7.roundDate(L, n)).toLocaleDateString(undefined, { day: 'numeric', month: 'short' })} · ${status}</small></div><button class="btn sm" data-gdr="${n + 1}" ${n >= L.rounds ? 'disabled' : ''} aria-label="Next">›</button></div>`;
-  h += scTabs('gdtab', [['h2h', 'Head-2-Head'], ['m', 'Matches']].concat(L.predictor ? [['pk', "Pick'em"]] : []), A.gdTab);
+  h += scTabs('gdtab', [['h2h', 'H2H'], ['m', 'Matches']].concat(L.predictor ? [['pk', "Pick'em"]] : []).concat([['sv', 'Survivor']]), A.gdTab);
+  if (A.gdTab === 'sv') return h + vSurvivor(n) + '</div>';
   if (A.gdTab === 'pk') { A.pkRound = n; return h + '</div>' + vPick(); }
   if (A.gdTab === 'm') {
     const W = C7.weekGames(L, n); const mine = {}; (lu ? lu.squad : st.squad).forEach(id => { if (id && A.P[id]) mine[A.P[id].team] = (mine[A.P[id].team] || 0) + 1; });
@@ -4830,6 +4873,38 @@ function vGameday() {
   st.friends.forEach(fr => { const b = (fr._res || {})[n]; h += card(fr.name, 'fr', res ? res.total : null, b == null ? null : b, 'Friend rivalry · ' + status); });
   if (!res && lu) h += `<div class="sec">Your ${esc(rw(L, n))} lineup</div><div class="plist">${lu.squad.map((id, i) => id && A.P[id] && !L.slots[i].bench ? `<button class="prow" data-pid="${id}">${av(A.P[id], false, id === lu.c ? 'c' : id === lu.vc ? 'vc' : '')}<div class="who"><div class="nm">${esc(A.P[id].name)}</div><div class="mt">${esc(L.slots[i].label)} · ${esc(A.P[id].team)} · proj ${Math.round(proj(A.P[id], n))}</div></div></button>` : '').join('')}</div>`;
   return h + '</div>';
+}
+
+/* ---------- SURVIVOR TIPPING (Gameday tab) ---------- */
+function vSurvivor(n) {
+  const L = A.L, st = A.st, t = now(); st.sv = st.sv || { start: null, picks: {} };
+  const me = C7.svEval(L, st.sv.picks, st.sv.start, t); const pool = C7.svPool(L, st, t); const alive = pool.filter(r => r.e.alive).length;
+  const openN = svOpen(L, st, t);
+  let h = `<div class="sctiles t3">${scTile('Status', st.sv.start == null ? '–' : me.alive ? '✅ In' : '❌ Out', st.sv.start == null ? 'not joined yet' : me.alive ? 'still standing' : 'out in ' + esc(rw(L, me.out)))}${scTile('Streak', me.streak, 'rounds survived')}${scTile('Standing', pool.length ? `${alive}/${pool.length}` : '–', 'still alive')}</div>`;
+  if (st.sv.start == null) h += `<div class="panel svintro"><b>🛡 Survivor</b><p class="small muted" style="margin:6px 0 0">Pick <b>one team</b> to win each ${esc(L.roundWord.toLowerCase())}. You can't use the same team twice. Lose (or draw) and you're out. Last one standing wins. Tap a team below to join from ${esc(rw(L, openN))}.</p></div>`;
+  const hn = me.hist.find(x => x.n === n);
+  if (hn && !hn.open && !(hn.pending && t < hn.g.at)) {        // this round is decided (or locked in)
+    const g = hn.g; const tm = L.teams[hn.p.t] || hn.p.t; const opp = hn.p.t === g.h ? g.a : g.h;
+    h += `<div class="panel svres ${hn.pending ? '' : hn.won ? 'won' : 'lost'}"><div class="lab">${esc(rw(L, n))}${hn.p.auto ? ' · auto-pick' : ''}</div><div class="svpick">${scBadge(hn.p.t, 1)}<b>${esc(tm)}</b><span class="xs dim">vs ${esc(L.teams[opp] || opp)}</span></div><div class="svout">${hn.pending ? '⏳ Locked in — playing now' : hn.won ? `✅ Won ${hn.p.t === g.h ? hn.r.hs + '–' + hn.r.as : hn.r.as + '–' + hn.r.hs} · you survive` : `❌ ${hn.r.hs === hn.r.as ? 'Drew' : 'Lost'} ${hn.p.t === g.h ? hn.r.hs + '–' + hn.r.as : hn.r.as + '–' + hn.r.hs} · you're out`}</div></div>`;
+  } else if (me.alive && n === openN) {
+    const used = me.usedAt[n] || me.used; const cur = st.sv.picks[n]; const gs = C7.weekGames(L, n).games;
+    h += `<div class="lab" style="margin-top:4px">Pick one team to win · ${gs.length} games · locks at kick-off</div>`;
+    h += gs.map(g => { const started = t >= g.at; const side = tm => { const u = used.has(tm); const on = cur && cur.g === g.id && cur.t === tm; const fav = (C7.expMargin(L, g) > 0) === (tm === g.h);
+        return `<button class="svteam ${on ? 'on' : ''} ${u ? 'used' : ''}" data-svp="${n}|${g.id}|${tm}" ${started || u ? 'disabled' : ''}>${scBadge(tm, 1)}<span><b>${esc(L.teams[tm] || tm)}</b><small>${u ? 'already used' : tm === g.h ? 'home' : 'away'}${fav && !u ? ' · favourite' : ''}</small></span>${on ? '<i>✓</i>' : ''}</button>`; };
+      return `<div class="svgame ${started ? 'started' : ''}"><div class="xs dim">${new Date(g.at).toLocaleString(undefined, { weekday: 'short', hour: 'numeric', minute: '2-digit' })}${started ? ' · started' : ''}</div><div class="svrow">${side(g.a)}<span class="svvs">@</span>${side(g.h)}</div></div>`; }).join('');
+    h += `<p class="xs dim" style="margin:0">No pick by the end of the ${esc(L.roundWord.toLowerCase())}? The app picks the biggest favourite you haven't used.</p>`;
+  } else if (!me.alive) h += `<div class="panel muted small">You're out of Survivor this season. Watch who's left below.</div>`;
+  else if (openN && n > openN) h += `<div class="panel muted small">Make your ${esc(rw(L, openN))} pick first. <button class="btn sm" data-gdr="${openN}">Go to ${esc(rw(L, openN))}</button></div>`;
+  else if (n < (st.sv.start || 1)) h += `<div class="panel muted small">You joined Survivor in ${esc(rw(L, st.sv.start))}.</div>`;
+  if (pool.length) h += `<div class="sec">Survivor pool <span class="lab">${alive} of ${pool.length} still alive</span></div><div class="panel" style="padding:4px 10px">${pool.map(r => { const x = r.e.hist.find(y => y.n === n); const show = x && x.p && (r.you || t >= x.g.at);
+      return `<div class="fcrow ${r.you ? 'you' : ''}"><span class="rk">${r.e.alive ? '🛡' : '✖'}</span><b>${esc(r.you ? (A.me || 'You') : r.name)}${r.friend ? ' <span class="tag fr">Friend</span>' : r.ai ? ' <span class="tag ai">AI</span>' : ''}</b><span class="xs dim">${show ? esc(x.p.t) + (x.pending ? '' : x.won ? ' ✓' : ' ✗') : x && x.p ? 'pick hidden' : ''}</span><span class="num">${r.e.alive ? r.e.streak : esc(L.roundWord.slice(0, 1)) + r.e.out}</span></div>`; }).join('')}</div>`;
+  return h;
+}
+
+function svOpen(L, st, t) {                  // the round you can pick for right now
+  const sv = st.sv || {}; if (sv.start == null) { for (let n = Math.max(1, C7.lastResolved(L, t) + 1); n <= L.rounds; n++) if (C7.weekGames(L, n).games.some(g => t < g.at)) return n; return null; }
+  const me = C7.svEval(L, sv.picks, sv.start, t); if (!me.alive) return null; const h = me.hist.find(x => x.open || (x.pending && t < x.g.at)); if (h) return h.n;
+  const last = me.hist[me.hist.length - 1]; if (last && last.pending) { for (let n = last.n + 1; n <= L.rounds; n++) if (C7.weekGames(L, n).games.some(g => t < g.at)) return null; } return null;
 }
 
 /* ============================================================ FAMILY CUP + BUZZER TRIVIA
@@ -4866,6 +4941,9 @@ function fcScan() {
       const pr = C7.pickemRound(L, st, n).filter(o => o.you || o.friend); if (pr.length < 2) continue; const top = Math.max(...pr.map(o => o.pts)); if (top <= 0) continue;
       pr.filter(o => o.pts === top).forEach(o => { const who = o.you ? me : o.name; evs.push({ id: `pk:${L.id}:${n}:${who}`, who, pts: 2, k: 'pick', what: `Best ${L.name} Pick'em · ${rw(L, n)}`, at: C7.roundDate(L, n) + 5 * 864e5 }); });
     }
+    // Survivor: last human standing among you + friends who play it
+    if (st.sv && st.sv.start != null) { const hum = [{ who: me, e: C7.svEval(L, st.sv.picks, st.sv.start, t) }].concat(fr.filter(f => f.sv && f.sv.start != null).map(f => ({ who: f.name, e: C7.svEval(L, f.sv.picks, f.sv.start, t) })));
+      const al = hum.filter(x => x.e.alive); if (hum.length >= 2 && al.length === 1 && hum.every(x => x.e.alive || x.e.out <= lr)) evs.push({ id: `sv:${L.id}:${L.season}:win`, who: al[0].who, pts: 8, k: 'season', what: `${L.name} Survivor — last one standing` }); }
   }
   fcAdd(evs);
 }
@@ -5174,8 +5252,11 @@ document.addEventListener('click', async e => {
   if (d.rnd) { A.open[d.rnd] = !A.open[d.rnd]; render(); return; }
   if (d.ros) { A.open['ros' + d.ros] = !A.open['ros' + d.ros]; render(); return; }
   if (d.pk) { A.pkRound = Math.max(1, Math.min(L.rounds, +d.pk)); if (A.view === 'gameday') A.gdRound = A.pkRound; render(); return; }
+  if (d.svp) { const [n, g, tm] = d.svp.split('|'); const st0 = A.st; st0.sv = st0.sv || { start: null, picks: {} }; const gm = C7.weekGames(L, +n).games.find(x => x.id === g); if (!gm || now() >= gm.at) { toast('That game has started', true); return; }
+    const cur = st0.sv.picks[n]; if (cur && cur.g === g && cur.t === tm) { delete st0.sv.picks[n]; if (st0.sv.start === +n && !Object.keys(st0.sv.picks).length) st0.sv.start = null; toast('Pick removed'); } else { if (st0.sv.start == null) { st0.sv.start = +n; toast('🛡 You\'re in Survivor — last one standing wins'); } else toast(`🛡 ${L.teams[tm] || tm} to win`); st0.sv.picks[n] = { g, t: tm }; }
+    hap('select'); save(); render(); return; }
   if (d.gdr) { A.gdRound = Math.max(1, Math.min(L.rounds, +d.gdr)); hap('select'); render(); return; }
-  if (d.gdtab) { A.gdTab = d.gdtab; hap('select'); render(); return; }
+  if (d.gdtab) { if (d.gdtab === 'sv' || A.gdTab === 'sv') A.gdRound = null; A.gdTab = d.gdtab; hap('select'); render(); return; }
   if (d.psort) { A.f.sort = d.psort; A.showN = 80; hap('select'); render(); return; }
   if (d.plr) { A.plRound = Math.max(1, Math.min(C7.lastResolved(L, now()), +d.plr)); A.f.sort = 'rd'; render(); return; }
   if (d.act === 'tview') { A.teamView = A.teamView === 'list' ? 'pitch' : 'list'; store.set('code7_teamview', A.teamView); hap('select'); render(); return; }
