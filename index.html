@@ -983,6 +983,34 @@ button.sctile:active{transform:scale(.97)}
 .aumgr .te{grid-row:span 2;font-size:22px}.aumgr b{font:800 13px/1.1 var(--fc);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.aumgr small{font-size:10.5px;color:var(--tx3)}
 .aumgr.lead{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold) inset}.aumgr.out{opacity:.5}
 .prow.sold{opacity:.85}
+/* family cup */
+.fchome{display:flex;align-items:center;gap:12px;width:100%;text-align:left;margin:12px 0 0;padding:12px 14px;border-radius:16px;border:1px solid color-mix(in srgb,var(--gold) 55%,transparent);background:linear-gradient(100deg,color-mix(in srgb,var(--gold) 16%,transparent),transparent 70%),var(--panel);color:var(--tx)}
+.fchome .fct{font-size:30px}.fchome div{flex:1;min-width:0}.fchome b{display:block;font:900 18px/1.1 var(--fd);letter-spacing:.04em;text-transform:uppercase}.fchome small{color:var(--tx2);font-size:12px}.fchome .fcgo{font-size:26px;color:var(--gold)}
+.fchero{background:radial-gradient(120% 90% at 50% 0,color-mix(in srgb,var(--gold) 26%,transparent),transparent 60%),var(--panel)}
+.podium{display:grid;grid-template-columns:1fr 1.15fr 1fr;align-items:end;gap:8px;margin-top:4px}
+.pd{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0}.pd b{font:800 13px/1.1 var(--fc);max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.pd .num{font:900 22px/1 var(--fd)}
+.pdav{position:relative;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--acc),#5a2200);font:900 18px/1 var(--fd);color:#fff;font-size:0}.pdav span{font-size:18px}
+.pd.p1 .pdav{width:64px;height:64px;background:linear-gradient(135deg,#ffe38a,#c99400);color:#241a00}.pd.p1 .pdav span{font-size:22px}.pdav{font-size:0}.pd.p1 .pdav::before{content:"👑";position:absolute;top:-20px;font-size:20px}
+.pdblk{width:100%;border-radius:10px 10px 0 0;display:grid;place-items:center;font:900 24px/1 var(--fd);color:rgba(255,255,255,.85);background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line2);border-bottom:0}
+.pd.p1 .pdblk{height:78px;background:linear-gradient(180deg,color-mix(in srgb,var(--gold) 40%,var(--panel2)),var(--panel))}.pd.p2 .pdblk{height:56px}.pd.p3 .pdblk{height:40px}.pd.empty{visibility:hidden}
+.fcrow{display:grid;grid-template-columns:24px 1fr auto 48px;gap:8px;align-items:center;padding:10px 2px;border-bottom:1px solid var(--line)}.fcrow:last-child{border-bottom:0}
+.fcrow .rk{font:800 13px/1 var(--fc);color:var(--tx3);text-align:center}.fcrow b{font:700 15px/1.1 var(--fb);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.fcrow .num{text-align:right;font:900 20px/1 var(--fd)}.fcrow.you b{color:var(--acc)}
+.fck{display:flex;gap:6px}.fck i{font-style:normal;font:700 11px/1 var(--fc);color:var(--tx2);background:rgba(255,255,255,.05);border-radius:6px;padding:4px 5px}
+.shelf{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px}.troph{flex:none;display:flex;flex-direction:column;align-items:center;padding:10px 14px;border-radius:14px;background:linear-gradient(180deg,color-mix(in srgb,var(--gold) 18%,var(--panel2)),var(--panel));border:1px solid color-mix(in srgb,var(--gold) 45%,transparent)}
+.troph span{font-size:28px}.troph b{font:800 13px/1.1 var(--fc)}.troph small{color:var(--gold);font:800 12px/1 var(--fc)}
+.fcev{display:grid;grid-template-columns:22px 1fr auto;gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}.fcev:last-child{border-bottom:0}.fcev .num{font:900 16px/1 var(--fd);color:var(--good)}
+/* buzzer trivia */
+.tvcard{border-color:color-mix(in srgb,var(--vio) 60%,transparent)!important;background:linear-gradient(100deg,color-mix(in srgb,var(--vio) 18%,transparent),transparent 70%),var(--panel)!important}
+.tvhero{background:radial-gradient(120% 90% at 50% 0,color-mix(in srgb,var(--vio) 30%,transparent),transparent 60%),var(--panel);text-align:center}
+.tvcd{font:900 110px/1 var(--fd);color:var(--gold);margin:10px 0;animation:spinpop .9s var(--spring) infinite}
+.tvq h2{font-size:30px;line-height:1.05;margin-top:10px}.tvq p{margin-top:6px}
+.tvclock{height:10px;border-radius:6px;background:rgba(255,255,255,.08);overflow:hidden;margin-top:14px}.tvclock i{display:block;height:100%;width:100%;background:linear-gradient(90deg,var(--bad),var(--gold),var(--good));transition:width .15s linear}
+.tvopts{display:grid;grid-template-columns:1fr 1fr;gap:10px}.tvopts.two{grid-template-columns:1fr}
+.tvo{min-height:84px;border-radius:16px;border:0;color:#fff;font:800 17px/1.15 var(--fb);padding:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;box-shadow:0 6px 0 rgba(0,0,0,.35);transition:transform .12s,opacity .2s}
+.tvo:active{transform:translateY(4px);box-shadow:0 2px 0 rgba(0,0,0,.35)}.tvo small{font:600 11px/1.1 var(--fc);opacity:.9}
+.tvo.o0{background:linear-gradient(180deg,#ff5a6e,#d6263f)}.tvo.o1{background:linear-gradient(180deg,#4f8bff,#2458d6)}.tvo.o2{background:linear-gradient(180deg,#ffc940,#d99a00);color:#241a00}.tvo.o3{background:linear-gradient(180deg,#27d8a5,#0f9c73)}
+.tvo.dim{opacity:.3}.tvo.chosen{outline:4px solid #fff;outline-offset:-4px}.tvo.right{outline:4px solid #fff;outline-offset:-4px;animation:spinpop .5s var(--spring)}.tvo.wrong{opacity:.6;text-decoration:line-through}
+.tvres .row{padding:6px 0;border-bottom:1px solid var(--line)}.tvres .row:last-child{border-bottom:0}.tvres .num{font:900 20px/1 var(--fd)}.num.good{color:var(--good)}
 
 </style>
 </head>
@@ -1110,7 +1138,7 @@ const LEAGUES = [
     colors: { ARI: ['#97233F', '#FFB612'], ATL: ['#A71930', '#000000'], BAL: ['#241773', '#9E7C0C'], BUF: ['#00338D', '#C60C30'], CAR: ['#0085CA', '#101820'], CHI: ['#0B162A', '#C83803'], CIN: ['#FB4F14', '#000000'], CLE: ['#311D00', '#FF3C00'], DAL: ['#003594', '#869397'], DEN: ['#FB4F14', '#002244'], DET: ['#0076B6', '#B0B7BC'], GB: ['#203731', '#FFB612'], HOU: ['#03202F', '#A71930'], IND: ['#002C5F', '#A2AAAD'], JAX: ['#006778', '#D7A22A'], KC: ['#E31837', '#FFB81C'], LAC: ['#0080C6', '#FFC20E'], LAR: ['#003594', '#FFA300'], LV: ['#000000', '#A5ACAF'], MIA: ['#008E97', '#FC4C02'], MIN: ['#4F2683', '#FFC62F'], NE: ['#002244', '#C60C30'], NO: ['#101820', '#D3BC8D'], NYG: ['#0B2265', '#A71930'], NYJ: ['#125740', '#FFFFFF'], PHI: ['#004C54', '#A5ACAF'], PIT: ['#101820', '#FFB612'], SEA: ['#002244', '#69BE28'], SF: ['#AA0000', '#B3995D'], TB: ['#D50A0A', '#34302B'], TEN: ['#0C2340', '#4B92DB'], WAS: ['#5A1414', '#FFB612'] },
     seasonStart: '2026-09-09T20:20:00-04:00', // Kickoff game Wed 9 Sep 2026 (ET)
     rounds: 18, roundWord: 'Week', cur: '$', predictor: true, pickTol: 7,
-    budget: 6000000, trades: 20, sd: 0.5, K: 0.35, maxMove: 50000, roundTo: 1000,
+    budget: 8000000, trades: 20, sd: 0.5, K: 0.35, maxMove: 50000, roundTo: 1000,
     positions: { QB: 'Quarterback', RB: 'Running Back', WR: 'Wide Receiver', TE: 'Tight End', K: 'Kicker', DEF: 'Defence' },
     slots: [S('QB'), S('RB'), S('RB'), S('WR'), S('WR'), S('WR'), S('TE'), S(['RB', 'WR', 'TE'], 'FLEX'), S('K'), S('DEF'),
       B(['QB', 'RB', 'WR', 'TE'], 'BENCH'), B(['QB', 'RB', 'WR', 'TE'], 'BENCH'), B(['QB', 'RB', 'WR', 'TE'], 'BENCH')],
@@ -2608,6 +2636,7 @@ function load(id) {
   let st = store.get(KEY(L.id));
   if (!st || st.v !== 6) st = C7.newState(L, now(), (Math.random() * 4294967296) >>> 0);
   st.friends = st.friends || []; st.badgesSeen = st.badgesSeen || [];
+  { const cap0 = st.cap != null ? st.cap : (L.id === 'nfl' ? 6000000 : L.budget); if (cap0 !== L.budget && st.phase === 'season') st.bank = (st.bank || 0) + (L.budget - cap0); st.cap = L.budget; }   // salary cap changed: season teams get the difference in the bank
   A.st = st; A.pool = C7.generatePool(L); A.P = C7.byId(A.pool); A.mkRound = -1;
   A.pick = null; A.swapFrom = null; A.pkRound = null; A.gdRound = null; A.plRound = null; A.showN = 80; refresh(true);
 }
@@ -2706,7 +2735,7 @@ function lvlWatch(x) {        // show the level banner at boot and whenever XP g
   if (prev && x.total > prev.total) { A.xpGain = x.total - prev.total; A.lvlOpen = x.level > prev.level ? 'up' : 'xp'; if (x.level > prev.level) { setTimeout(() => { confetti(); snd && snd('legend'); hap('level'); }, 200); } else hap('ok'); clearTimeout(A._lvlT); A._lvlT = setTimeout(() => { A.lvlOpen = null; A.xpGain = 0; renderTop(); }, x.level > prev.level ? 6000 : 3500); }
   store.set(k, { total: x.total, level: x.level });
 }
-const NAVMAP = { hub: 'hub', team: 'team', players: 'team', rosters: 'team', pick: 'gameday', gameday: 'gameday', clash: 'clash', games: 'clash', qg: 'clash', pool: 'pool', leagues: 'pool', more: 'more', news: 'hub' };
+const NAVMAP = { hub: 'hub', team: 'team', players: 'team', rosters: 'team', pick: 'gameday', gameday: 'gameday', clash: 'clash', games: 'clash', qg: 'clash', pool: 'pool', leagues: 'pool', fcup: 'pool', more: 'more', news: 'hub' };
 function renderTop() {
   const L = A.L; const sp = SPORT_OF(L.id);
   document.documentElement.style.setProperty('--acc', L.accent);
@@ -2725,7 +2754,7 @@ function renderTop() {
 }
 function render() {
   renderTop();
-  const v = { hub: () => instBanner() + vHub() + '<button class="btn ghost wide settings-link" data-v="more">⚙️ Settings · saves · music · haptics</button>', team: vTeam, players: vPlayers, pick: () => { A.gdTab = 'pk'; A.gdRound = A.pkRound || null; A.view = 'gameday'; return vGameday(); }, gameday: vGameday, pool: vLeagues, leagues: vLeagues, more: vMore, clash: vClash, rosters: vRosters, news: vNews, games: vGames, qg: vQG }[A.view] || vHub;
+  const v = { hub: () => instBanner() + vHub() + '<button class="btn ghost wide settings-link" data-v="more">⚙️ Settings · saves · music · haptics</button>', team: vTeam, players: vPlayers, pick: () => { A.gdTab = 'pk'; A.gdRound = A.pkRound || null; A.view = 'gameday'; return vGameday(); }, gameday: vGameday, fcup: vFcup, pool: vLeagues, leagues: vLeagues, more: vMore, clash: vClash, rosters: vRosters, news: vNews, games: vGames, qg: vQG }[A.view] || vHub;
   const m = $('#main'); if (!A.anim) m.classList.remove('enter'); m.innerHTML = (A.statsReady ? `<div class="updbar"><span>📊 Fresh stats ready · ${esc(fmtV(A.statsReady))}</span><button class="btn sm pri" data-act="stats-reload">Reload</button></div>` : '') + v();
   if (A.anim) { A.anim = false; m.style.setProperty('--dx', (A.dx || 0) * 28 + 'px'); A.dx = 0; m.classList.remove('enter'); void m.offsetWidth; m.classList.add('enter'); }
   if (A.sportFx) { A.sportFx = false; const t = $('#top'); t.classList.remove('swap'); void t.offsetWidth; t.classList.add('swap'); setTimeout(() => t.classList.remove('swap'), 900); }
@@ -2759,7 +2788,7 @@ function strip() {
 /* ---------- HUB ---------- */
 function vHub() {
   const L = A.L, st = A.st; const x = C7.xp(L, st, myPickRes());
-  let h = hero() + homeModes();
+  let h = hero() + fcHomeCard() + homeModes();
   if (closed()) return h + newsHome();
   h += newsHome();
   // head-to-head
@@ -3101,7 +3130,7 @@ function lkWirePc(peer) {
 }
 function lkWireCh(peer) {
   const ch = peer.ch; peer.buf = {};
-  ch.onopen = () => { peer.st = 'open'; if (!LK.peers.includes(peer)) LK.peers.push(peer); if (LK.pending === peer) LK.pending = null; lkSend(peer, { t: 'hello', id: ME, n: lkName(), v: DATA_V, app: 'LEG3ND' }); snd && snd('win'); hap('link'); lkCamOff(); lkStopScan(); if (LK.room && LK.room.host) { delete LK.room.pend[peer.rid]; rmSheet(); } else { if (LK.room) rmClose(); closeSheet(); } toast('🔗 Linked with ' + (peer.name || 'a friend')); render(); setTimeout(async () => { peer.route = await lkRoute(peer); render(); }, 600); };
+  ch.onopen = () => { peer.st = 'open'; if (!LK.peers.includes(peer)) LK.peers.push(peer); if (LK.pending === peer) LK.pending = null; lkSend(peer, { t: 'hello', id: ME, n: lkName(), v: DATA_V, app: 'LEG3ND' }); snd && snd('win'); hap('link'); lkCamOff(); lkStopScan(); if (LK.room && LK.room.host) { delete LK.room.pend[peer.rid]; if ($('#rmsheet')) rmSheet(); if (lkOpen().length >= 3) { const r = LK.room; rmClose(); if ($('#rmsheet')) { LK.room = r; rmSheet(); LK.room = null; } } } else { if (LK.room) rmClose(); closeSheet(); } toast('🔗 Linked with ' + (peer.name || 'a friend')); render(); setTimeout(async () => { peer.route = await lkRoute(peer); render(); }, 600); };
   ch.onclose = () => lkClosed(peer);
   ch.onmessage = e => {
     peer.last = Date.now(); if (peer.weak) { peer.weak = false; render(); }
@@ -3322,13 +3351,13 @@ async function rmHostMsg(room, m) {
     if (m.t === 'hi') {
       if (room.pend[m.id]) return; const lk = lkOpen().find(p => p.id === m.id); if (lk) return;
       if (lkOpen().length + Object.keys(room.pend).length >= 3) { rmPub(back, { t: 'full' }); return; }
-      room.pend[m.id] = { name: m.n, st: 'joining' }; rmSheet(); hap('select');
-      const peer = await lkHost(true); peer.name = m.n; peer.rid = m.id; room.pend[m.id] = peer; await rmPub(back, { t: 'offer', c: peer.code }); rmSheet();
+      room.pend[m.id] = { name: m.n, st: 'joining' }; if ($('#rmsheet')) rmSheet(); else toast(`🔗 ${m.n || 'A phone'} is joining your game room…`); hap('select');
+      const peer = await lkHost(true); peer.name = m.n; peer.rid = m.id; room.pend[m.id] = peer; await rmPub(back, { t: 'offer', c: peer.code }); if ($('#rmsheet')) rmSheet();
     } else if (m.t === 'answer') {
       const peer = room.pend[m.id]; if (!peer || !peer.pc) return; const o = await lkDecode(m.c, 'L3A'); peer.name = o.n || peer.name; await peer.pc.setRemoteDescription({ type: 'answer', sdp: o.s });
-      setTimeout(() => { if (room.pend[m.id] === peer && peer.st !== 'open') { delete room.pend[m.id]; try { peer.pc.close(); } catch (e) { } rmSheet(); toast(`Couldn't reach ${peer.name || 'that phone'} — ask them to tap Join again`, true); } }, 20000);
+      setTimeout(() => { if (room.pend[m.id] === peer && peer.st !== 'open') { delete room.pend[m.id]; try { peer.pc.close(); } catch (e) { } if ($('#rmsheet')) rmSheet(); toast(`Couldn't reach ${peer.name || 'that phone'} — ask them to tap Join again`, true); } }, 20000);
     }
-  } catch (e) { delete room.pend[m.id]; rmSheet(); }
+  } catch (e) { delete room.pend[m.id]; if ($('#rmsheet')) rmSheet(); }
 }
 async function rmJoin(raw) {
   const code = rmNorm(raw); if (code.length !== 4) { toast('Type the 4-letter room code', true); return; }
@@ -3583,13 +3612,14 @@ function vGames() {
   const L = A.L; const g = QG.get('guess_' + L.id), h = QG.get('hol_' + L.id), gr = QG.get('grid_' + L.id); const d = today();
   return `<div class="stack"><section class="hero qg-hero"><div class="lab">${SPORT_OF(L.id).icon} ${esc(L.name)} · offline · 1–4 players</div><h2>Quick Games</h2><p>Real ${esc(L.name)} players, quick rounds. New daily puzzles every morning — same puzzle for the whole family.</p></section>
     <div class="qgs">
+      <button class="qg tvcard" data-qg="tv"><span class="qi">🧠</span><div><b>Buzzer Trivia</b><small>10 questions, fastest right answer wins. Solo, or up to 4 linked phones.</small><em>${lkOpen().length ? '⚡ ' + (lkOpen().length + 1) + ' phones ready' : 'Best ' + (QG.get('tv_' + L.id).best || 0)}</em></div></button>
       <button class="qg" data-qg="guess"><span class="qi">🕵️</span><div><b>Guess the Player</b><small>6 guesses. Each miss shows how close you were and unlocks a clue.</small><em>${g.day === d ? (g.won ? '✅ Solved today' : g.done ? '❌ Today\'s is done' : '▶ In progress') : '🆕 Today\'s puzzle'} · streak ${g.streak || 0}</em></div></button>
       <button class="qg" data-qg="hol"><span class="qi">↕️</span><div><b>Higher or Lower</b><small>Who averages more? Keep the streak alive — or pass the phone round.</small><em>Best streak ${h.best || 0}</em></div></button>
       <button class="qg" data-qg="grid"><span class="qi">#️⃣</span><div><b>Roster Grid</b><small>Fill 9 squares with a player who fits the row AND the column. Rare picks score more.</small><em>${gr.day === d ? (gr.done ? `✅ Today: ${gr.score} pts` : '▶ In progress') : '🆕 Today\'s grid'}</em></div></button>
     </div>
     <p class="xs dim">Want a new sport? Switch at the top — every game works for all ${LEAGUES.length} competitions.</p></div>`;
 }
-function vQG() { if (A.qg && A.qg.lid !== A.L.id) A.qg = null; const k = A.qg && A.qg.k; return k === 'guess' ? vGuess() : k === 'hol' ? vHol() : k === 'grid' ? vGrid() : vGames(); }
+function vQG() { if (A.qg && A.qg.lid !== A.L.id) A.qg = null; const k = A.qg && A.qg.k; return k === 'tv' ? vTv() : k === 'guess' ? vGuess() : k === 'hol' ? vHol() : k === 'grid' ? vGrid() : vGames(); }
 const qgHead = (t, sub) => `<div class="row between" style="margin-top:12px"><div><div class="lab">${esc(sub)}</div><div class="num" style="font-size:26px;font-weight:900;text-transform:uppercase">${esc(t)}</div></div><button class="btn sm" data-v="games">✕</button></div>`;
 
 /* ---------- Guess the Player ---------- */
@@ -3697,7 +3727,7 @@ function vGrid() {
 /* ---------- clicks + typing ---------- */
 async function gamesClick(t, d) {
   const L = A.L;
-  if (d.qg) { if (d.qg === 'guess') guessStart(false); if (d.qg === 'hol') holStart(1); if (d.qg === 'grid') gridStart(false); if (A.qg) { A.view = 'qg'; A.anim = true; render(); window.scrollTo(0, 0); } return true; }
+  if (d.qg) { if (d.qg === 'tv') A.qg = { k: 'tv', lid: L.id }; if (d.qg === 'guess') guessStart(false); if (d.qg === 'hol') holStart(1); if (d.qg === 'grid') gridStart(false); if (A.qg) { A.view = 'qg'; A.anim = true; render(); window.scrollTo(0, 0); } return true; }
   const g = A.qg; if (!g || g.lid !== L.id) return false;
   if (d.qgpick) { g.guesses.push(d.qgpick); g.q = ''; const won = d.qgpick === g.target; guessSave(); if (won) { confetti(); snd && snd('legend'); hap('win'); } else { hap(g.guesses.length >= 6 ? 'loss' : 'err'); if (g.guesses.length >= 6) snd && snd('buzzer'); } render(); return true; }
   if (d.act === 'qg-practice') { guessStart(true); A.anim = true; render(); return true; }
@@ -3885,7 +3915,7 @@ function clChampThen(c, then) {              // the trophy moment, once per Clas
   cv.champFx = c.net ? c.net.id : c.created; const { L } = clx(c.league);
   FX.champion(c.m[c.champ], `${L.name} ${c.fmt === 'cup' ? 'Knockout Cup winners' : 'Clash champions'}`).then(then);
 }
-function clHof(c, rec) { if (c.phase !== 'done' || c._hof || !rec) return; c._hof = 1; const { L } = clx(c.league); const hof = CL.hof(); const g = rec.games[rec.games.length - 1]; hof.push({ at: Date.now(), league: L.name + (c.fmt === 'cup' ? ' Cup' : ''), champ: `${c.m[c.champ].emoji} ${c.m[c.champ].team} (${c.m[c.champ].name})`, runner: c.m[c.runner].name, score: `${Math.max(g.sa, g.sb)}–${Math.min(g.sa, g.sb)}` }); store.set('code7_hof', hof.slice(-30)); }
+function clHof(c, rec) { if (c.phase !== 'done' || c._hof || !rec) return; c._hof = 1; try { fcClash(c); } catch (e) { } const { L } = clx(c.league); const hof = CL.hof(); const g = rec.games[rec.games.length - 1]; hof.push({ at: Date.now(), league: L.name + (c.fmt === 'cup' ? ' Cup' : ''), champ: `${c.m[c.champ].emoji} ${c.m[c.champ].team} (${c.m[c.champ].name})`, runner: c.m[c.runner].name, score: `${Math.max(g.sa, g.sb)}–${Math.min(g.sa, g.sb)}` }); store.set('code7_hof', hof.slice(-30)); }
 function clHome() {
   const R = CL.rec() || { players: {}, h2h: {}, clashes: 0 }; const hof = CL.hof();
   const pl = Object.entries(R.players).sort((a, b) => b[1].titles - a[1].titles || b[1].w - a[1].w);
@@ -4724,6 +4754,7 @@ function vLeagues() {
   const riv = season ? scRivals() : []; const rw_ = riv.reduce((a, r) => [a[0] + r.w, a[1] + r.l, a[2] + r.d], [0, 0, 0]);
   const CR = (typeof CL !== 'undefined' && CL.rec()) || { h2h: {} }; let cw = 0, cl = 0; Object.entries(CR.h2h || {}).forEach(([k, v]) => { const [a, b] = k.split('|'); if (A.me && (a === A.me || b === A.me)) { const o = a === A.me ? b : a; cw += v[A.me] || 0; cl += v[o] || 0; } });
   let h = `<div class="stack"><div class="sctiles t3">${scTile('H2H record', mr ? `${mr.w}-${mr.l}` : '–', mr ? pct(mr.w, mr.l) + ' wins' : 'starts with your season')}${scTile('Pool rank', mr ? ord(mr.rank) : '–', mr ? `of ${t.length} · ${mr.total} pts` : L.name)}${scTile('Rivalries', riv.length ? `${rw_[0]}-${rw_[1]}${rw_[2] ? '-' + rw_[2] : ''}` : (cw + cl ? `${cw}-${cl}` : '–'), riv.length ? `vs ${riv.length} friend${riv.length > 1 ? 's' : ''}` : cw + cl ? 'Clash head-to-head' : 'add a friend')}</div>`;
+  h += fcHomeCard();
   h += scTabs('ptab', [['fan', 'Leagues'], ['riv', 'Rivalries'], ['link', '🔗 Link Up'], ['rd', 'Rounds']], A.poolTab === 'pk' ? 'fan' : A.poolTab);
   if (A.poolTab === 'link') return h + vLink() + '</div>';
   if (closed()) return h + hero() + '</div>';
@@ -4799,6 +4830,191 @@ function vGameday() {
   st.friends.forEach(fr => { const b = (fr._res || {})[n]; h += card(fr.name, 'fr', res ? res.total : null, b == null ? null : b, 'Friend rivalry · ' + status); });
   if (!res && lu) h += `<div class="sec">Your ${esc(rw(L, n))} lineup</div><div class="plist">${lu.squad.map((id, i) => id && A.P[id] && !L.slots[i].bench ? `<button class="prow" data-pid="${id}">${av(A.P[id], false, id === lu.c ? 'c' : id === lu.vc ? 'vc' : '')}<div class="who"><div class="nm">${esc(A.P[id].name)}</div><div class="mt">${esc(L.slots[i].label)} · ${esc(A.P[id].team)} · proj ${Math.round(proj(A.P[id], n))}</div></div></button>` : '').join('')}</div>`;
   return h + '</div>';
+}
+
+/* ============================================================ FAMILY CUP + BUZZER TRIVIA
+   Family Cup: one family table fed by every mode. A ledger of point events with fixed ids,
+   so linked phones can merge ledgers without double counting.
+   Buzzer Trivia: 10 quick questions on real players; fastest right answer scores most. Solo or up to 4 linked phones. */
+const FC = { get() { return store.get('code7_fcup') || { ev: {} }; }, set(v) { store.set('code7_fcup', v); } };
+const FC_KIND = { clash: ['⚔️', 'Clash'], trivia: ['🧠', 'Trivia'], season: ['📈', 'Season'], pick: ['✔️', "Pick'em"], qg: ['🎯', 'Quick Games'] };
+const fcMe = () => (A.me || '').trim();
+function fcAdd(evs, fromPeer) {
+  const f = FC.get(); const fresh = [];
+  (evs || []).forEach(e => { if (!e || !e.id || !e.who || f.ev[e.id]) return; f.ev[e.id] = { id: e.id, who: String(e.who).slice(0, 24), pts: +e.pts || 0, k: e.k, what: String(e.what || '').slice(0, 80), at: +e.at || Date.now() }; fresh.push(f.ev[e.id]); });
+  if (!fresh.length) return 0; FC.set(f);
+  if (!fromPeer && typeof lkOpen === 'function' && lkOpen().length) lkBroadcast({ t: 'fc-sync', ev: fresh });
+  return fresh.length;
+}
+LK.on['fc-sync'] = m => { const n = fcAdd(m.ev, true); if (n && (A.view === 'fcup' || A.view === 'hub')) render(); };
+LK.on.hello = (m, peer) => { const ev = Object.values(FC.get().ev); if (ev.length) lkSend(peer, { t: 'fc-sync', ev }); };
+function fcWeek(ms) { const d = new Date(ms); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() - ((d.getDay() + 6) % 7)); return d.getTime(); }
+/* season + Pick'em points come from data every phone already has: you + the friends in your leagues */
+const _fcScan = {};
+function fcScan() {
+  const me = fcMe(); if (!me) return; const t = now(); const evs = [];
+  for (const L of LEAGUES) {
+    const st = L.id === A.lid ? A.st : store.get(KEY(L.id)); if (!st || st.phase !== 'season' || !st.friends || !st.friends.length) continue;
+    const lr = C7.lastResolved(L, t); const key = L.id + ':' + lr + ':' + st.friends.length + ':' + Object.keys(st.results).length; if (_fcScan[L.id] === key) continue; _fcScan[L.id] = key;
+    let fr = st.friends; if (L.id !== A.lid) { const pool = C7.generatePool(L); fr = st.friends.map(f => Object.assign({}, f, { _res: C7.friendResults(L, pool, f, lr) })); }
+    for (const n of Object.keys(st.results).map(Number)) {
+      const rows = [{ who: me, s: st.results[n].total }].concat(fr.map(f => ({ who: f.name, s: (f._res || {})[n] }))).filter(r => r.s != null);
+      if (rows.length < 2) continue; const top = Math.max(...rows.map(r => r.s));
+      rows.filter(r => r.s === top).forEach(r => evs.push({ id: `sz:${L.id}:${n}:${r.who}`, who: r.who, pts: 3, k: 'season', what: `Top ${L.name} score · ${rw(L, n)} (${top})`, at: C7.roundDate(L, n) + 5 * 864e5 }));
+    }
+    if (L.predictor) for (const n of Object.keys(st.picks || {}).map(Number).filter(n => n <= lr && Object.keys(st.picks[n] || {}).length)) {
+      const pr = C7.pickemRound(L, st, n).filter(o => o.you || o.friend); if (pr.length < 2) continue; const top = Math.max(...pr.map(o => o.pts)); if (top <= 0) continue;
+      pr.filter(o => o.pts === top).forEach(o => { const who = o.you ? me : o.name; evs.push({ id: `pk:${L.id}:${n}:${who}`, who, pts: 2, k: 'pick', what: `Best ${L.name} Pick'em · ${rw(L, n)}`, at: C7.roundDate(L, n) + 5 * 864e5 }); });
+    }
+  }
+  fcAdd(evs);
+}
+/* called when a Clash / Cup finishes (on every phone that saw it) */
+function fcClash(c) {
+  const hum = c.m.map((m, i) => i).filter(i => !c.m[i].cpu); if (hum.length < 2) return; const { L } = clx(c.league); const key = c.net ? c.net.id : c.created; const evs = []; const cup = c.fmt === 'cup';
+  if (c.champ != null && !c.m[c.champ].cpu) evs.push({ id: `cl:${key}:champ`, who: c.m[c.champ].name, pts: 10, k: 'clash', what: `${L.name} ${cup ? 'Cup' : 'Clash'} champion` });
+  if (c.runner != null && !c.m[c.runner].cpu) evs.push({ id: `cl:${key}:runner`, who: c.m[c.runner].name, pts: 5, k: 'clash', what: `${L.name} ${cup ? 'Cup' : 'Clash'} runner-up` });
+  c.res.forEach((rec, r) => rec.games.forEach((g, gi) => { const w = g.sa > g.sb ? g.a : g.sb > g.sa ? g.b : null; if (w != null && !c.m[w].cpu) evs.push({ id: `cl:${key}:w:${r}:${gi}`, who: c.m[w].name, pts: 1, k: 'clash', what: `Clash win vs ${c.m[w === g.a ? g.b : g.a].name}` }); }));
+  fcAdd(evs);
+}
+function fcTable(from, to) {
+  const rows = {}; Object.values(FC.get().ev).forEach(e => { if (e.at < from || e.at >= to) return; const r = rows[e.who] = rows[e.who] || { who: e.who, pts: 0, k: {} }; r.pts += e.pts; r.k[e.k] = (r.k[e.k] || 0) + e.pts; });
+  return Object.values(rows).sort((a, b) => b.pts - a.pts || a.who.localeCompare(b.who));
+}
+function fcLeader() { const w = fcWeek(now()); const t = fcTable(w, w + 7 * 864e5); return t[0] || null; }
+function fcHomeCard() {
+  const l = fcLeader(); const all = Object.keys(FC.get().ev).length;
+  return `<button class="fchome" data-v="fcup"><span class="fct">🏆</span><div><b>Family Cup</b><small>${l ? `${esc(l.who)} leads this week · ${l.pts} pts` : all ? 'New week — nobody on the board yet' : 'Every game you play together scores points'}</small></div><span class="fcgo">›</span></button>`;
+}
+function vFcup() {
+  fcScan(); const t = now(); const w = fcWeek(t); const y = new Date(t).getFullYear(); const tab = A.fcTab || 'wk';
+  const [from, to] = tab === 'wk' ? [w, w + 7 * 864e5] : tab === 'yr' ? [new Date(y, 0, 1).getTime(), new Date(y + 1, 0, 1).getTime()] : [0, 9e15];
+  const tbl = fcTable(from, to); const ev = Object.values(FC.get().ev);
+  let h = `<div class="stack"><section class="hero fchero"><div class="lab">Week of ${new Date(w).toLocaleDateString(undefined, { day: 'numeric', month: 'short' })} · resets Monday</div><h2>Family Cup</h2><p>One table for everything you play together: Clash, Cup, Buzzer Trivia, and your season leagues.</p></section>`;
+  if (!fcMe()) h += `<div class="panel" style="border-color:var(--warn)"><div class="lab">Your name</div><input id="myname" maxlength="24" placeholder="Type your name — the same one on every phone" autocomplete="off"><p class="xs dim" style="margin:6px 0 0">Points are counted by name, so use the same name on every phone.</p></div>`;
+  h += scTabs('fctab', [['wk', 'This week'], ['yr', String(y)], ['all', 'All time']], tab);
+  if (tbl.length) {
+    const pod = tbl.slice(0, 3); const ord3 = [pod[1], pod[0], pod[2]];
+    h += `<div class="podium">${ord3.map((r, k) => r ? `<div class="pd p${[2, 1, 3][k]}"><div class="pdav">${[2, 1, 3][k] === 1 ? '👑' : ''}<span>${esc(initials(r.who))}</span></div><b>${esc(r.who)}</b><div class="num">${r.pts}</div><div class="pdblk">${[2, 1, 3][k]}</div></div>` : '<div class="pd empty"></div>').join('')}</div>`;
+    h += `<div class="panel" style="padding:4px 10px">${tbl.map((r, i) => `<div class="fcrow ${r.who === fcMe() ? 'you' : ''}"><span class="rk">${i + 1}</span><b>${esc(r.who)}</b><span class="fck">${Object.entries(r.k).map(([k, v]) => `<i title="${esc(FC_KIND[k] ? FC_KIND[k][1] : k)}">${FC_KIND[k] ? FC_KIND[k][0] : '•'}${v}</i>`).join('')}</span><span class="num">${r.pts}</span></div>`).join('')}</div>`;
+  } else h += `<div class="panel muted small">No points ${tab === 'wk' ? 'this week' : 'yet'}. Play a Clash or Cup with at least two people, a Buzzer Trivia game, or add each other to your season leagues.</div>`;
+  // trophy shelf: past weekly champions
+  const weeks = {}; ev.forEach(e => { const k = fcWeek(e.at); if (k >= w) return; (weeks[k] = weeks[k] || []).push(e); });
+  const champs = Object.keys(weeks).map(Number).sort((a, b) => b - a).slice(0, 12).map(k => { const tb = fcTable(k, k + 7 * 864e5); return { k, r: tb[0], tie: tb[1] && tb[1].pts === tb[0].pts }; }).filter(x => x.r);
+  if (champs.length) { const cnt = {}; champs.forEach(x => cnt[x.r.who] = (cnt[x.r.who] || 0) + 1);
+    h += `<div class="sec">Trophy shelf <span class="lab">weekly champions</span></div><div class="shelf">${Object.entries(cnt).sort((a, b) => b[1] - a[1]).map(([n, c]) => `<div class="troph"><span>🏆</span><b>${esc(n)}</b><small>× ${c}</small></div>`).join('')}</div>
+      <div class="plist">${champs.map(x => `<div class="prow"><div class="who"><div class="nm">${esc(x.r.who)}${x.tie ? ' <span class="tag">tie</span>' : ''}</div><div class="mt">Week of ${new Date(x.k).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' })}</div></div><div class="rt"><div class="v">${x.r.pts}</div></div></div>`).join('')}</div>`; }
+  const recent = ev.slice().sort((a, b) => b.at - a.at).slice(0, 10);
+  if (recent.length) h += `<div class="sec">Latest points</div><div class="panel" style="padding:4px 10px">${recent.map(e => `<div class="fcev"><span>${FC_KIND[e.k] ? FC_KIND[e.k][0] : '•'}</span><div><b>${esc(e.who)}</b> <span class="small muted">${esc(e.what)}</span></div><span class="num">+${e.pts}</span></div>`).join('')}</div>`;
+  h += `<details class="panel how"><summary class="sec">How to score</summary><ul class="small muted">
+    <li>⚔️ <b>Clash or Cup</b> with 2+ people: champion 10 · runner-up 5 · every match win 1.</li>
+    <li>🧠 <b>Buzzer Trivia</b> with 2+ phones: 1st 5 · 2nd 3 · 3rd 1.</li>
+    <li>📈 <b>Season</b>: top score in the family each ${esc(A.L.roundWord.toLowerCase())} 3 (add each other as friends in Leagues).</li>
+    <li>✔️ <b>Pick'em</b>: best family tipster each ${esc(A.L.roundWord.toLowerCase())} 2.</li>
+    <li>🔗 Linked phones share the Family Cup automatically, so everyone sees the same table.</li></ul></details>`;
+  if (lkOpen().length) h += `<button class="btn wide" data-act="fc-sync">🔄 Sync with linked phones</button>`;
+  return h + '</div>';
+}
+function fcClick(d) {
+  if (d.fctab) { A.fcTab = d.fctab; hap('select'); render(); return true; }
+  if (d.act === 'fc-sync') { lkBroadcast({ t: 'fc-sync', ev: Object.values(FC.get().ev) }); toast('🔄 Family Cup sent to linked phones'); return true; }
+  return false;
+}
+
+/* ============================================================ BUZZER TRIVIA */
+const TV = { g: null }; const TV_N = 10, TV_Q = 12000, TV_REV = 3800;
+function tvQs(L, seed, n) {
+  const pool = C7.generatePool(L).filter(p => !p.gone); const fam = pool.slice().sort((a, b) => b.fp - a.fp || b.price0 - a.price0).slice(0, L.id === 'nba' ? 110 : 90);
+  const teams = Object.keys(L.teams); const out = []; const used = new Set();
+  const types = ['who', 'team', 'more', 'price', 'mate', 'who', 'team', 'more', 'mate', 'who', 'price', 'team'];
+  for (let i = 0; i < n; i++) {
+    const r = C7.rngFor('tv', L.id, seed, i); const pick = arr => arr[Math.floor(r() * arr.length)]; const shuffle = arr => { const a = arr.slice(); for (let k = a.length - 1; k > 0; k--) { const j = Math.floor(r() * (k + 1)); [a[k], a[j]] = [a[j], a[k]]; } return a; };
+    let T; for (let g = 0; g < 30; g++) { T = pick(fam); if (!used.has(T.id)) break; } used.add(T.id); const ty = types[i % types.length]; let q = null;
+    if (ty === 'who') { const others = shuffle(fam.filter(p => p.id !== T.id && p.pos === T.pos && p.team !== T.team)).slice(0, 3); if (others.length === 3) { const o = shuffle([T, ...others]); q = { ty, prompt: 'Who is this?', sub: `${L.teams[T.team] || T.team} · ${L.positions[T.pos] || T.pos} · ${qgStatLine(L, T)}`, opts: o.map(p => p.name), ans: o.indexOf(T) }; } }
+    if (ty === 'team') { const o = shuffle([T.team, ...shuffle(teams.filter(t => t !== T.team)).slice(0, 3)]); q = { ty, prompt: `Which team does ${T.name} play for?`, sub: `${L.positions[T.pos] || T.pos} · ${L.name}`, opts: o.map(t => L.teams[t] || t), ans: o.indexOf(T.team) }; }
+    if (ty === 'more') { const B = shuffle(fam.filter(p => p.id !== T.id && Math.abs(p.fp - T.fp) / Math.max(T.fp, p.fp) > 0.12))[0]; if (B) { const o = shuffle([T, B]); q = { ty, prompt: L.id === 'nba' ? 'Who scores more fantasy points per game?' : 'Who averages more fantasy points?', sub: 'Last season\'s real stats', opts: o.map(p => p.name), ans: T.fp > B.fp ? o.indexOf(T) : o.indexOf(B) }; } }
+    if (ty === 'price') { const o = shuffle([T, ...shuffle(fam.filter(p => p.id !== T.id)).slice(0, 3)]); const prices = o.map(p => p.price0); const mx = Math.max(...prices); if (prices.filter(x => x === mx).length === 1) q = { ty, prompt: 'Who costs the most?', sub: `${L.name} fantasy price`, opts: o.map(p => p.name), ans: prices.indexOf(mx) }; }
+    if (ty === 'mate') { const others = shuffle(fam.filter(p => p.team !== T.team)).slice(0, 3); const o = shuffle([T, ...others]); q = { ty, prompt: `Who plays for ${L.teams[T.team] || T.team}?`, sub: L.name, opts: o.map(p => p.name), ans: o.indexOf(T) }; }
+    if (!q) { const o = shuffle([T.team, ...shuffle(teams.filter(t => t !== T.team)).slice(0, 3)]); q = { ty: 'team', prompt: `Which team does ${T.name} play for?`, sub: L.name, opts: o.map(t => L.teams[t] || t), ans: o.indexOf(T.team) }; }
+    q.pid = T.id; out.push(q);
+  }
+  return out;
+}
+const tvHost = g => g && g.host === ME;
+function tvSend(g) { if (!g.solo) lkBroadcast({ t: 'tv-state', g: Object.assign({}, g, { el: Date.now() - g.t0 }) }); }
+function tvStart() {
+  const L = A.L; const peers = typeof lkOpen === 'function' ? lkOpen() : []; const pl = [{ id: ME, n: fcMe() || 'You' }].concat(peers.slice(0, 3).map(p => ({ id: p.id, n: (p.name || 'Friend').slice(0, 14) })));
+  const g = { id: Math.random().toString(36).slice(2, 9), host: ME, lid: L.id, seed: (Math.random() * 1e9) >>> 0, n: TV_N, qi: 0, ph: 'q', t0: Date.now() + 2500, pl, sc: {}, an: {}, last: {}, solo: pl.length < 2 };
+  pl.forEach(p => g.sc[p.id] = 0); TV.g = g; TV.qs = null; tvSend(g); A.qg = { k: 'tv', lid: L.id }; A.view = 'qg'; A.anim = true; render(); window.scrollTo(0, 0);
+}
+function tvQsFor(g) { if (!TV.qs || TV.qsId !== g.id) { TV.qs = tvQs(LEAGUES.find(l => l.id === g.lid), g.seed, g.n); TV.qsId = g.id; } return TV.qs; }
+const tvT0 = g => tvHost(g) ? g.t0 : (g.lt0 || g.t0);
+function tvAnswer(a) {
+  const g = TV.g; if (!g || g.ph !== 'q') return; const ms = Date.now() - tvT0(g); if (ms < 0) return; if (g.an[ME]) return;
+  g.an[ME] = { a, ms }; hap('select'); snd('tick');
+  if (tvHost(g)) { tvSend(g); tvTick(); } else lkBroadcast({ t: 'tv-ans', gid: g.id, qi: g.qi, a, ms });
+  render();
+}
+LK.on['tv-ans'] = (m, peer) => { const g = TV.g; if (!g || !tvHost(g) || m.gid !== g.id || m.qi !== g.qi || g.ph !== 'q' || g.an[peer.id] || !g.pl.some(p => p.id === peer.id)) return; g.an[peer.id] = { a: +m.a, ms: Math.max(0, Math.min(TV_Q, +m.ms || TV_Q)) }; tvSend(g); tvTick(); if (A.view === 'qg' && A.qg && A.qg.k === 'tv') render(); };
+LK.on['tv-state'] = m => {
+  const g = m.g; if (!g) return; const fresh = !TV.g || TV.g.id !== g.id; const mine = TV.g && TV.g.id === g.id ? TV.g.an[ME] : null;
+  g.lt0 = Date.now() - (g.el || 0); if (mine && g.ph === 'q' && !g.an[ME]) g.an[ME] = mine; const prevPh = TV.g && TV.g.id === g.id ? TV.g.ph + TV.g.qi : ''; TV.g = g;
+  if (fresh) { toast(`🧠 ${g.pl[0].n} started Buzzer Trivia`); snd('win'); A.qg = { k: 'tv', lid: A.L.id }; A.view = 'qg'; A.anim = true; }
+  if (g.ph === 'rev' && prevPh !== 'rev' + g.qi) tvRevealFx(g);
+  if (g.ph === 'done' && prevPh !== 'done' + g.qi) tvDoneFx(g);
+  if (A.view === 'qg' && A.qg && A.qg.k === 'tv') render();
+};
+LK.on['tv-quit'] = m => { if (TV.g && TV.g.id === m.gid) { TV.g = null; toast('The host ended Buzzer Trivia'); if (A.view === 'qg' && A.qg && A.qg.k === 'tv') render(); } };
+function tvRevealFx(g) { const q = tvQsFor(g)[g.qi]; const me = g.an[ME]; if (!me) return; if (me.a === q.ans) { snd('score'); hap((g.last[ME] || 0) >= 800 ? 'win' : 'ok'); } else { hap('err'); } }
+function tvRank(g) { return g.pl.slice().sort((a, b) => (g.sc[b.id] || 0) - (g.sc[a.id] || 0)); }
+function tvDoneFx(g) {
+  const r = tvRank(g); if (r[0].id === ME) { confetti(); snd('win'); hap('win'); } else snd('buzzer');
+  if (!g.solo) { const pts = [5, 3, 1]; fcAdd(r.slice(0, Math.min(3, r.length - 1 || 1)).filter(p => (g.sc[p.id] || 0) > 0).map((p, i) => ({ id: `tv:${g.id}:${i}`, who: p.n, pts: pts[i], k: 'trivia', what: `Buzzer Trivia ${['winner', '2nd', '3rd'][i]} · ${g.sc[p.id]} pts` }))); }
+  const best = QG.get('tv_' + g.lid); const mine = g.sc[ME] || 0; if (mine > (best.best || 0)) QG.set('tv_' + g.lid, { best: mine, at: Date.now() });
+}
+function tvTick() {
+  const g = TV.g; if (!g || !tvHost(g) || g.ph === 'done') return; const t = Date.now(); const qs = tvQsFor(g);
+  if (g.ph === 'q' && t >= g.t0 && (t - g.t0 >= TV_Q || g.pl.every(p => g.an[p.id]))) {
+    const q = qs[g.qi]; g.last = {}; let fastest = null;
+    g.pl.forEach(p => { const a = g.an[p.id]; if (a && a.a === q.ans) { const pts = 500 + Math.round(500 * Math.max(0, 1 - a.ms / TV_Q)); g.last[p.id] = pts; g.sc[p.id] = (g.sc[p.id] || 0) + pts; if (!fastest || a.ms < g.an[fastest].ms) fastest = p.id; } });
+    g.fast = fastest; g.ph = 'rev'; g.t0 = t; tvSend(g); tvRevealFx(g); render(); return;
+  }
+  if (g.ph === 'rev' && t - g.t0 >= TV_REV) { if (g.qi + 1 >= g.n) { g.ph = 'done'; g.t0 = t; tvSend(g); tvDoneFx(g); } else { g.qi++; g.ph = 'q'; g.an = {}; g.last = {}; g.t0 = t; tvSend(g); } if (A.view === 'qg' && A.qg && A.qg.k === 'tv') render(); }
+}
+setInterval(() => {
+  tvTick(); const g = TV.g; if (!g || A.view !== 'qg' || !A.qg || A.qg.k !== 'tv') return;
+  const bar = $('#tv-bar'), cd = $('#tv-cd'); const el = Date.now() - tvT0(g);
+  if (g.ph === 'q') { if (bar) bar.style.width = Math.max(0, Math.min(100, 100 - el / TV_Q * 100)) + '%'; if (cd && el < 0) { const v = String(Math.ceil(-el / 1000)); if (cd.textContent !== v) { cd.textContent = v; hap('tick'); } } if (el >= 0 && $('.tvcd')) render(); }
+}, 150);
+function vTv() {
+  const g = TV.g; const L = A.L;
+  if (!g) { const best = QG.get('tv_' + L.id).best || 0; const peers = lkOpen();
+    return qgHead('Buzzer Trivia', `${L.name} · 10 questions · 1–4 phones`) + `<div class="stack"><section class="hero tvhero"><div style="font-size:52px;line-height:1">🧠⚡</div><h2>Buzzer Trivia</h2><p>10 quick questions about real ${esc(L.name)} players. Right answers score 500 — plus up to 500 more for speed. Everyone answers on their own phone.</p></section>
+      ${peers.length ? `<button class="btn pri wide" data-act="tv-start">⚡ Start for ${peers.length + 1} phones</button><div class="plist">${[{ name: fcMe() || 'You' }].concat(peers).map(p => `<div class="prow"><div class="av live" style="--c1:var(--good);--c2:#0b5c4a">${esc(initials(p.name || '?'))}</div><div class="who"><div class="nm">${esc(p.name || 'Friend')}</div><div class="mt">ready</div></div></div>`).join('')}</div>`
+        : `<button class="btn pri wide" data-act="tv-start">▶ Play solo</button><button class="btn wide" data-act="lk-room">🎮 Open a game room to play together</button><button class="btn ghost wide" data-act="lk-rjoin">🔢 Join a game room</button>`}
+      <p class="xs dim">Best solo score (${esc(L.name)}): ${best}. Winners with 2+ phones score Family Cup points: 5 · 3 · 1.</p></div>`; }
+  const qs = tvQsFor(g); const GL = LEAGUES.find(l => l.id === g.lid); const q = qs[Math.min(g.qi, qs.length - 1)]; const rank = tvRank(g);
+  let h = `<div class="row between" style="margin-top:12px"><div><div class="lab">${esc(GL.name)} · ${g.solo ? 'solo' : g.pl.length + ' phones'}</div><div class="num" style="font-size:24px;font-weight:900">BUZZER TRIVIA</div></div><button class="btn sm" data-act="tv-quit">✕</button></div><div class="stack">`;
+  if (g.ph === 'done') {
+    h += `<section class="hero tvhero"><div class="lab">Final scores</div><h2>${rank[0].id === ME ? 'You win! 🏆' : esc(rank[0].n) + ' wins 🏆'}</h2></section><div class="podium">${[rank[1], rank[0], rank[2]].map((p, k) => p ? `<div class="pd p${[2, 1, 3][k]}"><div class="pdav">${[2, 1, 3][k] === 1 ? '👑' : ''}<span>${esc(initials(p.n))}</span></div><b>${esc(p.n)}</b><div class="num">${g.sc[p.id] || 0}</div><div class="pdblk">${[2, 1, 3][k]}</div></div>` : '<div class="pd empty"></div>').join('')}</div>`;
+    h += tvBoard(g, rank) + (tvHost(g) ? `<div class="grid2"><button class="btn pri" data-act="tv-again">⚡ Play again</button><button class="btn" data-act="tv-quit">Done</button></div>` : `<div class="panel muted small" style="text-align:center">Waiting for ${esc(g.pl[0].n)} to start another game…</div><button class="btn wide" data-act="tv-quit">Leave</button>`);
+    return h + '</div>';
+  }
+  const el = Date.now() - tvT0(g); const mine = g.an[ME]; const rev = g.ph === 'rev';
+  if (g.ph === 'q' && el < 0) return h + `<section class="hero tvhero" style="text-align:center"><div class="lab">Question ${g.qi + 1} of ${g.n}</div><div class="num tvcd" id="tv-cd">${Math.ceil(-el / 1000)}</div><p>Get ready…</p></section>` + tvBoard(g, rank) + '</div>';
+  h += `<section class="hero tvq"><div class="row between"><span class="lab">Question ${g.qi + 1} of ${g.n}</span><span class="lab">${rev ? 'Answer' : mine ? 'Locked in ✓' : ''}</span></div><h2>${esc(q.prompt)}</h2><p>${esc(q.sub)}</p>${rev ? '' : `<div class="tvclock"><i id="tv-bar"></i></div>`}<span id="tv-cd" hidden></span></section>`;
+  h += `<div class="tvopts ${q.opts.length === 2 ? 'two' : ''}">${q.opts.map((o, i) => { const cls = rev ? (i === q.ans ? 'right' : mine && mine.a === i ? 'wrong' : 'dim') : mine ? (mine.a === i ? 'chosen' : 'dim') : '';
+    return `<button class="tvo o${i} ${cls}" data-tva="${i}" ${mine || rev ? 'disabled' : ''}>${esc(o)}${rev ? `<small>${g.pl.filter(p => g.an[p.id] && g.an[p.id].a === i).map(p => esc(p.n)).join(' · ')}</small>` : ''}</button>`; }).join('')}</div>`;
+  if (rev) h += `<div class="panel tvres">${g.pl.map(p => `<div class="row between"><b>${esc(p.n)}${g.fast === p.id ? ' ⚡' : ''}</b><span class="num ${g.last[p.id] ? 'good' : 'dim'}">${g.last[p.id] ? '+' + g.last[p.id] : g.an[p.id] ? '✗' : 'no answer'}</span></div>`).join('')}</div>`;
+  else if (!g.solo) h += `<div class="xs dim" style="text-align:center">${g.pl.map(p => `${esc(p.n)} ${g.an[p.id] ? '✓' : '…'}`).join(' · ')}</div>`;
+  return h + tvBoard(g, rank) + '</div>';
+}
+function tvBoard(g, rank) { return `<div class="panel" style="padding:6px 12px">${rank.map((p, i) => `<div class="fcrow ${p.id === ME ? 'you' : ''}"><span class="rk">${i + 1}</span><b>${esc(p.n)}</b><span></span><span class="num">${g.sc[p.id] || 0}</span></div>`).join('')}</div>`; }
+function tvClick(d) {
+  if (d.tva != null) { tvAnswer(+d.tva); return true; }
+  if (d.act === 'tv-start' || d.act === 'tv-again') { tvStart(); return true; }
+  if (d.act === 'tv-quit') { const g = TV.g; if (g && tvHost(g) && !g.solo) lkBroadcast({ t: 'tv-quit', gid: g.id }); TV.g = null; A.qg = null; A.view = 'games'; render(); return true; }
+  return false;
 }
 
 
@@ -4929,6 +5145,8 @@ document.addEventListener('click', async e => {
   if (d.sport) { A.sportFx = d.sport !== SPORT_OF(A.lid).id; if (A.sportFx) hap('select'); const S = SPORTS.find(x => x.id === d.sport); const lid = S.lids.includes(A.lid) ? A.lid : (store.get('code7_sport_' + S.id) || S.lids[0]); if (lid !== A.lid) { load(lid); } A.anim = true; buzz(6); render(); return; }
   if (d.ftab) { A.fTab = d.ftab; }
   if (d.v) { go(d.v); return; }
+  if ((d.tva != null || (d.act && d.act.startsWith('tv-'))) && tvClick(d)) return;
+  if ((d.fctab || d.act === 'fc-sync') && fcClick(d)) return;
   if (d.act && d.act.startsWith('lk-') && await linkClick(t, d)) return;
   if ((d.qg || A.view === 'qg' || A.view === 'games') && await gamesClick(t, d)) return;
   if (d.act === 'stats') { checkStats(true); return; }
