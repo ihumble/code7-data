@@ -877,6 +877,90 @@ canvas.confetti{z-index:75}
 .instbar.warn{border-color:color-mix(in srgb,var(--warn) 60%,var(--line));background:linear-gradient(160deg,color-mix(in srgb,var(--warn) 16%,transparent),transparent 70%),var(--panel)}
 .instbar b{font:800 15px/1.2 var(--fc)} .instbar p{margin:6px 0 10px;color:var(--tx2)}
 .kbd{display:inline-block;padding:0 5px;border:1px solid var(--line2);border-radius:5px}
+/* ---------- clash escape bar ---------- */
+.clbar{position:sticky;top:var(--toph,0px);z-index:15;display:flex;align-items:center;gap:8px;margin:0 -2px 10px;padding:8px 8px;border-radius:14px;background:rgba(10,12,20,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--line2);box-shadow:0 8px 24px rgba(0,0,0,.35)}
+.clbar .clbt{flex:1;min-width:0;text-align:center;line-height:1.1}.clbar .clbt b{display:block;font:800 14px/1.1 var(--fc);letter-spacing:.04em}.clbar .clbt small{display:block;color:var(--tx3);font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.clbar .clb{min-height:40px;padding:0 12px;border-radius:11px;border:1px solid var(--line2);background:rgba(255,255,255,.06);color:var(--tx);font:800 13px/1 var(--fc);letter-spacing:.03em}
+.clbar .clb.x{color:#ffb3a8;border-color:rgba(255,120,100,.4);background:rgba(255,80,60,.1)}
+.sheet .btn.wide small{display:block;font-weight:500;opacity:.75;font-size:11px;margin-top:3px;letter-spacing:0;text-transform:none}
+html,body{overflow-anchor:none}
+.toast{pointer-events:none}
+/* ================= SuperCoach-style layout ================= */
+.sctiles{display:grid;gap:8px}.sctiles.t3{grid-template-columns:repeat(3,1fr)}.sctiles.t4{grid-template-columns:repeat(2,1fr)}
+@media(min-width:620px){.sctiles.t4{grid-template-columns:repeat(4,1fr)}}
+.sctile{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line2);border-radius:14px;padding:10px 10px 9px;text-align:left;min-width:0;color:var(--tx);font:inherit}
+button.sctile:active{transform:scale(.97)}
+.sctile .lab{font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sctile .big{font:900 26px/1.05 var(--fd);margin:4px 0 2px;letter-spacing:.01em;white-space:nowrap}.sctile .big small{font-size:12px;color:var(--tx3);margin-left:2px}
+.sctile .sub{font-size:11px;color:var(--tx3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sctabs{display:flex;background:var(--panel);border:1px solid var(--line2);border-radius:13px;padding:3px;gap:3px}
+.sctabs button{flex:1;min-height:38px;border:0;border-radius:10px;background:transparent;color:var(--tx2);font:800 12.5px/1 var(--fc);letter-spacing:.05em;text-transform:uppercase}
+.sctabs button.on{background:var(--acc);color:#111;box-shadow:0 4px 14px color-mix(in srgb,var(--acc) 40%,transparent)}
+/* pitch */
+.pitch{position:relative;border-radius:18px;overflow:hidden;background:linear-gradient(180deg,#ff8a2a,#f0690f 45%,#e2560a);border:1px solid #ffa65c;box-shadow:inset 0 0 60px rgba(120,30,0,.35),0 14px 34px rgba(0,0,0,.35)}
+.pitch.sp-nba{background:linear-gradient(180deg,#e9923f,#d4751f 50%,#c0641a);border-color:#f2b070}
+.pitch-lines{position:absolute;inset:0;pointer-events:none;opacity:.35;background:repeating-linear-gradient(180deg,rgba(255,255,255,.07) 0 44px,transparent 44px 88px),radial-gradient(circle at 50% 50%,transparent 58px,rgba(255,255,255,.55) 59px,rgba(255,255,255,.55) 61px,transparent 62px),linear-gradient(180deg,transparent calc(50% - 1px),rgba(255,255,255,.55) calc(50% - 1px) calc(50% + 1px),transparent calc(50% + 1px))}
+.pitch-in{position:relative;display:grid;grid-template-columns:2fr 1fr;gap:8px;padding:10px 8px 12px}
+.pst{display:grid;grid-template-columns:1fr 1fr;gap:7px 6px;align-content:start}
+.pbn{display:grid;grid-template-columns:1fr;gap:7px;align-content:start;padding-left:7px;border-left:1px dashed rgba(255,255,255,.35)}
+.pgrp{grid-column:1/-1;text-align:center;margin-top:2px}
+.ppill{display:inline-block;background:rgba(20,10,4,.78);color:#fff;font:800 10.5px/1 var(--fc);letter-spacing:.09em;text-transform:uppercase;padding:5px 12px;border-radius:99px;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.pitch .spot.scc{grid-column:auto;grid-row:auto;display:block;align-items:stretch;text-align:left;padding:0;gap:0;border-radius:10px;overflow:hidden;background:#fff;color:#161616;border:2px solid transparent;box-shadow:0 3px 10px rgba(80,20,0,.35);min-width:0;transition:transform .2s var(--spring),box-shadow .2s}
+.pitch .spot.scc:active{transform:scale(.96)}
+.scbar{display:flex;align-items:center;gap:3px;background:#121212;color:#fff;padding:4px 6px;font:800 11px/1.1 var(--fc);letter-spacing:.03em}
+.scbar span{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.scbar i{font-style:normal;font-size:9px;background:#333;border-radius:4px;padding:1px 3px}
+.sccap{font:900 9.5px/1 var(--fc);background:var(--gold);color:#241a00;border-radius:4px;padding:2px 4px}
+.scb{display:flex;align-items:center;gap:4px;padding:5px 5px 6px 6px}
+.scl{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.scbadge{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,var(--c1),var(--c2));color:#fff;font:900 8.5px/1 var(--fc);letter-spacing:.02em;text-shadow:0 1px 1px rgba(0,0,0,.5);box-shadow:0 0 0 2px #fff,0 0 0 3px rgba(0,0,0,.12)}
+.scbadge.sm{width:28px;height:28px;font-size:9px;box-shadow:none;flex:none}
+.scpos{font:700 10px/1.1 var(--fc);color:#555;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.scpr{font:800 11px/1.1 var(--fc);color:#111;white-space:nowrap}.scpr i{font-style:normal;margin-left:2px;font-size:9px}.scpr i.up{color:#0a9d6e}.scpr i.down{color:#e0284a}
+.scr{display:flex;flex-direction:column;align-items:center;gap:2px;flex:none}
+.scs{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:#121212;color:#fff;font:900 16px/1 var(--fd)}
+.scs.proj{background:#fff;color:#121212;box-shadow:inset 0 0 0 2px #121212}
+.sca{font:700 9.5px/1 var(--fc);color:#666;white-space:nowrap}
+.pitch .scc.c{background:linear-gradient(180deg,#ffe38a,#ffc940);border-color:#b98a00}.pitch .scc.c .scpos,.pitch .scc.c .sca{color:#5a4200}
+.pitch .scc.vc{background:linear-gradient(180deg,#eef1f7,#cfd6e4);border-color:#8d97ab}
+.pitch .scc.src{background:linear-gradient(180deg,#bcd6ff,#6ea8ff);border-color:#1e5fd6;transform:translateY(-2px)}
+.pitch .scc.target{box-shadow:0 0 0 3px #1e5fd6,0 6px 16px rgba(30,95,214,.5);animation:pulse 1.2s ease-in-out infinite}
+.pitch .scc.dimmed{opacity:.45}
+.pitch .scc.empty{background:rgba(255,255,255,.2);border:2px dashed rgba(255,255,255,.75);color:#fff;text-align:center;box-shadow:none}
+.pitch .scc.empty .scbar{background:rgba(0,0,0,.45)}.pitch .scc.empty .scpos{color:#fff;padding:0 4px 6px;opacity:.85}
+.scadd{font:900 26px/1 var(--fd);padding:6px 0 2px}
+@media(min-width:560px){.scbar{font-size:12.5px}.scs{width:42px;height:42px;font-size:19px}.scpos{font-size:11px}.scpr{font-size:12.5px}}
+/* players table */
+.ptable{background:var(--panel);border:1px solid var(--line2);border-radius:14px;overflow:hidden}
+.ptr{display:grid!important;grid-template-columns:22px minmax(0,1fr) repeat(4,40px);align-items:center;gap:0 4px;padding:9px 8px!important;border:0!important;border-bottom:1px solid var(--line)!important;border-radius:0!important;background:transparent!important;width:100%;text-align:left;color:var(--tx);min-height:0!important}
+.ptr.ph{background:var(--panel2)!important;padding:6px 8px!important;font:800 10px/1 var(--fc);letter-spacing:.06em;text-transform:uppercase;color:var(--tx3)}
+.ptr.ph button{border:0;background:none;color:var(--tx3);font:inherit;text-transform:inherit;letter-spacing:inherit;padding:6px 0;text-align:center}.ptr.ph button.on{color:var(--acc)}
+.ptr .rk{font:800 12px/1 var(--fc);color:var(--tx3);text-align:center}
+.ptr .pn{min-width:0;display:flex;flex-direction:column;gap:2px}.ptr .pn b{font:700 14px/1.15 var(--fb);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ptr .pn small{font:600 11px/1.1 var(--fc);color:var(--tx3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ptr .pn .pp{color:var(--tx2)}.ptr .pn i{font-style:normal}.ptr .pn i.up{color:var(--good)}.ptr .pn i.down{color:var(--bad)}
+.ptr .c{text-align:center;font:800 14px/1 var(--fd);letter-spacing:.02em}.ptr .c.b{color:var(--acc)}
+.ptr.own{background:color-mix(in srgb,var(--acc) 10%,transparent)!important}.ptr.na{opacity:.4}
+.rdmini{display:flex;align-items:center;gap:6px}.rdmini b{font:800 12px/1 var(--fc);letter-spacing:.05em;text-transform:uppercase}
+/* leagues + gameday */
+.lgcard{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line2);border-radius:16px;padding:12px}
+.lgtop{display:flex;align-items:center;gap:10px}
+.lgav{flex:none;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--acc),#6a2a00);color:#fff;font:900 16px/1 var(--fd)}
+.lgav.fr{background:linear-gradient(135deg,var(--vio),#2a1f66)}.lgav.pk{background:linear-gradient(135deg,var(--good),#0a5a48)}
+.lgmid{flex:1;min-width:0}.lgsc{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;margin-top:3px}.lgsc b{font:900 26px/1 var(--fd)}.lgsc span{font:700 12px/1 var(--fc);text-transform:uppercase;letter-spacing:.04em}
+.lgrec{margin:10px 0;padding:8px 10px;border-radius:10px;background:rgba(255,255,255,.04);font:700 13px/1.2 var(--fc)}
+.lgcard>.btn.wide{margin-top:4px}
+.rdsel{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--panel);border:1px solid var(--line2);border-radius:13px;padding:6px}
+.rdsel>div{text-align:center}.rdsel b{display:block;font:900 18px/1 var(--fd);letter-spacing:.03em;text-transform:uppercase}.rdsel small{color:var(--tx3);font-size:11px}
+.h2hrow{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:6px;margin-bottom:8px}
+.h2hs{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0}.h2hs b{font:700 13px/1.1 var(--fc);max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.h2hs .big{font:900 34px/1 var(--fd)}
+.h2hv{font:800 11px/1 var(--fc);text-transform:uppercase;letter-spacing:.08em;color:var(--tx3)}
+.gmcard{background:var(--panel);border:1px solid var(--line2);border-radius:14px;padding:8px 10px}
+.gmt{display:flex;align-items:center;gap:8px;padding:4px 0}.gmt b{flex:1;min-width:0;font:700 14px/1.1 var(--fb);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.gmt.dim{opacity:.55}
+.gms{font:900 22px/1 var(--fd);min-width:34px;text-align:right}.gmst{margin-top:4px}
+.livedot{color:var(--bad);letter-spacing:.08em}.livedot::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--bad);margin-right:5px;animation:pulse 1s infinite}
+@keyframes pulse{50%{opacity:.6}}
+.ptr{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+.pst .spot.scc.solo{grid-column:1/-1;justify-self:center;width:calc(50% - 3px)}
 
 </style>
 </head>
@@ -2415,6 +2499,7 @@ function applyData(data, v, src) {        // swap in new stats without a reload 
 const A = { view: 'hub', anim: true, fTab: 'fan', lid: store.get('code7_active') || 'nba', L: null, pool: null, P: null, mk: null, st: null, mkRound: -1,
   pick: null, swapFrom: null, open: {}, f: { q: '', pos: '', team: '', sort: 'price' }, showN: 80, pkRound: null, poolTab: 'fan',
   installEvt: null, me: store.get('code7_name') || '' };
+A.teamView = store.get('code7_teamview') || 'pitch';
 
 function load(id) {
   const L = LEAGUES.find(l => l.id === id) || LEAGUES[0];
@@ -2424,7 +2509,7 @@ function load(id) {
   if (!st || st.v !== 6) st = C7.newState(L, now(), (Math.random() * 4294967296) >>> 0);
   st.friends = st.friends || []; st.badgesSeen = st.badgesSeen || [];
   A.st = st; A.pool = C7.generatePool(L); A.P = C7.byId(A.pool); A.mkRound = -1;
-  A.pick = null; A.swapFrom = null; A.pkRound = null; A.showN = 80; refresh(true);
+  A.pick = null; A.swapFrom = null; A.pkRound = null; A.gdRound = null; A.plRound = null; A.showN = 80; refresh(true);
 }
 const closed = () => C7.leagueStatus(A.L, now()) === 'closed';
 function save() { if (closed()) return; const fr = A.st.friends; A.st.friends = fr.map(f => { const o = Object.assign({}, f); delete o._res; return o; }); store.set(KEY(A.L.id), A.st); A.st.friends = fr; }
@@ -2504,6 +2589,7 @@ const ICON = {
   pick: '<svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M8 12l3 3 5-6"/></svg>',
   pool: '<svg viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg>',
   rounds: '<svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>',
+  gameday: '<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/><circle cx="12" cy="15.5" r="2.2"/></svg>',
   clash: '<svg viewBox="0 0 24 24"><path d="M14.5 17.5L3 6V3h3l11.5 11.5M13 19l6-6M16 16l4 4M19 21l2-2M9.5 17.5L21 6V3h-3L6.5 14.5M11 19l-6-6M8 16l-4 4M5 21l-2-2"/></svg>'
 };
 function lvlPop(x) {
@@ -2520,7 +2606,7 @@ function lvlWatch(x) {        // show the level banner at boot and whenever XP g
   if (prev && x.total > prev.total) { A.xpGain = x.total - prev.total; A.lvlOpen = x.level > prev.level ? 'up' : 'xp'; if (x.level > prev.level) { setTimeout(() => { confetti(); snd && snd('legend'); hap('level'); }, 200); } else hap('ok'); clearTimeout(A._lvlT); A._lvlT = setTimeout(() => { A.lvlOpen = null; A.xpGain = 0; renderTop(); }, x.level > prev.level ? 6000 : 3500); }
   store.set(k, { total: x.total, level: x.level });
 }
-const NAVMAP = { hub: 'hub', team: 'team', players: 'team', rosters: 'team', pick: 'pick', clash: 'clash', games: 'clash', qg: 'clash', pool: 'pool', more: 'more', news: 'hub' };
+const NAVMAP = { hub: 'hub', team: 'team', players: 'team', rosters: 'team', pick: 'gameday', gameday: 'gameday', clash: 'clash', games: 'clash', qg: 'clash', pool: 'pool', leagues: 'pool', more: 'more', news: 'hub' };
 function renderTop() {
   const L = A.L; const sp = SPORT_OF(L.id);
   document.documentElement.style.setProperty('--acc', L.accent);
@@ -2532,14 +2618,14 @@ function renderTop() {
     ${A.lvlOpen ? lvlPop(x) : ''}
     <div class="sports" role="tablist">${SPORTS.map(S => `<button role="tab" class="sp ${S === sp ? 'on' : ''}" data-sport="${S.id}" aria-selected="${S === sp}"><span>${S.icon}</span>${S.name}</button>`).join('')}</div>
     ${sp.sub ? `<div class="comps">${sp.lids.map(id => `<button class="cp ${id === L.id ? 'on' : ''}" data-lg="${id}" style="--c:${LEAGUES.find(l => l.id === id).accent}">${esc(sp.sub[id])}</button>`).join('')}</div>` : ''}</div>`;
-  const tabs = [['hub', 'Home'], ['team', 'Team']].concat(L.predictor ? [['pick', "Pick'em"]] : []).concat([['clash', 'Play'], ['pool', 'Friends']]);
+  const tabs = [['hub', 'Home'], ['team', 'Team'], ['gameday', 'Gameday'], ['pool', 'Leagues'], ['clash', 'Play']];
   const pr = pickOpenRound(); const needPick = L.predictor && !closed() && C7.featuredGames(L, pr).some(g => !(A.st.picks[pr] || {})[g.id] && now() < g.at);
   const cur = NAVMAP[A.view] || 'hub';
-  $('#nav').innerHTML = `<div class="in" style="--n:${tabs.length};--i:${Math.max(0, tabs.findIndex(t => t[0] === cur))}">${tabs.some(t => t[0] === cur) ? '<i class="navglow"></i>' : ''}${tabs.map(([v, t]) => `<button data-v="${v}" class="${cur === v ? 'on' : ''}">${ICON[v]}<span>${t}</span>${v === 'pick' && needPick ? '<span class="dot"></span>' : ''}${v === 'team' && A.st.phase === 'draft' && !closed() && !C7.isComplete(A.st) ? '<span class="dot"></span>' : ''}${v === 'pool' && linked ? '<span class="dot ok"></span>' : ''}</button>`).join('')}</div>`;
+  $('#nav').innerHTML = `<div class="in" style="--n:${tabs.length};--i:${Math.max(0, tabs.findIndex(t => t[0] === cur))}">${tabs.some(t => t[0] === cur) ? '<i class="navglow"></i>' : ''}${tabs.map(([v, t]) => `<button data-v="${v}" class="${cur === v ? 'on' : ''}">${ICON[v]}<span>${t}</span>${v === 'gameday' && needPick ? '<span class="dot"></span>' : ''}${v === 'team' && A.st.phase === 'draft' && !closed() && !C7.isComplete(A.st) ? '<span class="dot"></span>' : ''}${v === 'pool' && linked ? '<span class="dot ok"></span>' : ''}</button>`).join('')}</div>`;
 }
 function render() {
   renderTop();
-  const v = { hub: () => instBanner() + vHub() + '<button class="btn ghost wide settings-link" data-v="more">⚙️ Settings · saves · music · haptics</button>', team: vTeam, players: vPlayers, pick: vPick, pool: vPool, more: vMore, clash: vClash, rosters: vRosters, news: vNews, games: vGames, qg: vQG }[A.view] || vHub;
+  const v = { hub: () => instBanner() + vHub() + '<button class="btn ghost wide settings-link" data-v="more">⚙️ Settings · saves · music · haptics</button>', team: vTeam, players: vPlayers, pick: () => { A.gdTab = 'pk'; A.gdRound = A.pkRound || null; A.view = 'gameday'; return vGameday(); }, gameday: vGameday, pool: vLeagues, leagues: vLeagues, more: vMore, clash: vClash, rosters: vRosters, news: vNews, games: vGames, qg: vQG }[A.view] || vHub;
   const m = $('#main'); if (!A.anim) m.classList.remove('enter'); m.innerHTML = (A.statsReady ? `<div class="updbar"><span>📊 Fresh stats ready · ${esc(fmtV(A.statsReady))}</span><button class="btn sm pri" data-act="stats-reload">Reload</button></div>` : '') + v();
   if (A.anim) { A.anim = false; m.style.setProperty('--dx', (A.dx || 0) * 28 + 'px'); A.dx = 0; m.classList.remove('enter'); void m.offsetWidth; m.classList.add('enter'); }
   if (A.sportFx) { A.sportFx = false; const t = $('#top'); t.classList.remove('swap'); void t.offsetWidth; t.classList.add('swap'); setTimeout(() => t.classList.remove('swap'), 900); }
@@ -2696,8 +2782,18 @@ const COURT = `<svg class="lines" viewBox="0 0 300 400" preserveAspectRatio="non
 function vTeam() {
   const L = A.L, st = A.st;
   if (closed()) return hero();
-  let h = hero(true) + '<div class="stack">' + strip() + `<div class="grid2"><button class="btn scout" data-v="players">🔍 Scout all ${A.pool.length} players</button><button class="btn" data-act="team-save" ${st.squad.filter(Boolean).length ? '' : 'disabled'}>💾 Save team</button></div>`;
+  let h = hero(true) + '<div class="stack">' + strip();
   const tr = tradeRound();
+  if (A.swapFrom != null) h += `<div class="panel row between" style="padding:10px 14px;border-color:var(--vio)"><span class="small">Tap a highlighted spot to swap</span><button class="btn sm" data-act="cancelswap">Cancel</button></div>`;
+  h += `<div class="row between" style="margin-top:2px"><span class="lab">${st.phase === 'season' && C7.lastResolved(L, now()) >= 1 ? 'Big number = ' + esc(rw(L, C7.lastResolved(L, now()))) + ' score' : 'Big number = projected score'}</span><button class="btn sm" data-act="tview">${A.teamView === 'list' ? '⚽ Pitch view' : '☰ List view'}</button></div>`;
+  if (A.teamView !== 'list') h += scPitch();
+  else {
+    let last = null; h += '<div class="plist">';
+    L.slots.forEach((s, i) => { const g = s.bench ? 'Bench' : (s.elig.length === 1 ? L.positions[s.elig[0]] : s.label); if (g !== last) { h += `<div class="lab" style="margin:10px 2px 2px">${esc(g)}</div>`; last = g; } h += rowHTML(i); });
+    h += '</div>';
+  }
+  if (st.phase === 'draft') h += `<div class="row" style="flex-wrap:wrap;gap:8px"><button class="btn pri" data-act="auto">Auto-select</button><button class="btn" data-act="opt">Optimise</button><button class="btn warn" data-act="clear">Clear</button></div>`;
+  else if (C7.currentRound(L, now()) <= L.rounds) h += `<div class="row" style="gap:8px"><button class="btn pri" data-act="optl">Optimise lineup</button><span class="xs dim">Best starters + C/VC for ${rw(L, tr)} · no trades used</span></div>`;
   // boosters
   h += `<div class="chips">${Object.keys(C7.CHIPS).map(k => { const c = C7.CHIPS[k]; const v = st.chips[k]; const on = v === tr; const used = v != null && !on; return `<button class="chipb ${on ? 'on' : ''} ${used ? 'used' : ''}" data-chip="${k}"><div class="ic">${k === 'tc' ? '3×' : k === 'bb' ? '+3' : 'WC'}</div><div class="n">${c.name}</div><div class="s">${on ? 'Active ' + rw(L, tr) : used ? 'Used ' + rw(L, v) : 'Available'}</div></button>`; }).join('')}</div>`;
   if (st.phase === 'season' && C7.currentRound(L, now()) <= L.rounds) {
@@ -2705,24 +2801,13 @@ function vTeam() {
     h += `<div class="sec">Power-ups <span class="lab">🎟 ${st.tokens || 0} token${st.tokens === 1 ? '' : 's'} · earn one per badge</span></div><div class="chips">${Object.keys(C7.POWERUPS).map(k => { const u = C7.POWERUPS[k]; const cost = C7.powerCost(L, k); const act = k !== 'xtr' && on[k];
       return `<button class="chipb ${act ? 'on' : ''}" data-pu="${k}" ${act ? 'disabled' : ''}><div class="ic">${u.icon}</div><div class="n">${u.name}</div><div class="s">${act ? (k === 'hot' ? esc(A.P[on.hot].name.split(' ').slice(-1)[0]) : 'Active') : money(cost)}</div></button>`; }).join('')}</div><p class="xs dim" style="margin:0">Paid from your bank — spent cash is gone for good, so it costs you trade flexibility. Applies to ${rw(L, tr)}.</p>`;
   }
-  if (st.phase === 'draft') h += `<div class="row" style="flex-wrap:wrap;gap:8px"><button class="btn pri" data-act="auto">Auto-select</button><button class="btn" data-act="opt">Optimise</button><button class="btn warn" data-act="clear">Clear</button></div>`;
-  else if (C7.currentRound(L, now()) <= L.rounds) h += `<div class="row" style="gap:8px"><button class="btn pri" data-act="optl">Optimise lineup</button><span class="xs dim">Best starters + C/VC for ${rw(L, tr)} · no trades used</span></div>`;
-  if (A.swapFrom != null) h += `<div class="panel row between" style="padding:10px 14px;border-color:var(--vio)"><span class="small">Tap a highlighted spot to swap</span><button class="btn sm" data-act="cancelswap">Cancel</button></div>`;
-  if (L.id === 'nba') {
-    const cls = ['g1', 'g2', 'f1', 'f2', 'c1', 'u1', 'u2'];
-    const rows = [1, 1, 2, 2, 2, 3, 3];
-    h += `<div class="court">${COURT}<div class="spots">${cls.map((c, i) => spotHTML(i, c).replace('class="spot', `style="grid-row:${rows[i]}" class="spot`)).join('')}<div class="bench-lab lab" style="grid-row:4">Bench — scores only if a starter doesn't play</div>${[7, 8, 9].map(i => spotHTML(i, '').replace('class="spot', 'style="grid-row:5" class="spot')).join('')}</div></div>`;
-  } else {
-    let last = null; h += '<div class="plist">';
-    L.slots.forEach((s, i) => { const g = s.bench ? 'Bench' : (s.elig.length === 1 ? L.positions[s.elig[0]] : s.label); if (g !== last) { h += `<div class="lab" style="margin:10px 2px 2px">${esc(g)}</div>`; last = g; } h += rowHTML(i); });
-    h += '</div>';
-  }
+  h += `<div class="grid2"><button class="btn scout" data-v="players">🔍 Scout all ${A.pool.length} players</button><button class="btn" data-act="team-save" ${st.squad.filter(Boolean).length ? '' : 'disabled'}>💾 Save team</button></div>`;
   h += `<p class="xs dim">Captain scores 2× (3× with Triple Captain); vice 1.5×. If the captain doesn't play, the vice takes the captaincy.${L.teamLimit ? ` Max ${L.teamLimit} players per team.` : ''}${L.freeTrades ? ` ${L.freeTrades} free trades a week, unused carry over (max ${L.maxFreeTrades}).` : ''}</p>`;
   return h + '</div>';
 }
 
 /* ---------- PLAYERS ---------- */
-const SORTS = { price: 'Price', proj: 'Projected', avg: 'Average', form: 'Form (last 3)', value: 'Value / $', chg: 'Price change', games: 'Games next', name: 'Name' };
+const SORTS = { rd: 'Round points', tot: 'Total points', gp: 'Games played', price: 'Price', proj: 'Projected', avg: 'Average', form: 'Form (last 3)', value: 'Value / $', chg: 'Price change', games: 'Games next', name: 'Name' };
 function form(id) { const s = A.mk[id].scores.filter(x => x.st === 'OK').slice(-3); return s.length ? s.reduce((a, b) => a + b.s, 0) / s.length : 0; }
 function vPlayers() {
   const L = A.L, st = A.st, f = A.f, mk = A.mk, tr = tradeRound();
@@ -2733,25 +2818,19 @@ function vPlayers() {
     h += `<div class="panel row between" style="border-color:var(--acc)"><div class="small">${out ? `Trading out <b>${esc(out.name)}</b> · ${money(mk[out.id].price)} + bank ${money(st.bank)}` : `Picking for <b>${esc(L.slots[A.pick.slot].label)}</b> · ${money(C7.bankNow(L, st, mk))} left`}</div><button class="btn sm" data-act="cancelpick">Cancel</button></div>`;
   }
   const posKeys = Object.keys(L.positions);
+  if (!A.pick) h += scPlayerTiles();
   h += `<input id="q" placeholder="Search ${A.pool.length} players" value="${esc(f.q)}" autocomplete="off">`;
   if (!A.pick) h += posKeys.length <= 4 ? `<div class="seg">${[''].concat(posKeys).map(p => `<button data-fpos="${esc(p)}" class="${f.pos === p ? 'on' : ''}">${p || 'All'}</button>`).join('')}</div>` : `<select id="fpos"><option value="">All positions</option>${posKeys.map(p => `<option ${p === f.pos ? 'selected' : ''} value="${esc(p)}">${esc(p)} — ${esc(L.positions[p])}</option>`).join('')}</select>`;
   h += `<div class="frow"><select id="fteam"><option value="">All teams</option>${Object.keys(L.teams).sort().map(t => `<option ${t === f.team ? 'selected' : ''} value="${t}">${t} — ${esc(L.teams[t])}</option>`).join('')}</select><select id="fsort">${Object.keys(SORTS).filter(k => k !== 'games' || L.statModel === 'nba').map(k => `<option ${k === f.sort ? 'selected' : ''} value="${k}">Sort: ${SORTS[k]}</option>`).join('')}</select></div>`;
-  let rows = A.pool.filter(p => !p.gone);
+  const lr1 = C7.lastResolved(L, now()); let rows = A.pool.filter(p => !p.gone);
   if (A.pick) rows = rows.filter(p => posOk(L.slots[A.pick.slot].elig, p)); else if (f.pos) rows = rows.filter(p => p.pos === f.pos || p.pos2 === f.pos);
   if (f.team) rows = rows.filter(p => p.team === f.team);
   if (f.q) { const q = f.q.toLowerCase(); rows = rows.filter(p => nameMatch(p.name, f.q)); }
-  const key = { name: p => p.name, price: p => -mk[p.id].price, proj: p => -proj(p, tr), avg: p => -(mk[p.id].avg || 0), form: p => -form(p.id), value: p => -proj(p, tr) / mk[p.id].price, chg: p => -mk[p.id].change, games: p => -C7.gamesNext(L, p, tr) * 1000 - proj(p, tr) / 1000 }[f.sort];
+  const rdv = p => { const v = lr1 ? scRdScore(p.id, A.plRound || lr1) : proj(p, tr); return typeof v === 'number' ? v : -1; }; const key = { rd: p => -rdv(p), gp: p => -mk[p.id].games, tot: p => -scTotal(p.id), name: p => p.name, price: p => -mk[p.id].price, proj: p => -proj(p, tr), avg: p => -(mk[p.id].avg || 0), form: p => -form(p.id), value: p => -proj(p, tr) / mk[p.id].price, chg: p => -mk[p.id].change, games: p => -C7.gamesNext(L, p, tr) * 1000 - proj(p, tr) / 1000 }[f.sort];
   rows.sort((a, b) => { const x = key(a), y = key(b); return x < y ? -1 : x > y ? 1 : 0; });
   const avail = p => !A.pick || (A.pick.mode === 'trade' ? C7.canTrade(L, A.pool, mk, st, A.pick.slot, p.id, tr).ok : C7.canAdd(L, A.pool, mk, st, p.id, A.pick.slot).ok);
-  const right = p => { const m = mk[p.id]; switch (f.sort) {
-    case 'avg': return [m.avg == null ? '–' : Math.round(m.avg), 'avg'];
-    case 'form': return [Math.round(form(p.id)), 'last 3'];
-    case 'proj': case 'games': return [Math.round(proj(p, tr)), 'proj ' + L.roundWord.toLowerCase() + ' ' + tr];
-    case 'value': return [(proj(p, tr) / m.price * 1e6).toFixed(0), 'pts per $1M'];
-    case 'chg': return [delta(m.change), money(m.price)];
-    default: return [money(m.price), 'proj ' + Math.round(proj(p, tr))]; } };
-  h += `<div class="xs dim">${rows.length} players${L.statModel === 'nba' ? ` · dots = games in ${rw(L, tr)}` : ''}</div><div class="plist">${rows.slice(0, A.showN).map(p => { const m = mk[p.id]; const [v, s] = right(p); const own = st.squad.includes(p.id);
-    return `<button class="prow ${own ? 'own' : ''} ${A.pick && !avail(p) ? 'na' : ''}" data-pid="${p.id}">${av(p)}<div class="who"><div class="nm">${esc(p.name)}${p.isNew ? '<span class="tag new">New</span>' : ''}${injTag(p, C7.roundDate(L, Math.max(1, tr)))}</div><div class="mt">${esc(p.team)} · ${esc(posLabel(p))} · ${L.statModel === 'nba' ? (m.ppg == null ? nbaLineTxt(p) : m.ppg.toFixed(1) + ' fp/gm') : 'Avg ' + (m.avg == null ? p.fp.toFixed(1) + ' last yr' : Math.round(m.avg))} · BE ${m.be} ${L.statModel === 'nba' ? pips(C7.gamesNext(L, p, tr)) : ''}</div></div><div class="rt"><div class="v">${v}</div><div class="s">${s}</div></div></button>`; }).join('')}</div>`;
+  const lr0 = C7.lastResolved(L, now()); if (lr0 >= 1 && !A.plRound) A.plRound = lr0;
+  h += `<div class="row between"><span class="xs dim">${rows.length} players · tap a column to sort</span>${lr0 >= 1 ? `<span class="rdmini"><button class="btn sm" data-plr="${A.plRound - 1}" ${A.plRound <= 1 ? 'disabled' : ''}>‹</button><b>${esc(rw(L, A.plRound))}</b><button class="btn sm" data-plr="${A.plRound + 1}" ${A.plRound >= lr0 ? 'disabled' : ''}>›</button></span>` : ''}</div>` + scPlayerRows(rows.slice(0, A.showN), 0, avail);
   if (rows.length > A.showN) h += `<button class="btn wide" data-act="more">Show ${Math.min(80, rows.length - A.showN)} more</button>`;
   h += `<p class="xs dim">All players are real. ${L.id === 'epl' ? 'Prices are official FPL prices.' : L.id === 'nrl' ? 'Prices are official NRL Fantasy prices.' : L.id === 'srp' ? 'Prices are official Super Rugby Pacific Fantasy prices.' : L.id === 'tst' ? 'Prices are official Nations Championship Fantasy prices.' : 'Prices come from each player\'s real stats.'} ${L.statModel === 'nba' ? 'Scoring: PTS 1 · REB 1 · AST 2 · STL 3 · BLK 3.' : ''}</p>`;
   return h + '</div>';
@@ -3547,6 +3626,7 @@ LK.on['cl-act'] = (msg, peer) => {
   if (A.view === 'clash' && !$('#live')) render();
 };
 LK.on['cl-err'] = m => toast(m.why, true);
+LK.on['cl-left'] = (m, peer) => { const c = store.get('code7_clash_net'); if (!c || !c.net || c.net.id !== m.id) return; const i = c.net.dev.indexOf(m.who); toast(`🚪 ${i >= 0 ? c.m[i].name : 'A player'} left the linked Clash`, true); };
 LK.on['cl-end'] = m => { const k = 'code7_clash_net'; const c = store.get(k); if (c && c.net && c.net.id === m.id) { store.del(k); cv.useNet = false; toast('The host ended the linked Clash'); render(); } };
 LK.on['cl-state'] = m => {
   const c = m.c; if (!c || !c.net) return; const old = store.get('code7_clash_net'); const same = old && old.net && old.net.id === c.net.id;
@@ -3574,11 +3654,24 @@ function vClash() {
   const c = CL.get();
   if (!c || cv.screen === 'setup' || cv.screen === 'home') { document.documentElement.style.setProperty('--acc', A.L.accent); return cv.screen === 'setup' ? clSetup() : clHome(); }
   const { L } = clx(c.league); document.documentElement.style.setProperty('--acc', L.accent);
-  if (c.phase === 'draft') { clCpuDraftRun(c); if (c.phase === 'draft') return clDraft(c); }
-  if (c.phase === 'review') return clReview(c);
-  if (cv.edit != null) return clEdit(c, cv.edit);
-  if (cv.plan) return clPlanScreen(c);
-  return clSeason(c);
+  if (c.phase === 'draft') { clCpuDraftRun(c); if (c.phase === 'draft') return clBar(c) + clDraft(c); }
+  if (c.phase === 'review') return clBar(c) + clReview(c);
+  if (cv.edit != null) return clBar(c) + clEdit(c, cv.edit);
+  if (cv.plan) return clBar(c) + clPlanScreen(c);
+  return clBar(c) + clSeason(c);
+}
+function clBar(c) {                          // always-visible way out of any Clash screen
+  const { L } = clx(c.league); const ph = c.phase === 'draft' ? (c.mode === 'build' ? 'Secret build' : `Draft · pick ${Math.min((c.pickNo || 0) + 1, c.m.length * L.slots.length)}`) : c.phase === 'review' ? 'Review' : c.phase === 'done' ? 'Finished' : c.phase === 'playoffs' ? 'Finals' : `Round ${c.round + 1}`;
+  return `<div class="clbar"><button class="clb" data-act="cl-menu" aria-label="Back to Clash menu">‹ Menu</button><div class="clbt"><b>${c.net ? '🔗 Linked' : c.fmt === 'cup' ? '🏆 Cup' : '📱 Clash'}</b><small>${esc(L.name)} · ${esc(ph)}</small></div><button class="clb x" data-act="cl-exit" aria-label="Exit this Clash">✕ Exit</button></div>`;
+}
+function clExitSheet(c) {
+  const net = !!c.net, host = net && amHost(c);
+  let h = `<h3 class="num" style="font-size:24px;margin:0">LEAVE THIS CLASH?</h3><p class="small muted" style="margin:6px 0 14px">${net ? (host ? 'You are hosting this linked game.' : 'You joined this linked game.') : 'Everything is saved on this phone.'}</p><div class="stack">`;
+  h += `<button class="btn pri wide" data-act="cl-pause">⏸ Pause · back to Clash menu<br><small>Carry on later from “Carry on”</small></button>`;
+  h += `<button class="btn wide" data-act="cl-pausehome">⌂ Pause · go Home</button>`;
+  if (net && !host) h += `<button class="btn warn wide" data-act="cl-leave">🚪 Leave linked game<br><small>Removes it from this phone only</small></button>`;
+  h += `<button class="btn warn wide" data-act="cl-endnow">🛑 ${net && host ? 'End for everyone' : net ? 'End (this phone)' : 'End this Clash'}<br><small>Can't be undone</small></button>`;
+  return h + `<button class="btn ghost wide" data-act="sheet-close">Cancel</button></div>`;
 }
 const CL_BOTTEAMS = ['Iron Giants', 'Circuit Breakers', 'Byte Force', 'Steel Storm', 'Chrome Comets', 'Pixel Pirates', 'Turbo Titans', 'Laser Lions', 'Robo Rhinos', 'Quantum Kings', 'Neon Knights', 'Data Dragons', 'Gear Grinders', 'Volt Vipers', 'Mecha Mambas'];
 function clBots(mg, n, mix) {                 // computer teams that fill a Cup bracket (unique names: records are kept by name)
@@ -3612,7 +3705,7 @@ function clHome() {
     <button class="mode" data-act="cl-linked"><span class="mi">🔗</span><b>Linked phones</b><small>${lkOpen().length ? `${lkOpen().length} phone${lkOpen().length > 1 ? 's' : ''} linked — everyone drafts on their own screen.` : 'Each player on their own phone, connected over Wi-Fi or hotspot. No internet needed.'}</small></button>
     <button class="mode" data-act="cl-cup"><span class="mi">🏆</span><b>Knockout Cup</b><small>4, 8 or 16 teams — you plus bots. Win or go home.</small></button>
     <button class="mode" data-v="games"><span class="mi">🧩</span><b>Quick Games</b><small>Guess the Player · Higher or Lower · Roster Grid.</small></button></div>`;
-  if (hasLocal || hasNet) h += `<div class="sec">Carry on</div><div class="grid2">${hasLocal ? `<button class="btn" data-act="cl-usenet" data-v="0">▶ One-phone Clash</button>` : ''}${hasNet ? `<button class="btn" data-act="cl-usenet" data-v="1">▶ Linked Clash</button>` : ''}</div>`;
+  if (hasLocal || hasNet) h += `<div class="sec">Carry on</div><div class="grid2">${hasLocal ? `<button class="btn" data-act="cl-usenet" data-net="0">▶ One-phone Clash</button>` : ''}${hasNet ? `<button class="btn" data-act="cl-usenet" data-net="1">▶ Linked Clash</button>` : ''}</div>`;
   h += `<div class="sec">Trophy room <span class="lab">${R.clashes} clash${R.clashes === 1 ? '' : 'es'} played</span></div>`;
   if (!pl.length) h += `<div class="panel muted small">No champions yet. Your first title goes here.</div>`;
   else h += `<div class="plist">${pl.map(([n, x]) => `<div class="prow"><div class="av" style="--c1:var(--gold);--c2:#8a5a00;color:#241a00;text-shadow:none">${x.titles ? '🏆' : '🏀'}</div><div class="who"><div class="nm">${esc(n)} <span class="lab" style="margin-left:6px">${x.titles} title${x.titles === 1 ? '' : 's'}</span></div><div class="mt">${x.w}-${x.l} all-time · best score ${x.best}</div><div class="achs">${Object.keys(x.ach || {}).map(k => `<span class="ach" title="${esc(C7.CL_ACH[k][2])}">${C7.CL_ACH[k][0]} ${esc(C7.CL_ACH[k][1])}</span>`).join('')}</div></div></div>`).join('')}</div>`;
@@ -3956,6 +4049,9 @@ function clashClick(t, d) {
   if (a === 'cl-hap') { HAP.lvl = (HAP.lvl + 1) % 3; hap('select'); toast('Haptics: ' + ['off', 'light', 'full'][HAP.lvl]); render(); return true; }
   if (a === 'cl-snd') { SND.on = !SND.on; store.set('code7_snd', SND.on); snd('tick'); render(); return true; }
   if (a === 'cl-menu') { cv.screen = 'home'; cv.edit = null; A.anim = true; render(); window.scrollTo(0, 0); return true; }
+  if (a === 'cl-exit') { const c0 = CL.get(); if (!c0) { cv.screen = 'home'; render(); return true; } hap('select'); sheet(clExitSheet(c0)); return true; }
+  if (a === 'cl-pause' || a === 'cl-pausehome') { closeSheet(); cv.screen = 'home'; cv.edit = null; cv.plan = null; cv.gate = null; if (a === 'cl-pausehome') go('hub'); else { A.anim = true; render(); window.scrollTo(0, 0); } toast('Clash paused — carry on any time'); return true; }
+  if (a === 'cl-leave' || a === 'cl-endnow') { const c0 = CL.get(); closeSheet(); if (c0 && c0.net && amHost(c0) && a === 'cl-endnow') lkBroadcast({ t: 'cl-end', id: c0.net.id }); if (c0 && c0.net && a === 'cl-leave') lkBroadcast({ t: 'cl-left', id: c0.net.id, who: ME }); store.del(CL.key()); cv.useNet = false; cv.gate = null; cv.edit = null; cv.plan = null; cv.screen = 'home'; hap('select'); toast(a === 'cl-leave' ? 'You left the linked Clash' : 'Clash ended'); A.anim = true; render(); window.scrollTo(0, 0); return true; }
   if (a === 'cl-linked') { if (!lkOpen().length) { A.fTab = 'link'; go('pool'); toast('Link a phone first — Host or Join'); return true; } cv.useNet = true; cv.setup.net = true; cv.screen = 'setup'; A.anim = true; render(); window.scrollTo(0, 0); return true; }
   if (a === 'cl-new' || a === 'cl-newset') { if (a === 'cl-new') cv.setup.fmt = 'league'; if (a === 'cl-newset') store.del(CL.key()); cv.setup.net = !!(cv.useNet && a === 'cl-newset'); if (!cv.setup.net) cv.useNet = false; cv.screen = 'setup'; render(); window.scrollTo(0, 0); return true; }
   if (a === 'cl-home') { cv.screen = CL.get() ? 'home' : null; render(); return true; }
@@ -4010,7 +4106,7 @@ function clashClick(t, d) {
   if (a === 'cl-replay') { const rec = c.res[+d.r]; clLive(c, rec, +d.g, null); return true; }
   if (a === 'cl-rematch') { if (!amHost(c)) { toast('Only the host can start a rematch', true); return true; } const L = LEAGUES.find(l => l.id === c.league); const n = C7.clashNew(L, c.m.map(m => ({ name: m.name, team: m.team, emoji: m.emoji, color: m.color, cpu: m.cpu || 0 })), { rounds: c.fmt === 'cup' ? 0 : c.rounds, mode: c.mode, timer: c.timer, plans: c.plans, freePos: c.freePos, fmt: c.fmt, coach: c.coach }, (Math.random() * 4294967296) >>> 0); n.m.forEach((m, i) => { m.squad = c.m[i].squad; m.paid = c.m[i].paid; m.captain = c.m[i].captain; m.vice = c.m[i].vice; m.done = true; }); { const { pool } = clx(c.league); C7.clashStart(L, pool, n); } if (c.net) { n.net = Object.assign({}, c.net, { id: Math.random().toString(36).slice(2, 9) }); } CL.set(n); if (n.net) lkBroadcast({ t: 'cl-state', c: n }); render(); return true; }
   if (a === 'cl-quit') { if (!cv.quit) { cv.quit = true; render(); setTimeout(() => { cv.quit = false; }, 4000); return true; } cv.quit = false; if (c.net && amHost(c)) lkBroadcast({ t: 'cl-end', id: c.net.id }); store.del(CL.key()); cv.useNet = false; cv.gate = null; cv.edit = null; cv.plan = null; render(); return true; }
-  if (a === 'cl-usenet') { cv.useNet = d.v === '1'; cv.screen = null; cv.edit = null; cv.plan = null; A.anim = true; render(); return true; }
+  if (a === 'cl-usenet') { cv.useNet = d.net === "1"; cv.screen = null; cv.edit = null; cv.plan = null; A.anim = true; render(); return true; }
   return false;
 }
 function clAfterPick(c, noSave) { const { L } = clx(c.league); if (C7.clashDraftDone(L, c) && (c.mode !== 'build' || (c.net ? c.m.every(m => m.done) : c.turn >= c.m.length))) { c.phase = 'review'; snd('win'); } if (!noSave) CL.set(c); }
@@ -4316,6 +4412,146 @@ setInterval(() => { if (MUS.started && MUS.on) { const s = musScene(); if (s !==
 setInterval(() => { if (MUS.started && MUS.on && MUS.src === 'mine' && MUS.files.length && document.visibilityState === 'visible' && (!MUS.el || MUS.el.paused)) musMine(); }, 3000);
 if (/[?&]musdebug\b/.test(location.search)) window.__mus = { MUS, MUS_T, musStep, musPlay, musScene, musRender };
 
+/* ============================================================ SuperCoach-style layout (Tom's redesign)
+   Team pitch cards · Players tiles + table · Leagues · Gameday */
+const ord = n => n + (['th', 'st', 'nd', 'rd'][(n % 100 > 10 && n % 100 < 14) ? 0 : Math.min(n % 10, 4) % 4] || 'th');
+const pct = (w, l) => (w + l) ? (100 * w / (w + l)).toFixed(1) + '%' : '–';
+const surname = n => { const w = n.replace(/\b(Jr\.?|Sr\.?|II|III|IV)\b/g, '').trim().split(/\s+/); return w.length > 1 ? w.slice(1).join(' ') : w[0]; };
+function scRdScore(id, n) { const m = A.mk[id]; const s = m && m.scores[n - 1]; return !s ? null : s.st === 'OK' ? s.s : s.st; }
+function scTotal(id) { return A.mk[id].scores.reduce((a, x) => a + (x.st === 'OK' ? x.s : 0), 0); }
+function scBadge(team, sm) { const [c1, c2] = colors(team); return `<span class="scbadge ${sm ? 'sm' : ''}" style="--c1:${c1};--c2:${c2}">${esc(String(team).slice(0, 3))}</span>`; }
+function scTile(lab, big, sub, attr) { return `<${attr ? 'button' : 'div'} class="sctile" ${attr || ''}><div class="lab">${lab}</div><div class="big num">${big}</div><div class="sub">${sub || ''}</div></${attr ? 'button' : 'div'}>`; }
+function scTabs(key, list, cur) { return `<div class="sctabs">${list.map(([k, t]) => `<button data-${key}="${k}" class="${cur === k ? 'on' : ''}">${t}</button>`).join('')}</div>`; }
+
+/* ---------- TEAM: pitch of cards ---------- */
+function scCard(i) {
+  const L = A.L, st = A.st, s = L.slots[i], id = st.squad[i], p = id && A.P[id], tr = tradeRound(); const lr = C7.lastResolved(L, now());
+  let c = 'spot scc';
+  if (A.swapFrom != null) c += i === A.swapFrom ? ' src' : C7.canSwap(L, st, A.pool, A.swapFrom, i) ? ' target' : ' dimmed';
+  if (!p) return `<button class="${c} empty" data-slot="${i}"><div class="scbar"><span>${esc(s.bench ? 'BENCH' : s.label)}</span></div><div class="scadd">+</div><div class="scpos">${esc(s.elig.join(' / '))}</div></button>`;
+  const m = A.mk[id]; const cap = id === st.captain ? 'c' : id === st.vice ? 'vc' : ''; if (cap) c += ' ' + cap;
+  const inj = C7.injNow(L, p, C7.roundDate(L, Math.max(1, tr))); const bye = C7.gamesNext(L, p, tr) === 0;
+  const rs = st.phase === 'season' && lr >= 1 ? scRdScore(id, lr) : null; const big = rs == null ? Math.round(proj(p, tr)) : typeof rs === 'number' ? rs : '–';
+  return `<button class="${c}" data-slot="${i}"><div class="scbar"><span>${esc(surname(p.name).toUpperCase())}</span>${cap ? `<b class="sccap">${cap === 'c' ? 'C' : 'VC'}</b>` : ''}${inj ? `<i title="${esc(inj.s)}">🚑</i>` : ''}${bye ? '<i>BYE</i>' : ''}</div>
+    <div class="scb"><div class="scl">${scBadge(p.team)}<div class="scpos">${esc(p.team)} | ${esc(s.bench ? p.pos : s.label)}</div><div class="scpr">${money(m.price)}${m.change ? `<i class="${m.change > 0 ? 'up' : 'down'}">${m.change > 0 ? '▲' : '▼'}</i>` : ''}</div></div>
+    <div class="scr"><div class="scs num ${rs == null ? 'proj' : ''}" title="${rs == null ? 'Projected' : rw(L, lr)}">${big}</div><div class="sca">${rs == null ? 'proj' : 'avg ' + (m.avg == null ? '–' : Math.round(m.avg))}</div></div></div></button>`;
+}
+function scPitch() {
+  const L = A.L; const groups = []; const bench = [];
+  L.slots.forEach((s, i) => { if (s.bench) { bench.push(i); return; } const g = s.elig.length === 1 ? (L.positions[s.elig[0]] || s.label) : s.label; const last = groups[groups.length - 1]; if (last && last.g === g) last.i.push(i); else groups.push({ g, i: [i] }); });
+  // merge tiny single-card groups that share a label pattern (keeps rugby/NRL tidy)
+  return `<div class="pitch sp-${esc(SPORT_OF(L.id).id)}"><div class="pitch-lines" aria-hidden="true"></div><div class="pitch-in"><div class="pst">${groups.map(G => `<div class="pgrp"><span class="ppill">${esc(G.g)}</span></div>${G.i.map((i, k) => k === G.i.length - 1 && G.i.length % 2 ? scCard(i).replace('class="spot scc', 'class="spot scc solo') : scCard(i)).join('')}`).join('')}</div>
+    <div class="pbn"><div class="pgrp"><span class="ppill">Bench</span></div>${bench.map(scCard).join('')}</div></div></div>`;
+}
+
+/* ---------- PLAYERS: tiles + stats table ---------- */
+const PCOLS = [['rd', 'Rd pts'], ['gp', 'Played'], ['tot', 'Total'], ['avg', 'Avg']];
+function scPlayerTiles() {
+  const L = A.L, mk = A.mk, lr = C7.lastResolved(L, now()); const all = A.pool.filter(p => !p.gone); if (!all.length) return '';
+  const best = (f, dir) => all.reduce((a, p) => { const v = f(p); return v == null ? a : !a || (dir > 0 ? v > a.v : v < a.v) ? { p, v } : a; }, null);
+  const t = (lab, r, fmt) => r ? scTile(lab, fmt(r.v), `${esc(r.p.name)} · ${esc(r.p.team)}`, `data-pid="${r.p.id}"`) : scTile(lab, '–', '');
+  let tiles;
+  if (lr >= 1) { const sc = p => { const v = scRdScore(p.id, lr); return typeof v === 'number' ? v : null; };
+    tiles = [t(`Highest · ${esc(rw(L, lr))}`, best(sc, 1), v => v), t(`Lowest · ${esc(rw(L, lr))}`, best(sc, -1), v => v), t('Biggest $ rise', best(p => mk[p.id].change || null, 1), v => '▲' + money(v)), t('Biggest $ drop', best(p => mk[p.id].change || null, -1), v => '▼' + money(-v))]; }
+  else { const tr = tradeRound(); tiles = [t('Top projected', best(p => proj(p, tr), 1), v => Math.round(v)), t('Most expensive', best(p => mk[p.id].price, 1), money), t('Best value', best(p => proj(p, tr) / mk[p.id].price * 1e6, 1), v => v.toFixed(0) + '<small>/$1M</small>'), t('Cheapest', best(p => mk[p.id].price, -1), money)]; }
+  return `<div class="sctiles t4">${tiles.join('')}</div>`;
+}
+function scPlayerRows(rows, n, avail) {
+  const L = A.L, st = A.st, mk = A.mk, f = A.f; const lr = C7.lastResolved(L, now()); const tr = tradeRound();
+  const head = `<div class="ptr ph"><span>#</span><span>Player</span>${PCOLS.map(([k, t]) => `<button data-psort="${k}" class="${f.sort === k ? 'on' : ''}">${k === 'rd' ? (lr ? esc(L.roundWord.slice(0, 2)) + ' ' + (A.plRound || lr) : 'Proj') : t}</button>`).join('')}</div>`;
+  return `<div class="ptable">${head}${rows.map((p, k) => { const m = mk[p.id]; const own = st.squad.includes(p.id); const rs = lr ? scRdScore(p.id, A.plRound || lr) : Math.round(proj(p, tr)); const sch = m.price - (p.price0 || m.hist[0]);
+    return `<button class="prow ptr ${own ? 'own' : ''} ${A.pick && !avail(p) ? 'na' : ''}" data-pid="${p.id}"><span class="rk">${k + 1}</span><span class="pn"><b>${esc(p.name)}${p.isNew ? '<span class="tag new">New</span>' : ''}${injTag(p, C7.roundDate(L, Math.max(1, tr)))}</b><small>${esc(posLabel(p))} - ${esc(p.team)}</small><small class="pp">${money(m.price)} ${m.change ? `<i class="${m.change > 0 ? 'up' : 'down'}">${m.change > 0 ? '▲' : '▼'}${money(Math.abs(m.change))}</i>` : ''}${sch && lr ? ` <i class="dim">(${sch > 0 ? '+' : '−'}${money(Math.abs(sch))})</i>` : ''}</small></span><span class="c">${rs == null ? '–' : rs}</span><span class="c">${m.games}</span><span class="c">${scTotal(p.id)}</span><span class="c b">${m.avg == null ? '–' : Math.round(m.avg)}</span></button>`; }).join('')}</div>`;
+}
+
+/* ---------- LEAGUES ---------- */
+function scRivals() {        // me vs each friend, round by round
+  const L = A.L, st = A.st; const rs = Object.keys(st.results).map(Number);
+  return st.friends.map(fr => { let w = 0, l = 0, d = 0; rs.forEach(n => { const a = st.results[n].total, b = (fr._res || {})[n]; if (b == null) return; if (a > b) w++; else if (a < b) l++; else d++; }); const ln = rs.length ? Math.max(...rs) : 0; return { fr, w, l, d, last: ln ? [st.results[ln].total, (fr._res || {})[ln]] : null }; });
+}
+function vLeagues() {
+  const L = A.L, st = A.st; const me = A.me || 'You';
+  if (A.fTab) { A.poolTab = A.fTab; A.fTab = null; } if (!['fan', 'pk', 'riv', 'link', 'rd'].includes(A.poolTab)) A.poolTab = 'fan';
+  const season = st.phase === 'season' && !closed(); const t = season ? C7.poolTable(L, st) : null; const mr = t && t.find(r => r.you);
+  const riv = season ? scRivals() : []; const rw_ = riv.reduce((a, r) => [a[0] + r.w, a[1] + r.l, a[2] + r.d], [0, 0, 0]);
+  const CR = (typeof CL !== 'undefined' && CL.rec()) || { h2h: {} }; let cw = 0, cl = 0; Object.entries(CR.h2h || {}).forEach(([k, v]) => { const [a, b] = k.split('|'); if (A.me && (a === A.me || b === A.me)) { const o = a === A.me ? b : a; cw += v[A.me] || 0; cl += v[o] || 0; } });
+  let h = `<div class="stack"><div class="sctiles t3">${scTile('H2H record', mr ? `${mr.w}-${mr.l}` : '–', mr ? pct(mr.w, mr.l) + ' wins' : 'starts with your season')}${scTile('Pool rank', mr ? ord(mr.rank) : '–', mr ? `of ${t.length} · ${mr.total} pts` : L.name)}${scTile('Rivalries', riv.length ? `${rw_[0]}-${rw_[1]}${rw_[2] ? '-' + rw_[2] : ''}` : (cw + cl ? `${cw}-${cl}` : '–'), riv.length ? `vs ${riv.length} friend${riv.length > 1 ? 's' : ''}` : cw + cl ? 'Clash head-to-head' : 'add a friend')}</div>`;
+  h += scTabs('ptab', [['fan', 'Leagues'], ['riv', 'Rivalries'], ['link', '🔗 Link Up'], ['rd', 'Rounds']], A.poolTab === 'pk' ? 'fan' : A.poolTab);
+  if (A.poolTab === 'link') return h + vLink() + '</div>';
+  if (closed()) return h + hero() + '</div>';
+  if (A.poolTab === 'fan' || A.poolTab === 'pk') {
+    if (!season) h += `<div class="panel muted">Your ${esc(L.name)} pool fills with 11 AI rivals (plus any friends) the moment your season starts. Build your squad in Team.</div>`;
+    else {
+      const rs = Object.keys(st.results).map(Number).sort((a, b) => a - b); const ln = rs[rs.length - 1]; const opp = ln ? C7.h2hOpp(st, ln) : null; const a = ln ? st.results[ln].total : 0, b = opp ? opp.results[ln] || 0 : 0;
+      h += `<div class="lgcard"><div class="lgtop"><div class="lgav">${esc(initials(me))}</div><div class="lgmid"><div class="lab">${esc(L.name)} · Season pool</div>${ln ? `<div class="lgsc"><b class="num">${a}</b> <span>${a > b ? 'def' : a < b ? 'def by' : 'drew'}</span> <b class="num dim">${b}</b> <span class="dim">${esc(opp ? opp.name : '')}</span></div><div class="xs dim">${esc(rw(L, ln))}</div>` : `<div class="small muted">First results land after ${esc(rw(L, st.startRound))}.</div>`}</div></div>
+        <div class="lgrec">${esc(me)} (${ord(mr.rank)}) <b>${mr.w}-${mr.l}</b> (${pct(mr.w, mr.l)}) · ${mr.total} pts</div><button class="btn wide ${A.open.pool ? '' : 'pri'}" data-act="lg-view" data-k="pool">${A.open.pool ? 'Hide ladder' : 'View league'}</button>${A.open.pool ? poolLadder(t, rs) : ''}</div>`;
+    }
+    if (L.predictor) { const pt = C7.pickemTable(L, st, C7.lastResolved(L, now())); const pm = pt.find(r => r.you);
+      h += `<div class="lgcard"><div class="lgtop"><div class="lgav pk">✔</div><div class="lgmid"><div class="lab">${esc(L.name)} · Pick'em</div>${pm ? `<div class="lgsc"><b class="num">${fmtPts(pm.pts)}</b> <span>pts</span> <span class="dim">· ${pm.gs} grand slam${pm.gs === 1 ? '' : 's'}</span></div>` : `<div class="small muted">Tip every winner in Gameday → Pick'em. The ladder appears once a ${esc(L.roundWord.toLowerCase())} is scored.</div>`}</div></div>
+        ${pm ? `<div class="lgrec">${esc(me)} (${ord(pm.rank)} of ${pt.length})</div>` : ''}<button class="btn wide ${A.open.pk ? '' : 'pri'}" data-act="lg-view" data-k="pk" ${pt.length ? '' : 'disabled'}>${A.open.pk ? 'Hide ladder' : 'View league'}</button>${A.open.pk ? `<div class="panel" style="padding:6px 10px;margin-top:10px"><table class="tbl"><thead><tr><th>#</th><th style="text-align:left">Tipster</th><th>Slams</th><th>Pts</th></tr></thead><tbody>${pt.map(r => `<tr class="${r.you ? 'you' : ''}"><td class="rk">${r.rank}</td><td class="nm">${esc(r.you ? me : r.name)}${r.friend ? '<span class="tag fr">Friend</span>' : r.you ? '' : '<span class="tag ai">AI</span>'}</td><td>${r.gs}</td><td><b>${fmtPts(r.pts)}</b></td></tr>`).join('')}</tbody></table></div>` : ''}</div>`; }
+  }
+  if (A.poolTab === 'riv') {
+    if (riv.length) h += riv.map(({ fr, w, l, d, last }, i) => `<div class="lgcard"><div class="lgtop"><div class="lgav fr">${esc(initials(fr.name))}</div><div class="lgmid"><div class="lab">Rivalry · ${esc(L.name)}</div><div class="lgsc"><b class="num">${w}-${l}${d ? '-' + d : ''}</b> <span class="dim">vs ${esc(fr.name)}</span></div>${last && last[1] != null ? `<div class="xs dim">Last: ${last[0]} – ${last[1]} · ${last[0] > last[1] ? 'you won' : last[0] < last[1] ? fr.name + ' won' : 'drawn'}</div>` : '<div class="xs dim">No shared rounds yet</div>'}</div><button class="btn sm warn" data-unfriend="${i}">Remove</button></div><div class="xs dim" style="margin-top:6px">Updated ${fr.at ? dshort(fr.at) : '–'} · ${Object.keys(fr.lineups).length} ${esc(L.roundWord.toLowerCase())}s shared</div></div>`).join('');
+    else h += `<div class="panel muted small">No rivals yet. Link phones (🔗 Link Up → Swap season teams) or share your team code, and each friend gets a head-to-head record here.</div>`;
+    const hh = Object.entries(CR.h2h || {}); if (hh.length) h += `<div class="sec">Clash head-to-head</div><div class="panel" style="padding:6px 12px">${hh.map(([k, v]) => { const [a, b] = k.split('|'); return `<div class="row between" style="padding:8px 0;border-bottom:1px solid var(--line)"><b>${esc(a)}</b><span class="num" style="font-size:22px;font-weight:900">${v[a] || 0} – ${v[b] || 0}</span><b>${esc(b)}</b></div>`; }).join('')}</div>`;
+    h += `<div class="grid2" style="margin-top:4px"><button class="btn pri" data-act="share">Share my team</button><button class="btn" data-act="addfriend">Add a friend</button></div>`;
+  }
+  if (A.poolTab === 'rd') h += roundsList();
+  return h + '</div>';
+}
+function poolLadder(t, rs) {
+  const L = A.L, st = A.st; const prev = rs.length > 1 ? C7.poolTable(L, st, rs[rs.length - 2]) : null;
+  return `<div class="panel" style="padding:6px 10px;margin-top:10px"><div class="tblwrap"><table class="tbl"><thead><tr><th>#</th><th></th><th style="text-align:left">Manager</th><th>Last</th><th>Total</th></tr></thead><tbody>${t.map(r => { const pr = prev && prev.find(x => x.name === r.name); const mv = pr ? pr.rank - r.rank : 0; return `<tr class="${r.you ? 'you' : ''}"><td class="rk">${r.rank}</td><td class="mv ${mv > 0 ? 'up' : mv < 0 ? 'down' : 'dim'}">${mv > 0 ? '▲' + mv : mv < 0 ? '▼' + (-mv) : '–'}</td><td class="nm">${esc(r.you ? (A.me || 'You') : r.name)}${r.friend ? '<span class="tag fr">Friend</span>' : r.you ? '' : '<span class="tag ai">AI</span>'}</td><td>${r.last}</td><td><b>${r.total}</b></td></tr>`; }).join('')}</tbody></table></div></div>`;
+}
+function roundsList() {
+  const L = A.L, st = A.st; let h = ''; const rounds = Object.keys(st.results).map(Number).sort((a, b) => b - a);
+  if (!rounds.length) return `<div class="panel muted">No scored ${L.roundWord.toLowerCase()}s yet. Scores land automatically when each ${L.roundWord.toLowerCase()} ends.</div>`;
+  for (const n of rounds) {
+    const r = st.results[n]; const opp = C7.h2hOpp(st, n); const ov = opp ? opp.results[n] : null;
+    h += `<button class="prow" data-rnd="${n}"><div class="who"><div class="nm">${rw(L, n)}${r.chip ? `<span class="tag chip">${C7.CHIPS[r.chip].short}</span>` : ''}</div><div class="mt">${opp ? `vs ${esc(opp.name)} · ${ov} · ${r.total > ov ? 'W' : r.total < ov ? 'L' : 'T'}` : ''}</div></div><div class="rt"><div class="v" style="font-size:24px">${r.total}</div></div></button>`;
+    if (A.open[n]) h += scoreRows(r.rows);
+  }
+  return h;
+}
+function scoreRows(rows) {
+  return `<div class="panel" style="padding:4px 12px"><table class="tbl"><tbody>${rows.filter(x => x.id && A.P[x.id]).sort((a, b) => b.counted - a.counted || b.s * b.mult - a.s * a.mult).map(x => { const p = A.P[x.id]; const note = x.st !== 'OK' ? x.st : x.subFor ? 'SUB' : x.bench && !x.counted ? 'bench' : ''; return `<tr><td class="nm">${esc(p.name)} <span class="dim xs">${esc(posLabel(p))}</span>${x.mult > 1 ? `<span class="tag ${x.mult === 1.5 ? 'fr' : 'chip'}">${x.mult}×</span>` : ''}${note ? ` <span class="dim xs">${note}</span>` : ''}${x.g ? ` <span class="dim xs">${x.g}g</span>` : ''}</td><td class="${x.counted ? '' : 'dim'}">${x.counted ? Math.round(x.s * x.mult) : x.s}</td></tr>`; }).join('')}</tbody></table></div>`;
+}
+
+/* ---------- GAMEDAY ---------- */
+function vGameday() {
+  const L = A.L, st = A.st, t = now(); if (closed()) return hero();
+  const lr = C7.lastResolved(L, t), lv = liveRound(); const n = Math.max(1, Math.min(L.rounds, A.gdRound || lv || Math.max(lr, tradeRound())));
+  if (!A.gdTab || (A.gdTab === 'pk' && !L.predictor)) A.gdTab = 'h2h';
+  const res = st.results[n]; const lu = st.lineups && st.lineups[n]; const live = !res && lv === n && lu ? C7.liveScore(L, A.pool, lu, n, t) : null;
+  const opp = st.phase === 'season' ? C7.h2hOpp(st, n) : null; const ov = opp && opp.results[n];
+  const starters = (res ? res.rows.filter(x => x.id && !x.bench) : (lu ? lu.squad.filter((id, i) => id && !L.slots[i].bench) : []));
+  const played = res ? res.rows.filter(x => x.id && x.counted && x.st === 'OK').length : live ? live.played : 0;
+  const myScore = res ? res.total : live ? live.total : null;
+  const pr = L.predictor && n <= lr && Object.keys(st.picks[n] || {}).length ? C7.pickemRound(L, st, n) : null; const pme = pr && pr.find(o => o.you);
+  const contests = []; if (res && ov != null) contests.push(res.total > ov); if (pr) contests.push(pr.slice().sort((a, b) => b.pts - a.pts)[0] === pme);
+  const status = res ? 'Final' : lv === n ? 'Live' : n > lr ? 'Upcoming' : 'Not played';
+  let h = `<div class="stack"><div class="sctiles t3">${scTile(res ? 'Round score' : live ? 'Live score' : 'Projected', myScore != null ? myScore : (st.phase !== 'season' ? '–' : lineupProj(lu || { squad: st.squad, c: st.captain, vc: st.vice }, n)), status)}${scTile('Leading', contests.length ? `${contests.filter(Boolean).length}/${contests.length}` : '–', 'contests this ' + esc(L.roundWord.toLowerCase()))}${scTile('Players', starters.length ? `${played}/${starters.length}` : '–', res ? 'scored' : live ? 'played so far' : 'starters')}</div>`;
+  h += `<div class="rdsel"><button class="btn sm" data-gdr="${n - 1}" ${n <= 1 ? 'disabled' : ''} aria-label="Previous">‹</button><div><b>${esc(rw(L, n))}</b><small>${new Date(C7.roundDate(L, n)).toLocaleDateString(undefined, { day: 'numeric', month: 'short' })} · ${status}</small></div><button class="btn sm" data-gdr="${n + 1}" ${n >= L.rounds ? 'disabled' : ''} aria-label="Next">›</button></div>`;
+  h += scTabs('gdtab', [['h2h', 'Head-2-Head'], ['m', 'Matches']].concat(L.predictor ? [['pk', "Pick'em"]] : []), A.gdTab);
+  if (A.gdTab === 'pk') { A.pkRound = n; return h + '</div>' + vPick(); }
+  if (A.gdTab === 'm') {
+    const W = C7.weekGames(L, n); const mine = {}; (lu ? lu.squad : st.squad).forEach(id => { if (id && A.P[id]) mine[A.P[id].team] = (mine[A.P[id].team] || 0) + 1; });
+    if (!W.games.length) h += `<div class="panel muted small">No fixtures listed for ${esc(rw(L, n))}.</div>`;
+    let day = ''; W.games.forEach(g => { const d = new Date(g.at).toLocaleDateString(undefined, { weekday: 'long', day: 'numeric', month: 'short' }); if (d !== day) { h += `<div class="sec">${esc(d)}</div>`; day = d; }
+      const fin = C7.gameFinal(g, t); const r = fin ? C7.gameResult(L, g) : null; const go = !fin && t >= g.at;
+      const side = (tm, sc, win) => `<div class="gmt ${win === false ? 'dim' : ''}">${scBadge(tm, 1)}<b>${esc(L.teams[tm] || tm)}</b>${mine[tm] ? `<span class="tag fr">${mine[tm]} yours</span>` : ''}<span class="num gms">${sc == null ? '' : sc}</span></div>`;
+      h += `<div class="gmcard">${side(g.a, r && r.as, r ? r.as >= r.hs : null)}${side(g.h, r && r.hs, r ? r.hs >= r.as : null)}<div class="xs dim gmst">${g.label ? esc(g.label) + ' · ' : ''}${fin ? (r.real ? 'Final' : 'Final (modelled)') + (r.ot ? ' / OT' : '') : go ? '<b class="livedot">LIVE</b>' : new Date(g.at).toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' })}</div></div>`; });
+    return h + '</div>';
+  }
+  // head-to-head
+  if (st.phase !== 'season') return h + `<div class="panel muted">Head-to-head starts with your season. Fill your squad in Team — you play one rival every ${esc(L.roundWord.toLowerCase())}.</div></div>`;
+  const card = (nm, av2, a, b, sub, k) => `<div class="lgcard"><div class="h2hrow"><div class="h2hs"><div class="lgav">${esc(initials(A.me || 'You'))}</div><b>${esc(A.me || 'You')}</b><span class="num big ${a != null && b != null && a < b ? 'dim' : ''}">${a == null ? '–' : a}</span></div><div class="h2hv">${a != null && b != null ? (a > b ? 'def' : a < b ? 'def by' : 'drew') : 'vs'}</div><div class="h2hs"><div class="lgav ${av2}">${esc(initials(nm))}</div><b>${esc(nm)}</b><span class="num big ${a != null && b != null && b < a ? 'dim' : ''}">${b == null ? '–' : b}</span></div></div><div class="xs dim" style="text-align:center">${sub}</div>${k && res ? `<button class="btn wide" data-act="gd-see" data-n="${n}">${A.open['gd' + n] ? 'Hide my scores' : 'See H2H scores'}</button>${A.open['gd' + n] ? scoreRows(res.rows) : ''}` : ''}</div>`;
+  if (opp) h += card(opp.name, '', myScore, ov != null && res ? ov : null, `${esc(L.name)} pool · ${status}${live ? ` · ${live.left} game${live.left === 1 ? '' : 's'} to go` : ''}`, 'me');
+  else h += `<div class="panel muted small">No rival this ${esc(L.roundWord.toLowerCase())} — your season starts ${esc(rw(L, st.startRound))}.</div>`;
+  st.friends.forEach(fr => { const b = (fr._res || {})[n]; h += card(fr.name, 'fr', res ? res.total : null, b == null ? null : b, 'Friend rivalry · ' + status); });
+  if (!res && lu) h += `<div class="sec">Your ${esc(rw(L, n))} lineup</div><div class="plist">${lu.squad.map((id, i) => id && A.P[id] && !L.slots[i].bench ? `<button class="prow" data-pid="${id}">${av(A.P[id], false, id === lu.c ? 'c' : id === lu.vc ? 'vc' : '')}<div class="who"><div class="nm">${esc(A.P[id].name)}</div><div class="mt">${esc(L.slots[i].label)} · ${esc(A.P[id].team)} · proj ${Math.round(proj(A.P[id], n))}</div></div></button>` : '').join('')}</div>`;
+  return h + '</div>';
+}
+
 
 /* ---------- ROSTERS: every team, straight from the data (ESPN for the NBA) ---------- */
 function vRosters() {
@@ -4414,7 +4650,7 @@ function checkBadges() {
 }
 
 /* ============================================================ events */
-function go(v) { if (v === 'clash' && A.view === 'clash') cv.screen = CL.get() ? null : cv.screen; { const o = ['hub', 'team', 'pick', 'clash', 'pool', 'more']; const i = o.indexOf(NAVMAP[A.view] || 'hub'), j = o.indexOf(NAVMAP[v] || 'hub'); A.dx = j > i ? 1 : j < i ? -1 : 0; } A.view = v; A.anim = true; A.swapFrom = null; if (v !== 'players') A.pick = null; buzz(5); render(); window.scrollTo(0, 0); }
+function go(v) { if (v === 'clash' && A.view === 'clash') cv.screen = CL.get() ? null : cv.screen; { const o = ['hub', 'team', 'gameday', 'pool', 'clash', 'more']; const i = o.indexOf(NAVMAP[A.view] || 'hub'), j = o.indexOf(NAVMAP[v] || 'hub'); A.dx = j > i ? 1 : j < i ? -1 : 0; } A.view = v; A.anim = true; A.swapFrom = null; if (v !== 'players') A.pick = null; buzz(5); render(); window.scrollTo(0, 0); }
 async function linkClick(t, d) {
   const a = d.act;
   if (a === 'lk-host') { lkHostSheet(); return true; }
@@ -4463,10 +4699,17 @@ document.addEventListener('click', async e => {
   if (d.lg) { A.sportFx = d.lg !== A.lid; load(d.lg); store.set('code7_sport_' + SPORT_OF(d.lg).id, d.lg); A.anim = true; buzz(6); render(); return; }
   if (d.fpos != null) { A.f.pos = d.fpos; A.showN = 80; render(); return; }
   if (d.ntab) { A.newsTab = d.ntab; render(); return; }
-  if (d.ptab) { A.poolTab = d.ptab; render(); return; }
+  if (d.ptab) { A.poolTab = d.ptab; hap('select'); render(); return; }
   if (d.rnd) { A.open[d.rnd] = !A.open[d.rnd]; render(); return; }
   if (d.ros) { A.open['ros' + d.ros] = !A.open['ros' + d.ros]; render(); return; }
-  if (d.pk) { A.pkRound = Math.max(1, Math.min(L.rounds, +d.pk)); render(); return; }
+  if (d.pk) { A.pkRound = Math.max(1, Math.min(L.rounds, +d.pk)); if (A.view === 'gameday') A.gdRound = A.pkRound; render(); return; }
+  if (d.gdr) { A.gdRound = Math.max(1, Math.min(L.rounds, +d.gdr)); hap('select'); render(); return; }
+  if (d.gdtab) { A.gdTab = d.gdtab; hap('select'); render(); return; }
+  if (d.psort) { A.f.sort = d.psort; A.showN = 80; hap('select'); render(); return; }
+  if (d.plr) { A.plRound = Math.max(1, Math.min(C7.lastResolved(L, now()), +d.plr)); A.f.sort = 'rd'; render(); return; }
+  if (d.act === 'tview') { A.teamView = A.teamView === 'list' ? 'pitch' : 'list'; store.set('code7_teamview', A.teamView); hap('select'); render(); return; }
+  if (d.act === 'lg-view') { A.open[d.k] = !A.open[d.k]; render(); return; }
+  if (d.act === 'gd-see') { A.open['gd' + d.n] = !A.open['gd' + d.n]; render(); return; }
   if (d.pw) { const [n, g, w] = d.pw.split('|'); const gm = C7.featuredGames(L, +n).find(x => x.id === g); if (!gm || now() >= gm.at) { toast('Picks are locked for this week', true); render(); return; } st.picks[n] = st.picks[n] || {}; const cur = st.picks[n][g]; st.picks[n][g] = { w, m: w === 'd' ? 0 : cur && cur.m ? cur.m : (L.id === 'epl' ? 1 : 6) }; buzz(); save(); render(); return; }
   if (d.pm) { const [n, g, s] = d.pm.split('|'); const p = st.picks[n] && st.picks[n][g]; const gm = C7.featuredGames(L, +n).find(x => x.id === g); if (p && gm && now() < gm.at && p.w !== 'd') { p.m = Math.max(1, Math.min(L.id === 'epl' ? 9 : 40, p.m + +s)); buzz(4); save(); render(); } return; }
   if (d.pid && t.classList.contains('prow') && !d.buy) { playerSheet(d.pid); return; }
@@ -4554,7 +4797,7 @@ async function checkStats(manual) {
 }
 function maybeCheckStats() { if (TEST || !statsAuto() || !navigator.onLine) return; const last = store.get('code7_stats_checked') || 0; if (Date.now() - last > 6 * 3600e3) checkStats(false); }
 document.addEventListener('visibilitychange', () => { if (!document.hidden) maybeCheckStats(); });
-let _lastY = 0; window.addEventListener('scroll', () => { const y = window.scrollY; const top = $('#top'); if (!top) return; if (A.lvlOpen) { top.classList.remove('mini'); _lastY = y; return; } if (y > 90 && y > _lastY + 4) top.classList.add('mini'); else if (y < _lastY - 4 || y < 40) top.classList.remove('mini'); _lastY = y; }, { passive: true });
+let _lastY = 0; window.addEventListener('scroll', () => { const y = window.scrollY; const top = $('#top'); if (!top) return; if (A.lvlOpen) { top.classList.remove('mini'); _lastY = y; return; } if (Date.now() < (window._miniT || 0)) { _lastY = y; return; } const was = top.classList.contains('mini'); if (y > 90 && y > _lastY + 4) top.classList.add('mini'); else if (y < _lastY - 12 || y < 40) top.classList.remove('mini'); if (was !== top.classList.contains('mini')) window._miniT = Date.now() + 400; _lastY = y; }, { passive: true });
 
 /* ---------- boot ---------- */
 if (TEST) { const b = document.createElement('div'); b.className = 'testclock'; b.textContent = 'TEST CLOCK · ' + new Date(now()).toString().slice(0, 21); document.body.prepend(b); }
@@ -4562,6 +4805,24 @@ load(A.lid); A.lvlOpen = 'boot'; A._lvlT = setTimeout(() => { A.lvlOpen = null; 
 maybeRecap(); checkBadges(); setTimeout(maybeCheckStats, 1500);
 const hm = location.hash.match(/^#c7=(.+)$/); if (hm) { history.replaceState(null, '', location.pathname + location.search); addFriendSheet(decodeURIComponent(hm[1])); }
 setTimeout(() => document.querySelectorAll('.clock').forEach(() => { }), 0);
+try { const T = $('#top'); const setH = () => document.documentElement.style.setProperty('--toph', T.offsetHeight + 'px'); setH(); new ResizeObserver(setH).observe(T); } catch (e) { }
+/* ---------- Android / browser back button: step back inside the app instead of closing it ---------- */
+const BACK_UP = { players: 'team', rosters: 'team', news: 'hub', qg: 'games', games: 'clash', pick: 'gameday' };
+function appBack() {
+  const q = s => document.querySelector(s); let el;
+  if (q('#scrim')) { closeSheet(); return true; }
+  if ((el = q('.qrfull'))) { el.remove(); return true; }
+  if ((el = q('.fxchamp'))) { el.click(); return true; }
+  if ((el = q('#live [data-lv-skip]'))) { el.click(); return true; }
+  if ((el = q('.recap [data-act=closerecap]'))) { el.click(); return true; }
+  if (A.lvlOpen) { A.lvlOpen = null; renderTop(); return true; }
+  if (A.view === 'clash') { if (cv.edit != null || cv.plan) { cv.edit = null; cv.plan = null; cv.gate = null; A.anim = true; render(); return true; } if (CL.get() && cv.screen !== 'home') { cv.screen = 'home'; cv.gate = null; A.anim = true; render(); window.scrollTo(0, 0); return true; } if (cv.screen === 'setup') { cv.screen = CL.get() ? 'home' : null; render(); return true; } }
+  if (A.view !== 'hub') { const up = BACK_UP[A.view] || 'hub'; A.dx = -1; go(VIEWS_OK(up) ? up : 'hub'); return true; }
+  return false;
+}
+function VIEWS_OK(v) { return v !== 'gameday' || typeof vGameday === 'function'; }
+try { history.replaceState({ c7root: 1 }, ''); history.pushState({ c7g: 1 }, ''); } catch (e) { }
+window.addEventListener('popstate', ev => { if (ev.state && ev.state.c7g) return; if (appBack()) { try { history.pushState({ c7g: 1 }, ''); } catch (e) { } } else history.back(); });
 })();
 
 </script>
